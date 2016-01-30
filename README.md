@@ -8,3 +8,6 @@ $> npm install -g truffle
 $> cd truffle_Societhapp/
 
 $> truffle run
+
+
+Configure environment in truffle.json ()
