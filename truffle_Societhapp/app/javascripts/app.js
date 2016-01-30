@@ -1,3 +1,6 @@
+// if (typeof(web3) === 'undefined')
+//     web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
+
 var accounts;
 var account;
 var balance;
@@ -9,45 +12,64 @@ function setStatus(message) {
 };
 
 function refreshBalance() {
-    var meta = MetaCoin.deployed();
+    // var meta = MetaCoin.deployed();
+    var latestBlock_elem = document.getElementById("latestBlock");
     var ethbalance_elem = document.getElementById("ethbalance");
     var ethvalue = web3.fromWei(web3.eth.getBalance(web3.eth.coinbase));
-    
-    meta.getBalance.call(account, {from: account}).then(function(value) {
-	var balance_element = document.getElementById("balance");
-	balance_element.innerHTML = value.valueOf();
-    }).catch(function(e) {
-	console.log(e);
-	setStatus("Error getting balance; see log.");
-    });
+    var latestBlock = web3.eth.blockNumber;
+    // meta.getBalance.call(account, {from: account}).then(function(value) {
+    // 	var balance_element = document.getElementById("balance");
+    // 	balance_element.innerHTML = value.valueOf();
+    // }).catch(function(e) {
+    // 	console.log(e);
+    // 	setStatus("Error getting balance; see log.");
+    // });
     ethbalance_elem.innerHTML = ethvalue.valueOf();
+    latestBlock_elem.innerHTML = latestBlock.valueOf();
 };
 
-function getApi() {
-    var api_elem = document.getElementById("apiVersion");
-    api_elem.innerHTML = web3.version.api;
+function getPeerNumber() {
+    var peers_elem = document.getElementById("peerNumber");
+    peers_elem.innerHTML = web3.net.peerCount.valueOf();
 }
 
 function sendCoin() {
     var meta = MetaCoin.deployed();
-
+    var transactionHash = null;
     var amount = parseInt(document.getElementById("amount").value);
     var receiver = document.getElementById("receiver").value;
 
     setStatus("Initiating transaction... (please wait)");
+    
+    filter = web3.eth.filter('latest');
 
-    meta.sendCoin(receiver, amount, {from: account}).then(function() {
-	setStatus("Transaction complete!");
-	refreshBalance();
-    }).catch(function(e) {
-	console.log(e);
-	setStatus("Error sending coin; see log.");
+    web3.eth.sendTransaction({to: receiver, value: web3.toWei(amount), from: account}, function(err, address){
+	if (err) {
+    	    console.error(err);
+    	    setStatus("Error sending coin; see log.");
+	}
+	else
+	{
+    	    setStatus("Transaction sent!");
+	    filter.watch(function(err, logs) {
+		if (err)
+		    console.error(err);
+		else
+		{
+		    if (web3.eth.getTransaction(address).blockHash === logs) {
+    		    	setStatus("Transaction mined!");
+			filter.stopWatching();
+		    }
+		}
+	    });
+	}
     });
 };
 
 window.onload = function() {
     web3.eth.getAccounts(function(err, accs) {
 	if (err != null) {
+	    console.error(err);
 	    alert("There was an error fetching your accounts.");
 	    return;
 	}
@@ -56,11 +78,21 @@ window.onload = function() {
 	    alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
 	    return;
 	}
-
+	
 	accounts = accs;
 	account = accounts[0];
 
 	refreshBalance();
-	getApi();
+	getPeerNumber();
+	filter = web3.eth.filter('latest');
+	filter.watch(function(err, logs) {
+	    if (err)
+		console.error(err);
+	    else
+	    {
+    		refreshBalance();
+		getPeerNumber();
+	    }
+	});
     });
 }

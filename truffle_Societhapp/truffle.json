@@ -12,6 +12,6 @@
     "deploy": [ "MetaCoin" ],
     "rpc": {
 	"host": "localhost",
-	"port": 8101
+	"port": 8545
     }
 }
