@@ -5,13 +5,14 @@
 	    "javascripts/app.js"
 	],
 	"app.css": [
-	    "stylesheets/app.css"
+	    "stylesheets/app.css",
+	    "stylesheets/dapp-styles.css"
 	],
 	"images/": "images/"
     },
     "deploy": [ "MetaCoin" ],
     "rpc": {
 	"host": "localhost",
-	"port": 8545
+	"port": 8101
     }
 }

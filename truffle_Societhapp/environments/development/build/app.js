@@ -5552,7 +5552,7 @@ if (typeof web3 !== 'undefined') {
   window.web3 = new Web3(web3.currentProvider);
 } else {
   // Use the provider from the config.
-  window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+  window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
 }
 
 Pudding.setWeb3(window.web3);
