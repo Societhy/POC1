@@ -5417,11 +5417,11 @@ var factory = function factory(Pudding) {
   MetaCoin.abi = [{ "constant": false, "inputs": [{ "name": "receiver", "type": "address" }, { "name": "amount", "type": "uint256" }], "name": "sendCoin", "outputs": [{ "name": "sufficient", "type": "bool" }], "type": "function" }, { "constant": false, "inputs": [{ "name": "addr", "type": "address" }], "name": "getBalance", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "inputs": [], "type": "constructor" }];
   MetaCoin.binary = "6060604052600160a060020a03321660009081526020819052604090206127109055609f80602d6000396000f3606060405260e060020a600035046390b98a1181146024578063f8b2cb4f146050575b005b606c60043560243533600160a060020a0316600090815260208190526040812054829010156076576099565b600160a060020a03600435166000908152602081905260409020545b6060908152602090f35b604080822080548490039055600160a060020a0384168252902080548201905560015b9291505056";
 
-  if ("0x49ac215ee161fec2ce84e20b8fc471700251fc05" != "") {
-    MetaCoin.address = "0x49ac215ee161fec2ce84e20b8fc471700251fc05";
+  if ("0xe2c8d82c6f4364dd1d51a99dc8b8f6bc042256c7" != "") {
+    MetaCoin.address = "0xe2c8d82c6f4364dd1d51a99dc8b8f6bc042256c7";
 
     // Backward compatibility; Deprecated.
-    MetaCoin.deployed_address = "0x49ac215ee161fec2ce84e20b8fc471700251fc05";
+    MetaCoin.deployed_address = "0xe2c8d82c6f4364dd1d51a99dc8b8f6bc042256c7";
   }
 
   MetaCoin.generated_with = "1.0.3";
@@ -5445,8 +5445,8 @@ if (typeof module != "undefined") {
 
 
 
-// if (typeof(web3) === 'undefined')
-//     web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
+if (typeof(web3) === 'undefined')
+    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
 
 var accounts;
 var account;
@@ -5459,7 +5459,6 @@ function setStatus(message) {
 };
 
 function refreshBalance() {
-    // var meta = MetaCoin.deployed();
     var latestBlock_elem = document.getElementById("latestBlock");
     var ethbalance_elem = document.getElementById("ethbalance");
     var ethvalue = web3.fromWei(web3.eth.getBalance(web3.eth.coinbase));

@@ -1,5 +1,5 @@
-// if (typeof(web3) === 'undefined')
-//     web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
+if (typeof(web3) === 'undefined')
+    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
 
 var accounts;
 var account;
@@ -12,7 +12,6 @@ function setStatus(message) {
 };
 
 function refreshBalance() {
-    // var meta = MetaCoin.deployed();
     var latestBlock_elem = document.getElementById("latestBlock");
     var ethbalance_elem = document.getElementById("ethbalance");
     var ethvalue = web3.fromWei(web3.eth.getBalance(web3.eth.coinbase));

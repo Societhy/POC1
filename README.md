@@ -3,11 +3,22 @@
 truffle version :
 =================
 
+PRÉREQUIS :
+
+nodejs
+
+npm
+
+
+INSTALLATION :
+
 $> npm install -g truffle
 
 $> cd truffle_Societhapp/
 
-$> truffle run
+$> ethcluster [--mine --unlock] create 1
+
+$> truffle serve
 
 
-Configure environment in truffle.json ()
+Configure environment in truffle.json
