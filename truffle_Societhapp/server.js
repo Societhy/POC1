@@ -11,8 +11,20 @@ var server = {
 	    serve(req, res, done);
 	});
 
-	server.listen(8080);
 	console.log("Serving app on port 8080...bite");
+
+	var io = require('socket.io')(server);
+
+	// io.on('connection', function(socket){
+	//     socket.on('event', function(data){});
+	//     socket.on('disconnect', function(){})
+	// });
+
+	io.on('connection', function(socket){
+	    socket.emit('userData', 'met ton nom', 'conard');   
+	});
+
+	server.listen(8080);
 	done();
     }
 };
