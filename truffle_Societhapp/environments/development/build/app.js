@@ -5452,6 +5452,16 @@ var accounts;
 var account;
 var balance;
 var ethbalance;
+var socket = io();
+
+
+socket.on('userData', function (fName, lName) {
+    var firstName_elem = document.getElementById("firstName");
+    var lastName_elem = document.getElementById("lastName");
+
+    firstName_elem.innerHTML = fName;
+    lastName_elem.innerHTML = lName;
+});
 
 function setStatus(message) {
     var status = document.getElementById("status");
@@ -5459,10 +5469,10 @@ function setStatus(message) {
 };
 
 function refreshBalance() {
-    var latestBlock_elem = document.getElementById("latestBlock");
-    var ethbalance_elem = document.getElementById("ethbalance");
     var ethvalue = web3.fromWei(web3.eth.getBalance(web3.eth.coinbase));
     var latestBlock = web3.eth.blockNumber;
+    var latestBlock_elem = document.getElementById("latestBlock");
+    var ethbalance_elem = document.getElementById("ethbalance");
     // meta.getBalance.call(account, {from: account}).then(function(value) {
     // 	var balance_element = document.getElementById("balance");
     // 	balance_element.innerHTML = value.valueOf();
