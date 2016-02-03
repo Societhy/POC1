@@ -6,7 +6,7 @@
     <title>Societhy</title>
     <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
     <link href="./app.css" rel='stylesheet' type='text/css'>
-    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script src="./app.js"></script>
   </head>
 
@@ -19,8 +19,9 @@
 
     <!-- aside -->
     <aside class="dapp-aside">
+    <h3>Account Name :  <span class="black"><span id="firstName"></span> <span id="lastName"/></h3>
     <h3>You have <span class="black"><span id="ethbalance"></span> ETH</span></h3>
-    latest block : <span id="latestBlock"></span>.
+    <h3>latest block : <span id="latestBlock"></span>.</h3>
 
     </aside>
 
@@ -51,7 +52,7 @@
 
   </div>
 
-  <!-- footer -->
-  <!-- <footer class="dapp-footer"> -->
-  <!-- </footer> -->
+  <footer class="dapp-footer" id="fID">
+    <img src="roman_opt.jpg" id="rom" alt="Smiley face" width="42" height="42">
+  </footer>
 </html>
