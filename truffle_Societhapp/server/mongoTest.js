@@ -79,6 +79,8 @@ var userJoinOrga = function (db, newUser, newOrga) {
         assert.equal(err, null);
         if (nb != 0){
             console.log("Orga exists");
+            // addOrgaToUserListOrga();
+            // addUserToOrgaMemberList();
         } else {
             console.log("Orga doesn't exists");
         }
@@ -91,7 +93,7 @@ MongoClient.connect(url, function(err, db) {
     assert.equal(err, null);
     console.log("Connected to db.");
 
-    var newUser = {"address":"0xa51c9ea5", "mail":"tata@test.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
+    var newUser = {"address":"0xa51c9ea5", "firstname":"tata", "lastname":"test", "mail":"tata@test.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
     var newOrga = {"name":"Croix Rouge", "memberList":[], "transHisto":[], "actualities":[]};
 
     existUser(db, newUser, insertNewUser);
