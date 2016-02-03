@@ -1,5 +1,6 @@
 var http = require('http');
 var finalhandler = require('finalhandler');
+var io = require('socket.io')(http);
 var serveStatic = require('serve-static');
 
 var server = {

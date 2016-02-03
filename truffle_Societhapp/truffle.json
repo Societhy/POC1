@@ -2,11 +2,12 @@
   "build": {
     "index.html": "index.html",
     "app.js": [
-      "javascripts/app.js"
+	"javascripts/ethereumjs-accounts.min.js",
+	"javascripts/app.js"
     ],
     "app.css": [
 	"stylesheets/app.css",
-      "stylesheets/dapp-styles.css"
+	"stylesheets/dapp-styles.css"
     ],
     "images/": "images/"
   },

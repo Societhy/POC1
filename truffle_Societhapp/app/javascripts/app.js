@@ -1,10 +1,14 @@
 if (typeof(web3) === 'undefined')
     web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
 
+// var socket = io();
+var browserAccounts = new Accounts({minPassphraseLength : 0});
 var accounts;
 var account;
 var balance;
 var ethbalance;
+
+
 
 function setStatus(message) {
     var status = document.getElementById("status");
@@ -16,13 +20,6 @@ function refreshBalance() {
     var ethbalance_elem = document.getElementById("ethbalance");
     var ethvalue = web3.fromWei(web3.eth.getBalance(web3.eth.coinbase));
     var latestBlock = web3.eth.blockNumber;
-    // meta.getBalance.call(account, {from: account}).then(function(value) {
-    // 	var balance_element = document.getElementById("balance");
-    // 	balance_element.innerHTML = value.valueOf();
-    // }).catch(function(e) {
-    // 	console.log(e);
-    // 	setStatus("Error getting balance; see log.");
-    // });
     ethbalance_elem.innerHTML = ethvalue.valueOf();
     latestBlock_elem.innerHTML = latestBlock.valueOf();
 };
@@ -32,8 +29,64 @@ function getPeerNumber() {
     peers_elem.innerHTML = web3.net.peerCount.valueOf();
 }
 
+function createKey() {
+    var accountObject = browserAccounts.new('lolol0o');
+    var JSONData = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(accountObject));
+    var link = document.createElement('a');
+    link.href = "data: " + JSONData;
+    link.download = 'data.json';
+    link.innerHTML = 'download JSON';
+    var container = document.getElementById('exportWallet');
+    container.appendChild(link);
+    console.log(accountObject);
+}
+function loadFile() {
+    var input, file, fr;
+
+    if (typeof window.FileReader !== 'function') {
+	alert("The file API isn't supported on this browser yet.");
+	return;
+    }
+
+    input = document.getElementById('fileinput');
+    if (!input) {
+	alert("Um, couldn't find the fileinput element.");
+    }
+    else if (!input.files) {
+	alert("This browser doesn't seem to support the `files` property of file inputs.");
+    }
+    else if (!input.files[0]) {
+	alert("Please select a file before clicking 'Load'");
+    }
+    else {
+	file = input.files[0];
+	fr = new FileReader();
+	fr.onload = receivedText;
+	fr.readAsText(file);
+    }
+
+    function receivedText(e) {
+	lines = e.target.result;
+	var newArr = JSON.parse(lines);
+	var newAccount = browserAccounts.set(newArr.address, newArr);
+	console.log(newArr);
+    }
+}
+
+function listAccounts() {
+    accounts = browserAccounts.get();
+    for (var elem in accounts)
+    {
+	if (elem !== "selected")
+	    console.log(elem);
+    }
+}
+
+function clearAccounts() {
+    browserAccounts.clear();
+}
+
 function sendCoin() {
-    var meta = MetaCoin.deployed();
     var transactionHash = null;
     var amount = parseInt(document.getElementById("amount").value);
     var receiver = document.getElementById("receiver").value;
