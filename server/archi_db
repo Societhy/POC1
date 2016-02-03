@@ -1,3 +1,0 @@
-USER -> {address: STRING, mail: STRING, photo: IMG, listOrga: [ORGA.name], transHisto: [{_id: NUMERIC, date: DATE, from: STRING, to: STRING, amount: NUMERIC}], infos: [STRING]}
-
-ORGA -> {name: STRING, memberList: [{user: USER.address, right: {admin: BOOL, proposeDonation: BOOL}}], transHisto: [{_id: NUMERIC, date: DATE, from: STRING, to: STRING, amount: NUMERIC}], actualities: [STRING]}
