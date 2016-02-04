@@ -1,7 +1,7 @@
 if (typeof(web3) === 'undefined')
     web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
 
-// var socket = io();
+var socket = io();
 var browserAccounts = new Accounts({minPassphraseLength : 0});
 var accounts;
 var account;
@@ -93,12 +93,14 @@ function loadFile() {
 }
 
 function listAccounts() {
-    accounts = browserAccounts.get();
-    for (var elem in accounts)
+    browserAccount = browserAccounts.get();
+    for (var elem in browserAccount)
     {
 	if (elem !== "selected")
 	    console.log(elem);
     }
+    for (var elem in accounts)
+	console.log(accounts[elem]);
 }
 
 function clearAccounts() {
