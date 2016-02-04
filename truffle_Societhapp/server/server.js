@@ -2,6 +2,7 @@ var http = require('http');
 var finalhandler = require('finalhandler');
 var io = require('socket.io')(http);
 var serveStatic = require('serve-static');
+var db = require('./mongoTest.js');
 
 var server = {
     start: function(config, done) {
@@ -15,6 +16,7 @@ var server = {
 	console.log("Serving app on port 8080...bite");
 
 	var io = require('socket.io')(server);
+	// db.insertNewUser(db, "lala");    TO DECOMENT
 
 	// io.on('connection', function(socket){
 	//     socket.on('event', function(data){});
