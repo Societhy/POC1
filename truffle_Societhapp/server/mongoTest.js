@@ -1,9 +1,7 @@
-var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 
 // example for member in memberList {"user":"0xade87de5", "right":{"admin":true, "proposeDonation":true}}
 
-var url = "mongodb://localhost:27017/test";
 var queriesCount = 0;
     
 var database = {
@@ -105,21 +103,8 @@ var database = {
             }
             database.finishedQuery(db);
 	});
-    }
-};
+    },
 
-console.log("Connection to db...");
-MongoClient.connect(url, function(err, db) {
-    assert.equal(err, null);
-    console.log("Connected to db.");
-    
-    var newUser = {"address":"0xa51c9ea5", "firstname":"tata", "lastname":"test", "mail":"tata@test.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
-    var newOrga = {"name":"Medecins sans frontiere", "memberList":[], "transHisto":[], "actualities":[]};
-    
-    database.existUser(db, newUser, database.insertNewUser);
-    database.existOrga(db, newOrga, database.insertNewOrga);
-    
-    database.userJoinOrga(db, newUser, newOrga);
-});
+};
 
 module.exports = database;

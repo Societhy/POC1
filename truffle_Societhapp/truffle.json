@@ -3,6 +3,7 @@
     "index.html": "index.html",
     "app.js": [
 	"javascripts/ethereumjs-accounts.min.js",
+	"javascripts/manageAccounts.js",
 	"javascripts/app.js"
     ],
     "app.css": [
