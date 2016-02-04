@@ -3,10 +3,12 @@ var assert = require('assert');
 
 // example for member in memberList {"user":"0xade87de5", "right":{"admin":true, "proposeDonation":true}}
 
+var database = {
+
 var url = "mongodb://localhost:27017/test";
 var queriesCount = 0;
 
-var finishedQuery = function (db) {
+finishedQuery : function (db) {
     queriesCount--;
     if (queriesCount == 0){
         console.log("Closing connection to db.");
@@ -14,7 +16,7 @@ var finishedQuery = function (db) {
     }
 }
 
-var insertNewUser = function (db, newUser) {
+insertNewUser : function (db, newUser) {
     queriesCount++;
     console.log("Insertion of new user.");
 
@@ -23,9 +25,9 @@ var insertNewUser = function (db, newUser) {
         console.log("Inserted new user in users collection.");
         finishedQuery(db);
     });
-};
+}
 
-var existUser = function (db, newUser, callback) {
+existUser : function (db, newUser, callback) {
     queriesCount++;
     console.log("Searching user from db.");
     var cursor = db.collection('users').find({'address':newUser.address});
@@ -39,9 +41,9 @@ var existUser = function (db, newUser, callback) {
         }
         finishedQuery(db);
     });
-};
+}
 
-var insertNewOrga = function (db, newOrga) {
+insertNewOrga : function (db, newOrga) {
     queriesCount++;
     console.log("Insertion of new orga.");
 
@@ -50,9 +52,9 @@ var insertNewOrga = function (db, newOrga) {
         console.log("Inserted new orga in orga collection.");
         finishedQuery(db);
     });
-};
+}
 
-var existOrga = function (db, newOrga, callback) {
+existOrga : function (db, newOrga, callback) {
     queriesCount++;
     console.log("Searching orga from db.");
     var cursor = db.collection('orga').find({'name':newOrga.name});
@@ -68,7 +70,7 @@ var existOrga = function (db, newOrga, callback) {
     });
 }
 
-var addOrgaToUserListOrga = function(db, newUser, newOrga) {
+addOrgaToUserListOrga : function(db, newUser, newOrga) {
     queriesCount++;
     console.log("Adding", newOrga.name, "to list orga for", newUser.address);
 
@@ -76,9 +78,9 @@ var addOrgaToUserListOrga = function(db, newUser, newOrga) {
         assert.equal(err, null);
         finishedQuery(db);
     });
-};
+}
 
-var addUserToOrgaMemberList = function(db, newOrga, newUser) {
+addUserToOrgaMemberList : function(db, newOrga, newUser) {
     queriesCount++;
     console.log("Adding", newUser.address, "to list member for", newOrga.name);
 
@@ -86,9 +88,9 @@ var addUserToOrgaMemberList = function(db, newOrga, newUser) {
         assert.equal(err, null);
         finishedQuery(db);
     });
-};
+}
 
-var userJoinOrga = function (db, newUser, newOrga) {
+userJoinOrga : function (db, newUser, newOrga) {
     queriesCount++;
     var cursor = db.collection('orga').find({'name':newOrga.name});
 
@@ -118,3 +120,7 @@ MongoClient.connect(url, function(err, db) {
 
     userJoinOrga(db, newUser, newOrga);
 });
+
+};
+
+module.exports = database;
