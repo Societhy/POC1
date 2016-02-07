@@ -33,9 +33,9 @@
 	<br><label for="receiver">To Address:</label><input type="text" id="receiver" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"></input>
 	<br><br><button id="send" onclick="sendCoin()">Send ether</button>
       <div class="dapp-container" id="exportWallet">
-   	<br><br><button id="genKey" onclick="createKey()">Create wallet</button>
+   	<br><br><button id="genKey" onclick="exportKeyFile()">Create wallet</button>
 	<br><input type='file' id='fileinput'>
-        <input type='button' id='btnLoad' value='Load' onclick='loadFile();'>
+        <input type='button' id='btnLoad' value='Load' onclick='loadKeyFile();'>
         <br><input type='button' value='List accounts' onclick='listAccounts();'>
         <br><input type='button' value='Clear accounts' onclick='clearAccounts();'>
       </div>

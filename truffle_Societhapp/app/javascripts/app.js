@@ -1,8 +1,6 @@
 if (typeof(web3) === 'undefined')
     web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
 
-var socket = io();
-var browserAccounts = new Accounts({minPassphraseLength : 0});
 var accounts;
 var account;
 var balance;
@@ -82,32 +80,32 @@ function sendCoin() {
 };
 
 window.onload = function() {
-    web3.eth.getAccounts(function(err, accs) {
-	if (err != null) {
-	    console.error(err);
-	    alert("There was an error fetching your accounts.");
-	    return;
-	}
+	web3.eth.getAccounts(function(err, accs) {
+		if (err != null) {
+			console.error(err);
+			alert("There was an error fetching your accounts.");
+			return;
+		}
 
-	if (accs.length == 0) {
-	    alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
-	    return;
-	}
-	
-	accounts = accs;
-	account = accounts[0];
+		if (accs.length == 0) {
+			alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
+			return;
+		}
 
-	refreshBalance();
-	getPeerNumber();
-	filter = web3.eth.filter('latest');
-	filter.watch(function(err, logs) {
-	    if (err)
-		console.error(err);
-	    else
-	    {
-    		refreshBalance();
+		accounts = accs;
+		account = accounts[0];
+		loadContract();
+		refreshBalance();
 		getPeerNumber();
-	    }
+		filter = web3.eth.filter('latest');
+		filter.watch(function(err, logs) {
+			if (err)
+				console.error(err);
+			else
+			{
+				refreshBalance();
+				getPeerNumber();
+			}
+		});
 	});
-    });
 }
