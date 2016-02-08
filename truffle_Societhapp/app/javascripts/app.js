@@ -1,6 +1,8 @@
 if (typeof(web3) === 'undefined')
     web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
 
+var socket = io();
+var browserAccounts = new Accounts({minPassphraseLength : 0});
 var accounts;
 var account;
 var balance;
@@ -16,6 +18,8 @@ socket.on('userData', function (fName, lName) {
     lastName_elem.innerHTML = lName;
 });
 
+
+
 function setStatus(message) {
     var status = document.getElementById("status");
     status.innerHTML = message;
@@ -24,6 +28,7 @@ function setStatus(message) {
 function refreshBalance() {
     var ethvalue = web3.fromWei(web3.eth.getBalance(web3.eth.coinbase));
     var latestBlock = web3.eth.blockNumber;
+
     var latestBlock_elem = document.getElementById("latestBlock");
     var ethbalance_elem = document.getElementById("ethbalance");
     // meta.getBalance.call(account, {from: account}).then(function(value) {
@@ -33,6 +38,7 @@ function refreshBalance() {
     // 	console.log(e);
     // 	setStatus("Error getting balance; see log.");
     // });
+
     ethbalance_elem.innerHTML = ethvalue.valueOf();
     latestBlock_elem.innerHTML = latestBlock.valueOf();
 };
@@ -42,8 +48,8 @@ function getPeerNumber() {
     peers_elem.innerHTML = web3.net.peerCount.valueOf();
 }
 
+
 function sendCoin() {
-    var meta = MetaCoin.deployed();
     var transactionHash = null;
     var amount = parseInt(document.getElementById("amount").value);
     var receiver = document.getElementById("receiver").value;
