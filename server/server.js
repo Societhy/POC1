@@ -4,7 +4,7 @@ var http = require('http');
 var finalhandler = require('finalhandler');
 var io = require('socket.io');
 var serveStatic = require('serve-static');
-var database = require('./mongoTest.js');
+var databaseAPI = require('./mongoTest.js');
 
 var url = "mongodb://localhost:27017/test";
 
@@ -16,18 +16,18 @@ var server = {
 			var done = finalhandler(req, res);
 			serve(req, res, done);
 		});
-		MongoClient.connect(url, function(err, db) {
+		MongoClient.connect(url, function(err, dbInstance) {
 			if (err) {
 				console.error("Unable to connect to db");
 				return ;
 			}
 			console.log("Connected to db.");
 
-            database.fillDatabase(db);
-            database.getOrgaByName(db, 'croix rouge', function(orga) {
+            databaseAPI.fillDatabase(dbInstance);
+            databaseAPI.getOrgaByName(dbInstance, 'croix rouge', function(orga) {
                 console.log(orga);
             });
-            database.getUserByAddress(db, '0x00000004', function(user) {
+            databaseAPI.getUserByAddress(dbInstance, '0x00000004', function(user) {
                 console.log(user);
             });
 

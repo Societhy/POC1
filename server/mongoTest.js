@@ -2,7 +2,7 @@ var assert = require('assert');
 
 var queriesCount = 0;
 
-var database = {
+var databaseAPI = {
 
     finishedQuery: function (db) {
         queriesCount--;
@@ -13,7 +13,7 @@ var database = {
     },
 
     // fill database for test purpose
-    fillDatabase: function(db) {
+    filldatabase: function(db) {
         var user1 = {"addresses":["0x00000001", "0x0000000a"], "firstname":"user1", "lastname":"user1", "mail":"u@1.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
         var user2 = {"addresses":["0x00000002", "0x0000000b"], "firstname":"user3", "lastname":"user2", "mail":"u@2.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
         var user3 = {"addresses":["0x00000003", "0x0000000c"], "firstname":"user3", "lastname":"user3", "mail":"u@3.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
@@ -28,19 +28,19 @@ var database = {
         var CR = {"name":"Croix Rouge", "memberList":[], "transHisto":[], "actualities":[]};
         var ACLF = {"name":"Action contre la faim", "memberList":[], "transHisto":[], "actualities":[]};
 
-        database.existUser(db, user1, database.insertNewUser);
-        database.existUser(db, user2, database.insertNewUser);
-        database.existUser(db, user3, database.insertNewUser);
-        database.existUser(db, user4, database.insertNewUser);
-        database.existUser(db, user5, database.insertNewUser);
-        database.existUser(db, user6, database.insertNewUser);
-        database.existUser(db, user7, database.insertNewUser);
-        database.existUser(db, user8, database.insertNewUser);
-        database.existUser(db, user9, database.insertNewUser);
+        databaseAPI.existUser(db, user1, databaseAPI.insertNewUser);
+        databaseAPI.existUser(db, user2, databaseAPI.insertNewUser);
+        databaseAPI.existUser(db, user3, databaseAPI.insertNewUser);
+        databaseAPI.existUser(db, user4, databaseAPI.insertNewUser);
+        databaseAPI.existUser(db, user5, databaseAPI.insertNewUser);
+        databaseAPI.existUser(db, user6, databaseAPI.insertNewUser);
+        databaseAPI.existUser(db, user7, databaseAPI.insertNewUser);
+        databaseAPI.existUser(db, user8, databaseAPI.insertNewUser);
+        databaseAPI.existUser(db, user9, databaseAPI.insertNewUser);
 
-        database.existOrga(db, ACLF, database.insertNewOrga);
-        database.existOrga(db, CR, database.insertNewOrga);
-        database.existOrga(db, MSF, database.insertNewOrga);
+        databaseAPI.existOrga(db, ACLF, databaseAPI.insertNewOrga);
+        databaseAPI.existOrga(db, CR, databaseAPI.insertNewOrga);
+        databaseAPI.existOrga(db, MSF, databaseAPI.insertNewOrga);
     },
 
     // Return first user object matching addr
@@ -58,9 +58,9 @@ var database = {
             queriesCount++;
             userCursor.next(function (err, user) {
                 userCallback(user);
-                database.finishedQuery(db);
+                databaseAPI.finishedQuery(db);
             });
-            database.finishedQuery(db);
+            databaseAPI.finishedQuery(db);
         });
     },
 
@@ -71,7 +71,7 @@ var database = {
         db.collection('users').insertOne(newUser, function(err, result) {
             assert.equal(err, null);
             console.log("Inserted new user in users collection.");
-            database.finishedQuery(db);
+            databaseAPI.finishedQuery(db);
         });
     },
 
@@ -87,7 +87,7 @@ var database = {
             } else {
                 callback(db, newUser);
             }
-            database.finishedQuery(db);
+            databaseAPI.finishedQuery(db);
         });
     },
 
@@ -106,9 +106,9 @@ var database = {
             queriesCount++;
             orgaCursor.next(function (err, orga) {
                 orgaCallback(orga);
-                database.finishedQuery(db);
+                databaseAPI.finishedQuery(db);
             });
-            database.finishedQuery(db);
+            databaseAPI.finishedQuery(db);
         });
     },
 
@@ -119,7 +119,7 @@ var database = {
         db.collection('orga').insertOne(newOrga, function(err, result) {
             assert.equal(err, null);
             console.log("Inserted new orga in orga collection.");
-            database.finishedQuery(db);
+            databaseAPI.finishedQuery(db);
         });
     },
 
@@ -135,7 +135,7 @@ var database = {
             } else {
                 callback(db, newOrga);
             }
-            database.finishedQuery(db);
+            databaseAPI.finishedQuery(db);
         });
     },
 
@@ -145,7 +145,7 @@ var database = {
 
         db.collection('users').updateOne({'address':newUser.address}, {$addToSet: {'listOrga': newOrga.name}}, function (err, result) {
             assert.equal(err, null);
-            database.finishedQuery(db);
+            databaseAPI.finishedQuery(db);
         });
     },
 
@@ -155,7 +155,7 @@ var database = {
 
         db.collection('orga').updateOne({'name':newOrga.name}, {$addToSet : {memberList: {'user': newUser.address, 'right': {'admin':true, 'proposeDonation':true}}}}, function (err, result) {
             assert.equal(err, null);
-            database.finishedQuery(db);
+            databaseAPI.finishedQuery(db);
         });
     },
 
@@ -176,19 +176,19 @@ var database = {
                     if (nb != 0){
                         console.log("Orga exists");
 
-                        database.addOrgaToUserListOrga(db, newUser, newOrga);
-                        database.addUserToOrgaMemberList(db, newOrga, newUser);
+                        databaseAPI.addOrgaToUserListOrga(db, newUser, newOrga);
+                        databaseAPI.addUserToOrgaMemberList(db, newOrga, newUser);
                     } else {
                         console.log("Orga doesn't exists");
                     }
-                    database.finishedQuery(db);
+                    databaseAPI.finishedQuery(db);
                 });
             } else {
                 console.log("User doesn't exists");
             }
-            database.finishedQuery(db);
+            databaseAPI.finishedQuery(db);
         });
     },
 };
 
-module.exports = database;
+module.exports = databaseAPI;
