@@ -5399,35 +5399,35 @@ var factory = function factory(Pudding) {
   // the easiest way to extend a Babel-based class. Note that the
   // resulting .js file does not have a dependency on Babel.
 
-  var MetaCoin = (function (_Pudding) {
-    _inherits(MetaCoin, _Pudding);
+  var BasicOrga = (function (_Pudding) {
+    _inherits(BasicOrga, _Pudding);
 
-    function MetaCoin() {
-      _classCallCheck(this, MetaCoin);
+    function BasicOrga() {
+      _classCallCheck(this, BasicOrga);
 
-      _get(Object.getPrototypeOf(MetaCoin.prototype), "constructor", this).apply(this, arguments);
+      _get(Object.getPrototypeOf(BasicOrga.prototype), "constructor", this).apply(this, arguments);
     }
 
-    return MetaCoin;
+    return BasicOrga;
   })(Pudding);
 
   ;
 
   // Set up specific data for this class.
-  MetaCoin.abi = [{ "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "balances", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "constant": false, "inputs": [{ "name": "receiver", "type": "address" }, { "name": "amount", "type": "uint256" }], "name": "sendCoin", "outputs": [{ "name": "sufficient", "type": "bool" }], "type": "function" }, { "constant": false, "inputs": [{ "name": "addr", "type": "address" }], "name": "getBalance", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "inputs": [], "type": "constructor" }];
-  MetaCoin.binary = "6060604052600160a060020a0332166000908152602081905260409020612710905560c080602d6000396000f3606060405260e060020a600035046327e235e38114602e57806390b98a11146045578063f8b2cb4f146071575b005b608d60043560006020819052908152604090205481565b608d60043560243533600160a060020a03166000908152602081905260408120548290101560975760ba565b600160a060020a03600435166000908152602081905260409020545b6060908152602090f35b604080822080548490039055600160a060020a0384168252902080548201905560015b9291505056";
+  BasicOrga.abi = [{ "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "balances", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }];
+  BasicOrga.binary = "6060604052603b8060106000396000f3606060405260e060020a600035046327e235e38114601a575b005b603160043560006020819052908152604090205481565b6060908152602090f3";
 
-  if ("0xe62a5db48962558a7382cb240cfa8c2ef6834f82" != "") {
-    MetaCoin.address = "0xe62a5db48962558a7382cb240cfa8c2ef6834f82";
+  if ("0x696e8e4bcc004a1d33e0fd98c381fedb39eded52" != "") {
+    BasicOrga.address = "0x696e8e4bcc004a1d33e0fd98c381fedb39eded52";
 
     // Backward compatibility; Deprecated.
-    MetaCoin.deployed_address = "0xe62a5db48962558a7382cb240cfa8c2ef6834f82";
+    BasicOrga.deployed_address = "0x696e8e4bcc004a1d33e0fd98c381fedb39eded52";
   }
 
-  MetaCoin.generated_with = "1.0.3";
-  MetaCoin.contract_name = "MetaCoin";
+  BasicOrga.generated_with = "1.0.3";
+  BasicOrga.contract_name = "BasicOrga";
 
-  return MetaCoin;
+  return BasicOrga;
 };
 
 // Nicety for Node.
@@ -5438,7 +5438,7 @@ if (typeof module != "undefined") {
 } else {
   // There will only be one version of Pudding in the browser,
   // and we can use that.
-  window.MetaCoin = factory;
+  window.BasicOrga = factory;
 };
 
 ;
@@ -12789,16 +12789,17 @@ function clearAccounts() {
 
 //TODO : send Contract name to server, get abi + adress back, then connect with at()
 function loadContract() {
-    var contractInstance = MetaCoin.deployed();
-    contractInstance.getBalance.call(account).then(function(res) {
-        console.log(res);
-    });
+    var contractInstance = BasicOrga.deployed();
+    //contractInstance.getBalance.call(account).then(function(res) {
+    //    console.log(res);
+    //});
+    console.log(contractInstance);
 }
 
 //TODO : send Contract name to Server, get the abi + binary back, then deploy as shown below
 function createContract() {
     //TO LOCALLY DEPLOY NEW CONTRACT :
-    var contract = Pudding.whisk(MetaCoin.abi, MetaCoin.binary, {gasLimit:3141592, from: account, data: MetaCoin.binary});
+    var contract = Pudding.whisk(BasicOrga.abi, BasicOrga.binary, {gasLimit:3141592, from: account, data: BasicOrga.binary});
     contract.new().then(function(res){
         console.log(res);
     });
@@ -12929,4 +12930,4 @@ if (typeof web3 !== 'undefined') {
 }
 
 Pudding.setWeb3(window.web3);
-Pudding.load([MetaCoin], window);
+Pudding.load([BasicOrga], window);
