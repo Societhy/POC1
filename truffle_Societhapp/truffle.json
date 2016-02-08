@@ -14,7 +14,7 @@
       "images/": "images/"
   },
     "deploy": [
-	"MetaCoin"
+	"BasicOrga"
     ],
     "rpc": {
 	"host": "localhost",
