@@ -22,12 +22,14 @@ var server = {
 				return ;
 			}
 			console.log("Connected to db.");
-			var newUser = {"address":"0xa51c9ea5", "firstname":"tata", "lastname":"test", "mail":"tata@test.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
-			var newOrga = {"name":"Medecins sans frontiere", "memberList":[], "transHisto":[], "actualities":[]};
 
-			database.existUser(db, newUser, database.insertNewUser);
-			database.existOrga(db, newOrga, database.insertNewOrga);
-			database.userJoinOrga(db, newUser, newOrga);
+            database.fillDatabase(db);
+            database.getOrgaByName(db, 'croix rouge', function(orga) {
+                console.log(orga);
+            });
+            database.getUserByAddress(db, '0x00000004', function(user) {
+                console.log(user);
+            });
 
 			console.log("Serving app on port 8080...bite");
 
@@ -44,5 +46,5 @@ var server = {
 		});
 	}
 };
-    
+
 module.exports = server;
