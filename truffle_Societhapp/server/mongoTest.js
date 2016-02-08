@@ -1,7 +1,5 @@
 var assert = require('assert');
 
-// example for member in memberList {"user":"0xade87de5", "right":{"admin":true, "proposeDonation":true}}
-
 var queriesCount = 0;
 
 var database = {
@@ -12,6 +10,58 @@ var database = {
             console.log("Closing connection to db.");
             db.close();
         }
+    },
+
+    // fill database for test purpose
+    fillDatabase: function(db) {
+        var user1 = {"addresses":["0x00000001", "0x0000000a"], "firstname":"user1", "lastname":"user1", "mail":"u@1.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
+        var user2 = {"addresses":["0x00000002", "0x0000000b"], "firstname":"user3", "lastname":"user2", "mail":"u@2.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
+        var user3 = {"addresses":["0x00000003", "0x0000000c"], "firstname":"user3", "lastname":"user3", "mail":"u@3.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
+        var user4 = {"addresses":["0x00000004", "0x0000000d"], "firstname":"user4", "lastname":"user4", "mail":"u@4.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
+        var user5 = {"addresses":["0x00000005", "0x0000000e"], "firstname":"user5", "lastname":"user5", "mail":"u@5.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
+        var user6 = {"addresses":["0x00000006", "0x0000000f"], "firstname":"user6", "lastname":"user6", "mail":"u@6.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
+        var user7 = {"addresses":["0x00000007", "0x00000010"], "firstname":"user7", "lastname":"user7", "mail":"u@7.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
+        var user8 = {"addresses":["0x00000008", "0x00000011"], "firstname":"user8", "lastname":"user8", "mail":"u@8.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
+        var user9 = {"addresses":["0x00000009", "0x00000012"], "firstname":"user9", "lastname":"user9", "mail":"u@9.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
+
+        var MSF = {"name":"Medecins Sans Frontiere", "memberList":[], "transHisto":[], "actualities":[]};
+        var CR = {"name":"Croix Rouge", "memberList":[], "transHisto":[], "actualities":[]};
+        var ACLF = {"name":"Action contre la faim", "memberList":[], "transHisto":[], "actualities":[]};
+
+        database.existUser(db, user1, database.insertNewUser);
+        database.existUser(db, user2, database.insertNewUser);
+        database.existUser(db, user3, database.insertNewUser);
+        database.existUser(db, user4, database.insertNewUser);
+        database.existUser(db, user5, database.insertNewUser);
+        database.existUser(db, user6, database.insertNewUser);
+        database.existUser(db, user7, database.insertNewUser);
+        database.existUser(db, user8, database.insertNewUser);
+        database.existUser(db, user9, database.insertNewUser);
+
+        database.existOrga(db, ACLF, database.insertNewOrga);
+        database.existOrga(db, CR, database.insertNewOrga);
+        database.existOrga(db, MSF, database.insertNewOrga);
+    },
+
+    // Return first user object matching addr
+    // @param db            The database instance.
+    // @param addr          Address to search on the db.
+    // @param userCallback  The result callback.
+    getUserByAddress: function(db, addr, userCallback) {
+        queriesCount++;
+        console.log("Searching user for addr:", addr);
+        var addrNonSensitive = new RegExp(["^", addr, "$"].join(""), "i");
+
+        var userCursor = db.collection('users').find({'addresses': addrNonSensitive});
+        userCursor.hasNext(function (err, user) {
+            assert.equal(err, null);
+            queriesCount++;
+            userCursor.next(function (err, user) {
+                userCallback(user);
+                database.finishedQuery(db);
+            });
+            database.finishedQuery(db);
+        });
     },
 
     insertNewUser: function (db, newUser) {
@@ -37,6 +87,27 @@ var database = {
             } else {
                 callback(db, newUser);
             }
+            database.finishedQuery(db);
+        });
+    },
+
+    // Return first user object matching addr
+    // @param db            The database instance.
+    // @param name          Name to search on the db.
+    // @param orgaCallback  The result callback.
+    getOrgaByName : function (db, name, orgaCallback) {
+        queriesCount++;
+        console.log("Searching orga for name:", name);
+        var nameNonSensitive = new RegExp(["^", name, "$"].join(""), "i");
+
+        var orgaCursor = db.collection('orga').find({'name': nameNonSensitive});
+        orgaCursor.hasNext(function (err, orga) {
+            assert.equal(err, null);
+            queriesCount++;
+            orgaCursor.next(function (err, orga) {
+                orgaCallback(orga);
+                database.finishedQuery(db);
+            });
             database.finishedQuery(db);
         });
     },
