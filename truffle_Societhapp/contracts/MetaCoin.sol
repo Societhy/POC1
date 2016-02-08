@@ -1,5 +1,5 @@
 contract MetaCoin {
-	mapping (address => uint) balances;
+	mapping (address => uint) public balances;
 
 	function MetaCoin() {
 		balances[tx.origin] = 10000;

@@ -94,9 +94,9 @@ window.onload = function() {
 
 		accounts = accs;
 		account = accounts[0];
-		loadContract();
 		refreshBalance();
 		getPeerNumber();
+		loadContract();
 		filter = web3.eth.filter('latest');
 		filter.watch(function(err, logs) {
 			if (err)

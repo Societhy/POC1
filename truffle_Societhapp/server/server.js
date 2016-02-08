@@ -2,7 +2,7 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var http = require('http');
 var finalhandler = require('finalhandler');
-//var io = require('socket.io')(http);
+var io = require('socket.io')(http);
 var serveStatic = require('serve-static');
 var database = require('./mongoTest.js');
 
@@ -30,8 +30,6 @@ var server = {
 			database.userJoinOrga(db, newUser, newOrga);
 
 			console.log("Serving app on port 8080...bite");
-
-			var io = require('socket.io')(server);
 
 			io.on('connection', function(socket){
 				socket.on('event', function(data){});

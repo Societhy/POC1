@@ -1,8 +1,10 @@
 
 //TODO : send Contract name to server, get abi + adress back, then connect with at()
 function loadContract() {
-    var contract = MetaCoin.deployed();
-    console.log(contract);
+    var contractInstance = MetaCoin.deployed();
+    contractInstance.getBalance.call(account).then(function(res) {
+        console.log(res);
+    });
 }
 
 //TODO : send Contract name to Server, get the abi + binary back, then deploy as shown below
