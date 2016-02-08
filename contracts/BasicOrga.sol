@@ -33,7 +33,6 @@ members[msg.sender] = newMember;
 }
 
 function getMember(address user) returns (string) {
-
 return members[user].name;
 }
 

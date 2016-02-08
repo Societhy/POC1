@@ -2,7 +2,7 @@
 //TODO : send Contract name to server, get abi + adress back, then connect with at()
 function loadContract() {
     var contractInstance = BasicOrga.deployed();
-    contractInstance.register.sendTransaction("simon", {from:web3.eth.coinbase}).then(function(err, res) {
+    contractInstance.register("simon", {from:web3.eth.coinbase}).then(function(res) {
         console.log(res);
     });
     //contractInstance.getMember.call(web3.eth.coinbase).then(function(res) {
