@@ -13,7 +13,7 @@ var databaseAPI = {
     },
 
     // fill database for test purpose
-    filldatabase: function(db) {
+    fillDatabase: function(db) {
         var user1 = {"addresses":["0x00000001", "0x0000000a"], "firstname":"user1", "lastname":"user1", "mail":"u@1.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
         var user2 = {"addresses":["0x00000002", "0x0000000b"], "firstname":"user3", "lastname":"user2", "mail":"u@2.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
         var user3 = {"addresses":["0x00000003", "0x0000000c"], "firstname":"user3", "lastname":"user3", "mail":"u@3.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]};
