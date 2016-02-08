@@ -26,14 +26,14 @@ var factory = function factory(Pudding) {
   ;
 
   // Set up specific data for this class.
-  MetaCoin.abi = [{ "constant": false, "inputs": [{ "name": "receiver", "type": "address" }, { "name": "amount", "type": "uint256" }], "name": "sendCoin", "outputs": [{ "name": "sufficient", "type": "bool" }], "type": "function" }, { "constant": false, "inputs": [{ "name": "addr", "type": "address" }], "name": "getBalance", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "inputs": [], "type": "constructor" }];
-  MetaCoin.binary = "6060604052600160a060020a03321660009081526020819052604090206127109055609f80602d6000396000f3606060405260e060020a600035046390b98a1181146024578063f8b2cb4f146050575b005b606c60043560243533600160a060020a0316600090815260208190526040812054829010156076576099565b600160a060020a03600435166000908152602081905260409020545b6060908152602090f35b604080822080548490039055600160a060020a0384168252902080548201905560015b9291505056";
+  MetaCoin.abi = [{ "constant": true, "inputs": [{ "name": "", "type": "address" }], "name": "balances", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "constant": false, "inputs": [{ "name": "receiver", "type": "address" }, { "name": "amount", "type": "uint256" }], "name": "sendCoin", "outputs": [{ "name": "sufficient", "type": "bool" }], "type": "function" }, { "constant": false, "inputs": [{ "name": "addr", "type": "address" }], "name": "getBalance", "outputs": [{ "name": "", "type": "uint256" }], "type": "function" }, { "inputs": [], "type": "constructor" }];
+  MetaCoin.binary = "6060604052600160a060020a0332166000908152602081905260409020612710905560c080602d6000396000f3606060405260e060020a600035046327e235e38114602e57806390b98a11146045578063f8b2cb4f146071575b005b608d60043560006020819052908152604090205481565b608d60043560243533600160a060020a03166000908152602081905260408120548290101560975760ba565b600160a060020a03600435166000908152602081905260409020545b6060908152602090f35b604080822080548490039055600160a060020a0384168252902080548201905560015b9291505056";
 
-  if ("0xe2c8d82c6f4364dd1d51a99dc8b8f6bc042256c7" != "") {
-    MetaCoin.address = "0xe2c8d82c6f4364dd1d51a99dc8b8f6bc042256c7";
+  if ("0xe62a5db48962558a7382cb240cfa8c2ef6834f82" != "") {
+    MetaCoin.address = "0xe62a5db48962558a7382cb240cfa8c2ef6834f82";
 
     // Backward compatibility; Deprecated.
-    MetaCoin.deployed_address = "0xe2c8d82c6f4364dd1d51a99dc8b8f6bc042256c7";
+    MetaCoin.deployed_address = "0xe62a5db48962558a7382cb240cfa8c2ef6834f82";
   }
 
   MetaCoin.generated_with = "1.0.3";
