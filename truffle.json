@@ -3,12 +3,13 @@
     "index.html": "index.html",
     "app.js": [
       "javascripts/ethereumjs-accounts.min.js",
-	  "javascripts/socket.io.js",
-	  "javascripts/manageAccounts.js",
-	  "javascripts/manageContracts.js",
-	  "javascripts/app.js"
-      ],
-      "app.css": [
+      "javascripts/socket.io.js",
+      "javascripts/manageAccounts.js",
+      "javascripts/manageContracts.js",
+      "javascripts/app.js",
+      "javascripts/handleNetwork.js"
+    ],
+    "app.css": [
 	  "stylesheets/app.css"
       ]
   },
