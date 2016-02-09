@@ -12814,7 +12814,6 @@ var accounts;
 var account;
 var balance;
 var ethbalance;
-var socket = io();
 
 function setStatus(message) {
     var status = document.getElementById("status");
@@ -12938,6 +12937,8 @@ window.onload = function() {
 	}
 }
 
+
+var socket = io();
 
 socket.on('userData', function (fName, lName) {
     var firstName_elem = document.getElementById("firstName");

@@ -4,7 +4,6 @@ var accounts;
 var account;
 var balance;
 var ethbalance;
-var socket = io();
 
 function setStatus(message) {
     var status = document.getElementById("status");
