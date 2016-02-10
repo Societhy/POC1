@@ -9,8 +9,12 @@ bool spend;
 
 struct User {
 string name;
+uint contribution;
 Rights rights;
 }
+
+event newDonation(address addr, uint value);
+event newUser(string name);
 
 mapping (address => User) members;
 address public creator;
@@ -20,20 +24,27 @@ function BasicOrga(string _name) {
 creator = msg.sender;
 }
 
-function register(string _name) {
-User memory newMember = members[msg.sender];
+function donate() {
+members[msg.sender].contribution = msg.value;
+newDonation(msg.sender, msg.value);
+}
 
-if (newMember.rights.vote) {
+function register(string _name) {
+if (members[msg.sender].rights.vote) {
 throw;
 }
-newMember.rights.vote = true;
-newMember.rights.propose = true;
-newMember.name = _name;
-members[msg.sender] = newMember;
+members[msg.sender].rights.propose = true;
+members[msg.sender].rights.vote = true;
+members[msg.sender].name = _name;
+newUser(members[msg.sender].name);
 }
 
 function getMember(address user) returns (string) {
 return members[user].name;
 }
 
+
+function kill() {
+suicide(creator);
+}
 }

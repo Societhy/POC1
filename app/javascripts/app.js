@@ -2,13 +2,13 @@
 
 var accounts;
 var account;
-var balance;
 var ethbalance;
 
 function setStatus(message) {
     var status = document.getElementById("status");
     status.innerHTML = message;
 };
+
 
 function refreshBalance() {
     var ethvalue = web3.fromWei(web3.eth.getBalance(account));
@@ -20,6 +20,7 @@ function refreshBalance() {
 	ethbalance_elem.innerHTML = ethvalue.valueOf();
     latestBlock_elem.innerHTML = latestBlock.valueOf();
 };
+
 
 function getPeerNumber() {
 	var peers_elem = document.getElementById("peerNumber");
@@ -56,9 +57,11 @@ function sendCoin() {
 	});
 };
 
+
 function update() {
 	refreshBalance();
 	getPeerNumber();
+	createContract();
 	filter = web3.eth.filter('latest');
 	filter.watch(function (err, logs) {
 		if (err)
@@ -70,6 +73,7 @@ function update() {
 	});
 
 }
+
 
 function getAccounts() {
 	web3.eth.getAccounts(function (err, accs) {
@@ -94,7 +98,6 @@ function getAccounts() {
 		update();
 	});
 }
-
 
 
 function launchConnectedMode() {
