@@ -61,6 +61,7 @@ function sendCoin() {
 function update() {
 	refreshBalance();
 	getPeerNumber();
+	createNewOrga();
 	createNewCampaign();
 	filter = web3.eth.filter('latest');
 	filter.watch(function (err, logs) {

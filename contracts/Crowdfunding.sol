@@ -28,7 +28,7 @@ contract Crowdfunding {
 
     contributors.push(Contributor({addr:sender, contribution:amount}));
     alreadyRaised += amount;
-    newContribution(address, sender);
+    newContribution(sender, amount);
   }
 
   modifier afterDeadline() { if (now >= deadline) _ }

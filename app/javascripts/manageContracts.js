@@ -28,19 +28,19 @@ function loadContract() {
 
 //TODO : send Contract name to Server, get the abi + binary back, then deploy as shown below
 function createNewOrga() {
-    //TO LOCALLY DEPLOY NEW CONTRACT :
     var gasNb = (web3.eth.estimateGas({from:web3.eth.coinbase, data:BasicOrga.binary}));
-    var contract = Pudding.whisk(BasicOrga.abi, BasicOrga.binary, {gas:gasNb, from:web3.eth.coinbase, data:BasicOrga.binary});
-    contract.new().then(function (tx) {
+    var contract = Pudding.whisk(BasicOrga.abi, BasicOrga.binary);
+    contract.new({gas:gasNb, from:web3.eth.coinbase, data:BasicOrga.binary}).then(function (tx) {
         console.log("orga deployed", tx);
     });
 }
 
 function createNewCampaign() {
-    //TO LOCALLY DEPLOY NEW CONTRACT :
-    var gasNb = (web3.eth.estimateGas({from:web3.eth.coinbase, data:Crowdfunding.binary}));
-    var contract = Pudding.whisk(Crowdfunding.abi, Crowdfunding.binary, {gas:gasNb, from:web3.eth.coinbase, data:Crowdfunding.binary});
-    contract.new(web3.eth.coinbase, 100, 10).then(function (tx) {
+    var gasNb = (web3.eth.estimateGas({from: web3.eth.coinbase, data: Crowdfunding.binary})) * 1.2;
+    Crowdfunding.new(web3.eth.coinbase, 100, 100, {from:web3.eth.coinbase, data:Crowdfunding.binary, gas:gasNb}).then(function (tx) {
         console.log("campaign deployed", tx);
+        return tx.beneficiary.call();
+    }).then(function (res) {
+        console.log(res.valueOf());
     });
-
+}
