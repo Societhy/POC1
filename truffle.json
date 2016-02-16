@@ -5,14 +5,14 @@
       "createOrga.html":
       "createOrga.html",
     "app.js": [
-      "javascripts/ethereumjs-accounts.min.js",
-      "javascripts/socket.io.js",
-      "javascripts/manageAccounts.js",
-      "javascripts/manageContracts.js",
-      "javascripts/app.js",
-      "javascripts/handleNetwork.js"
+	"javascripts/ethereumjs-accounts.min.js",
+	"javascripts/socket.io.js",
+	"javascripts/manageAccounts.js",
+	"javascripts/manageContracts.js",
+	"javascripts/app.js",
+	"javascripts/handleNetwork.js"
     ],
-    "app.css": [
+      "app.css": [
 	  "stylesheets/app.css"
       ]
   },
@@ -20,7 +20,7 @@
 	"BasicOrga"
     ],
     "rpc": {
-      "host": "localhost",
-      "port": 8101
+	"host": "localhost",
+	"port": 8101
     }
 }

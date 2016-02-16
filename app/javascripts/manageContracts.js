@@ -30,7 +30,6 @@ function loadContract() {
 function createNewOrga() {
     alert("INSIDE create!");
     var gasNb = (web3.eth.estimateGas({from:web3.eth.coinbase, data:BasicOrga.binary}));
-
     alert("INSIDE create2!");
     var contract = Pudding.whisk(BasicOrga.abi, BasicOrga.binary);
     alert("INSIDE create3!");
@@ -41,7 +40,7 @@ function createNewOrga() {
 
 function createNewCampaign() {
     var gasNb = (web3.eth.estimateGas({from: web3.eth.coinbase, data: Crowdfunding.binary})) * 1.2;
-    Crowdfunding.new(web3.eth.coinbase, 100, 100, {from:web3.eth.coinbase, data:Crowdfunding.binary, gas:gasNb}).then(function (tx) {
+    Crowdfunding.new(web3.eth.coinbase, 100, 100, {from:web3.eth.coinbase, gas:gasNb}).then(function (tx) {
         console.log("campaign deployed", tx);
         return tx.beneficiary.call();
     }).then(function (res) {
