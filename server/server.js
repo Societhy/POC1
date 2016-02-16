@@ -4,7 +4,7 @@ var http = require('http');
 var finalhandler = require('finalhandler');
 var io = require('socket.io');
 var serveStatic = require('serve-static');
-var databaseAPI = require('./mongoTest.js');
+var databaseAPI = require('./db.js');
 
 var url = "mongodb://localhost:27017";
 
