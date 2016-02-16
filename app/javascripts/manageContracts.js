@@ -30,7 +30,8 @@ function loadContract() {
 function createNewOrga() {
     console.log(account);
     var gasNb = (web3.eth.estimateGas({from:web3.eth.coinbase, data:BasicOrga.binary}));
-    BasicOrga.new({gas:gasNb, from:web3.eth.coinbase}).then(function (tx) {
+    var contract = Pudding.whisk(BasicOrga.abi, BasicOrga.binary);
+    contract.new({gas:gasNb, from:web3.eth.coinbase, data:BasicOrga.binary}).then(function (tx) {
         console.log("orga deployed", tx);
     });
 }
