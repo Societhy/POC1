@@ -1,8 +1,8 @@
-//web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8102"));
+var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
 
 var accounts;
 var account;
-var ethbalance;
+var browserAccounts;
 
 function setStatus(message) {
     var status = document.getElementById("status");
@@ -11,7 +11,7 @@ function setStatus(message) {
 
 
 function refreshBalance() {
-    var ethvalue = web3.fromWei(web3.eth.getBalance(account));
+	var ethvalue = web3.fromWei(web3.eth.getBalance(account));
     var latestBlock = web3.eth.blockNumber;
 
     var latestBlock_elem = document.getElementById("latestBlock");
@@ -76,7 +76,7 @@ function update() {
 }
 
 
-function getAccounts() {
+function getLocalAccounts() {
 	web3.eth.getAccounts(function (err, accs) {
 		if (err != null) {
 			console.error(err);
@@ -85,23 +85,19 @@ function getAccounts() {
 		}
 
 		if (accs.length == 0) {
-			if (browserAccounts.length == 0)
-				account = browserAccounts.new("bitebite").address;
-			else
-				account = browserAccounts.get().selected;
-			accounts = null;
-			console.log(account);
+			console.log("Please create an account with your eth client")
 		}
 		else {
 			accounts = accs;
 			account = web3.eth.coinbase;
+			update();
 		}
-		update();
 	});
 }
 
 
 function launchConnectedMode() {
+	console.log("connected");
 	web3.eth.isSyncing(function (err, sync) {
 		if (!err) {
 			if (sync === true) {
@@ -115,11 +111,24 @@ function launchConnectedMode() {
 			}
 		}
 	});
-	getAccounts();
+	getLocalAccounts();
 }
 
 function launchRemoteMode() {
 	console.log("remote");
+	browserAccounts = new Accounts({minPassphraseLength : 0});
+	if (browserAccounts.length == 0)
+		account = browserAccounts.new("password").address;
+	else
+		account = browserAccounts.get().selected;
+	accounts = null;
+	console.log(account);
+	var provider = web3 = new HookedWeb3Provider({
+		host:"http://localhost:8101",
+		transaction_signer: browserAccounts
+	});
+	web3.setProvider(provider);
+	update();
 }
 
 window.onload = function() {

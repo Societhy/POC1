@@ -6,7 +6,7 @@ var io = require('socket.io');
 var serveStatic = require('serve-static');
 var databaseAPI = require('./mongoTest.js');
 
-var url = "mongodb://localhost:27017/test";
+var url = "mongodb://localhost:27017";
 
 var server = {
 	start: function(config, done) {

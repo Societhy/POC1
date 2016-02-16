@@ -1,0 +1,59 @@
+<link rel='stylesheet' href='/stylesheets/register.css' />
+
+<div class="container auth">
+    <h1 class="text-center">Register</h1>
+    <div id="big-form" class="well auth-box">
+        <form method="post" action="http://127.0.0.1:3000/register/submit">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Registering on Societhy</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class=" control-label" for="textinput">Username</label>
+                    <div class="">
+                        <input id="username" name="username" placeholder="Username" class="form-control input-md" type="text">
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class=" control-label" for="textinput">e-Mail address</label>
+                    <div class="">
+                        <input id="mail" name="mail" placeholder="Mail" class="form-control input-md" type="text">
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class=" control-label" for="Ethereum address ">e-Mail address</label>
+                    <div class="">
+                        <input id="ethaddr" name="ethaddr" placeholder="ETH Addr" class="form-control input-md" type="text">
+                    </div>
+                </div>
+
+                <!-- Password input-->
+                <div class="form-group">
+                    <label class=" control-label" for="passwordinput">Password</label>
+                    <div class="">
+                        <input id="password" name="password" placeholder="Password" class="form-control input-md" type="password">
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class=" control-label" for="selectbasic">Country</label>
+                    <div class="">
+                        <select id="country" name="country" class="form-control">
+                            <option value="FR">France</option>
+                        </select>
+                    </div>
+                </div>
+
+                <input type="submit"  value="Send"  />
+            </fieldset>
+        </form>
+    </div>
+    <div class="clearfix"></div>
+</div>
