@@ -11,7 +11,9 @@ var organisation = require('./routes/organisation')
 var register = require('./routes/register')
 
 var app = express();
-var db = require('./db')
+var db = require('./database/db')
+var dbUser = require('./database/users');
+var dbOrga = require('./database/orga');
 var url = 'mongodb://localhost:27017/test'
 
 // view engine setup
@@ -31,23 +33,42 @@ db.connect(url, function (err) {
         process.exit(1)
     } else {
         console.log('Connected to db');
-        db.fillDatabase();
-        db.getOrgaByName('popopo', function(err, orga) {
-            if (err)
-            console.log('no such orga');
+
+        // USAGE: ADD NEW USER
+        var user1 = {"addresses":["0x00000001", "0x0000000a"], "firstname":"user1", "lastname":"user1", "mail":"u@1.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]}
+        dbUser.addNewUser(user1, function(ret) {
+            if (!ret.status)
+            console.log(ret.message);
             else
-            console.log(orga);
-        });
-        db.getUserByAddress('0x00000004', function(err, user) {
-            if (err)
-            console.log('no such user');
+            console.log('User well added');
+        })
+
+        // USAGE: ADD NEW ORGA
+        var MSF = {"name":"Medecins Sans Frontiere", "memberList":[], "transHisto":[], "actualities":[]}
+        dbOrga.addNewOrga(MSF, function(ret) {
+            if (!ret.status)
+            console.log(ret.message);
             else
-            console.log(user);
-        });
-        app.use(function(req,res,next){
-            req.db = db;
-            next();
-        });
+            console.log('Orga well added');
+        })
+
+        // USAGE: GET USER
+        dbUser.getUserByAddress("0xea662181", function(ret) {
+            if (!ret.status) {
+                console.log('Error:', ret.message)
+                return
+            }
+            console.log(ret.body.firstname, ret.body.lastname)
+        })
+
+        // USAGE: GET ORGA
+        dbOrga.getOrgaByName('unicef ?', function(ret) {
+            if (!ret.status) {
+                console.log('Error:', ret.message)
+                return
+            }
+            console.log(ret.body.name, ret.body.memberList)
+        })
     }
 })
 
