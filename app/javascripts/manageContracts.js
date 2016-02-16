@@ -28,6 +28,7 @@ function loadContract() {
 
 //TODO : send Contract name to Server, get the abi + binary back, then deploy as shown below
 function createNewOrga() {
+    console.log(account);
     var gasNb = (web3.eth.estimateGas({from:web3.eth.coinbase, data:BasicOrga.binary}));
     BasicOrga.new({gas:gasNb, from:web3.eth.coinbase}).then(function (tx) {
         console.log("orga deployed", tx);

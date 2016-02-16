@@ -3,6 +3,7 @@
     "index.html": "index.html",
     "app.js": [
 	"javascripts/ethereumjs-accounts.min.js",
+	"javascripts/hooked-web3-provider.min.js",
 	"javascripts/socket.io.js",
 	"javascripts/manageAccounts.js",
 	"javascripts/manageContracts.js",

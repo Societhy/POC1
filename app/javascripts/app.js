@@ -1,4 +1,4 @@
-var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
+var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8103"));
 
 var accounts;
 var account;
@@ -61,8 +61,8 @@ function sendCoin() {
 function update() {
 	refreshBalance();
 	getPeerNumber();
-	createNewOrga();
-	createNewCampaign();
+	//createNewOrga();
+	//createNewCampaign();
 	filter = web3.eth.filter('latest');
 	filter.watch(function (err, logs) {
 		if (err)
@@ -119,11 +119,13 @@ function launchRemoteMode() {
 	browserAccounts = new Accounts({minPassphraseLength : 0});
 	if (browserAccounts.length == 0)
 		account = browserAccounts.new("password").address;
-	else
+	else {
 		account = browserAccounts.get().selected;
-	accounts = null;
+		console.log(browserAccounts.get(account, "password"));
+	}
 	console.log(account);
-	var provider = web3 = new HookedWeb3Provider({
+	accounts = null;
+	var provider = new HookedWeb3Provider({
 		host:"http://localhost:8101",
 		transaction_signer: browserAccounts
 	});
