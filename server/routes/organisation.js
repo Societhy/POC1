@@ -3,7 +3,7 @@
  */
 var express = require('express');
 var router = express.Router();
-var db = require('../db')
+var orga = require('../database/orga')
 
 router.get('/', function (req, res, next)
 {
@@ -12,7 +12,7 @@ res.render('organisation_homepage')
 
 router.get('/:name', function(req, res, next)
 {
-    db.getOrgaByName(req.params.name, function (isOrga, orga)
+    orga.getOrgaByName(req.params.name, function (isOrga, orga)
     {
         if (isOrga)
         {

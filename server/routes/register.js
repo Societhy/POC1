@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var db = require('../db')
+var user = require('../database/users')
 
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -23,29 +23,14 @@ router.post('/submit', urlencodedParser, function (req, res)
         addresses:[req.body.ethaddr]
     };
 
-    db.existUser(response,
-        //CALLBACK EXIST
-        function ()
-        {
-            db.insertNewUser(function(error)
-            {
-                if (!error)
-                {
-                    //OK
-                    return;
-                }
-                else
-                {
-                    // ERROR !
-                    return;
-                }
-            })
-        },
-        //CALLBACK NOT EXIST
-        function ()
-        {
+    user.addNewUser(response, function(ret){
+        if (!ret.status) {
+            // TODO: Fail de la base ou alors user already exists
+            console.log(ret.message);
+        } else {
+            console.log('User added');
         }
-    );
+    })
 
     console.log(response);
     res.end(JSON.stringify(response));

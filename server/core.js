@@ -11,7 +11,7 @@ var organisation = require('./routes/organisation')
 var register = require('./routes/register')
 
 var app = express();
-var db = require('./db')
+var db = require('./database/db')
 var url = 'mongodb://localhost:27017/test'
 
 // view engine setup
