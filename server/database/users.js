@@ -55,13 +55,9 @@ exports.getUserByAddress = function(addr, finalCallback) {
         } else {
             userCursor.next(function (err, user) {
                 if (err) {
-                    finalCallback({status: false, message: err.message, body: null})
+                    finalCallback({status: false, message: 'No such user.', body: null})
                 } else {
-                    if (user == undefined){
-                        finalCallback({status: false, message: 'No such user.', body: null})
-                    } else {
-                        finalCallback({status: true, message: 'No error.', body: user})
-                    }
+                    finalCallback({status: true, message: 'No error.', body: user})
                 }
             })
         }

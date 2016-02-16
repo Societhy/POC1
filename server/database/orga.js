@@ -44,7 +44,7 @@ function notExistsOrga(orga, toDo, finalCallback) {
     })
 }
 
-exports.getOrgaByName = function (name, orgaCallback) {
+exports.getOrgaByName = function (name, finalCallback) {
     console.log("Searching orga for name:", name)
     var nameNonSensitive = new RegExp(["^", name, "$"].join(""), "i")
 
@@ -53,15 +53,11 @@ exports.getOrgaByName = function (name, orgaCallback) {
         if (err) {
             finalCallback({status: false, message: err.message})
         }
-        userCursor.next(function (err, orga) {
+        orgaCursor.next(function (err, orga) {
             if (err) {
-                finalCallback({status: false, message: err.message, body: null})
+                finalCallback({status: false, message: 'No such organisation.', body: null})
             } else {
-                if (orga == undefined){
-                    finalCallback({status: false, message: 'No such organisation.', body: null})
-                } else {
-                    finalCallback({status: true, message: 'No error.', body: user})
-                }
+                finalCallback({status: true, message: 'No error.', body: orga})
             }
         })
     })
@@ -80,6 +76,6 @@ function addOrga(orga, finalCallback) {
     })
 }
 
-exports.addOrga = function (orga, finalCallback) {
+exports.addNewOrga = function (orga, finalCallback) {
     notExistsOrga(orga, addOrga, finalCallback)
 }

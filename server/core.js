@@ -33,6 +33,8 @@ db.connect(url, function (err) {
         process.exit(1)
     } else {
         console.log('Connected to db');
+
+        // USAGE: ADD NEW USER
         var user1 = {"addresses":["0x00000001", "0x0000000a"], "firstname":"user1", "lastname":"user1", "mail":"u@1.com", "photo":null, "listOrga":[], "transHisto":[], "infos":[]}
         dbUser.addNewUser(user1, function(ret) {
             if (!ret.status)
@@ -40,12 +42,32 @@ db.connect(url, function (err) {
             else
             console.log('User well added');
         })
+
+        // USAGE: ADD NEW ORGA
         var MSF = {"name":"Medecins Sans Frontiere", "memberList":[], "transHisto":[], "actualities":[]}
-        dbOrga.addOrga(MSF, function(ret) {
+        dbOrga.addNewOrga(MSF, function(ret) {
             if (!ret.status)
             console.log(ret.message);
             else
             console.log('Orga well added');
+        })
+
+        // USAGE: GET USER
+        dbUser.getUserByAddress("0xea662181", function(ret) {
+            if (!ret.status) {
+                console.log('Error:', ret.message)
+                return
+            }
+            console.log(ret.body.firstname, ret.body.lastname)
+        })
+
+        // USAGE: GET ORGA
+        dbOrga.getOrgaByName('unicef ?', function(ret) {
+            if (!ret.status) {
+                console.log('Error:', ret.message)
+                return
+            }
+            console.log(ret.body.name, ret.body.memberList)
         })
     }
 })
