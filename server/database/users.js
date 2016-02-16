@@ -2,7 +2,8 @@ var db = require('./db');
 
 // finalCallback param = {
 //     success: false,
-//     message: ''
+//     message: '',
+//     body: null
 // }
 
 function existsUser(user, toDo, finalCallback) {
@@ -11,7 +12,7 @@ function existsUser(user, toDo, finalCallback) {
 
     cursor.count(function(err, nb){
         if (err){
-            finalCallback({status: false, message: err.message})
+            finalCallback({status: false, message: err.message, body: null})
             return
         }
         if (nb != 0){
@@ -19,7 +20,7 @@ function existsUser(user, toDo, finalCallback) {
             toDo(user, finalCallback)
         } else {
             console.log("User: ", user.addresses," doesn't exists.")
-            finalCallback({status: false, message: "User doesn't exists."})
+            finalCallback({status: false, message: "User doesn't exists.", body: null})
         }
     })
 }
@@ -30,12 +31,12 @@ function notExistsUser(user, toDo, finalCallback) {
 
     cursor.count(function(err, nb){
         if (err){
-            finalCallback({status: false, message: err.message})
+            finalCallback({status: false, message: err.message, body: null})
             return
         }
         if (nb != 0){
             console.log("User: ", user.addresses," exists.")
-            finalCallback({status: false, message: "User already exists."})
+            finalCallback({status: false, message: "User already exists.", body: null})
         } else {
             console.log("User: ", user.addresses," doesn't exists.")
             toDo(user, finalCallback)
@@ -43,17 +44,27 @@ function notExistsUser(user, toDo, finalCallback) {
     })
 }
 
-exports.getUserByAddress = function(addr, userCallback) {
+exports.getUserByAddress = function(addr, finalCallback) {
     console.log("Searching user for addr:", addr)
     var addrNonSensitive = new RegExp(["^", addr, "$"].join(""), "i")
 
     var userCursor = db.get().collection('users').find({'addresses': addrNonSensitive})
     userCursor.hasNext(function (err, user) {
-        assert.equal(err, null)
-        userCursor.next(function (err, user) {
-            noUser = (user != undefined ? null : true)
-            userCallback(noUser, user)
-        })
+        if (err) {
+            finalCallback({status: false, message: err.message, body: null})
+        } else {
+            userCursor.next(function (err, user) {
+                if (err) {
+                    finalCallback({status: false, message: err.message, body: null})
+                } else {
+                    if (user == undefined){
+                        finalCallback({status: false, message: 'No such user.', body: null})
+                    } else {
+                        finalCallback({status: true, message: 'No error.', body: user})
+                    }
+                }
+            })
+        }
     })
 }
 
@@ -62,10 +73,10 @@ function addUser(user, finalCallback) {
 
     db.get().collection('users').insertOne(user, function(err, result) {
         if (err) {
-            finalCallback({status: false, message: err.message})
+            finalCallback({status: false, message: err.message, body: null})
         } else {
             console.log("added new user in users collection.")
-            finalCallback({status: true, message: "User added."})
+            finalCallback({status: true, message: "User added.", body: result})
         }
     })
 }
