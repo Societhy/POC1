@@ -21,10 +21,21 @@ function refreshBalance() {
     latestBlock_elem.innerHTML = latestBlock.valueOf();
 };
 
+function tryDeploy() {
+    var name = document.getElementById("trydeploy");
+	alert("befor create!");
+    createNewOrga();
+	alert("after create!");
+    if (name) {
+	self.location.href = "index.html";
+    }
+    else
+	alert("I am an alert box!");
+}
 
 function getPeerNumber() {
-	var peers_elem = document.getElementById("peerNumber");
-	peers_elem.innerHTML = web3.net.peerCount.valueOf();
+    var peers_elem = document.getElementById("peerNumber");
+    peers_elem.innerHTML = web3.net.peerCount.valueOf();
 }
 
 
@@ -34,99 +45,99 @@ function sendCoin() {
 
     setStatus("Initiating transaction... (please wait)");
     filter = web3.eth.filter('latest');
-	web3.eth.sendTransaction({to: receiver, value: web3.toWei(amount), from: account}, function(err, address){
-		if (err) {
-			console.error(err);
-			setStatus("Error sending coin; see log.");
-		}
+    web3.eth.sendTransaction({to: receiver, value: web3.toWei(amount), from: account}, function(err, address){
+	if (err) {
+	    console.error(err);
+	    setStatus("Error sending coin; see log.");
+	}
+	else
+	{
+	    setStatus("Transaction sent!");
+	    filter.watch(function(err, logs) {
+		if (err)
+		    console.error(err);
 		else
 		{
-			setStatus("Transaction sent!");
-			filter.watch(function(err, logs) {
-				if (err)
-					console.error(err);
-				else
-				{
-					if (web3.eth.getTransaction(address).blockHash === logs) {
-						setStatus("Transaction mined!");
-						filter.stopWatching();
-					}
-				}
-			});
+		    if (web3.eth.getTransaction(address).blockHash === logs) {
+			setStatus("Transaction mined!");
+			filter.stopWatching();
+		    }
 		}
-	});
+	    });
+	}
+    });
 };
 
 
 function update() {
-	refreshBalance();
-	getPeerNumber();
-	createNewOrga();
-	createNewCampaign();
-	filter = web3.eth.filter('latest');
-	filter.watch(function (err, logs) {
-		if (err)
-			console.error(err);
-		else {
-			refreshBalance();
-			getPeerNumber();
-		}
-	});
+    refreshBalance();
+    getPeerNumber();
+    createNewOrga();
+    createNewCampaign();
+    filter = web3.eth.filter('latest');
+    filter.watch(function (err, logs) {
+	if (err)
+	    console.error(err);
+	else {
+	    refreshBalance();
+	    getPeerNumber();
+	}
+    });
 
 }
 
 
 function getAccounts() {
-	web3.eth.getAccounts(function (err, accs) {
-		if (err != null) {
-			console.error(err);
-			alert("There was an error fetching your accounts.");
-			return;
-		}
+    web3.eth.getAccounts(function (err, accs) {
+	if (err != null) {
+	    console.error(err);
+	    alert("There was an error fetching your accounts.");
+	    return;
+	}
 
-		if (accs.length == 0) {
-			if (browserAccounts.length == 0)
-				account = browserAccounts.new("bitebite").address;
-			else
-				account = browserAccounts.get().selected;
-			accounts = null;
-			console.log(account);
-		}
-		else {
-			accounts = accs;
-			account = web3.eth.coinbase;
-		}
-		update();
-	});
+	if (accs.length == 0) {
+	    if (browserAccounts.length == 0)
+		account = browserAccounts.new("bitebite").address;
+	    else
+		account = browserAccounts.get().selected;
+	    accounts = null;
+	    console.log(account);
+	}
+	else {
+	    accounts = accs;
+	    account = web3.eth.coinbase;
+	}
+	update();
+    });
 }
 
 
 function launchConnectedMode() {
-	web3.eth.isSyncing(function (err, sync) {
-		if (!err) {
-			if (sync === true) {
-				console.log("start syncing");
-			}
-			else if (sync) {
-				console.log(sync.currentBlock);
-			}
-			else {
-				console.log("stop syncing");
-			}
-		}
-	});
-	getAccounts();
+    web3.eth.isSyncing(function (err, sync) {
+	if (!err) {
+	    if (sync === true) {
+		console.log("start syncing");
+	    }
+	    else if (sync) {
+		console.log(sync.currentBlock);
+	    }
+	    else {
+		console.log("stop syncing");
+	    }
+	}
+    });
+    getAccounts();
 }
 
 function launchRemoteMode() {
-	console.log("remote");
+    console.log("remote");
 }
 
 window.onload = function() {
-	if (web3.isConnected()) {
-		launchConnectedMode();
-	}
-	else {
-		launchRemoteMode();
-	}
+    if (web3.isConnected()) {
+	launchConnectedMode();
+    }
+    else {
+	launchRemoteMode();
+    }
 }

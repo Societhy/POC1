@@ -28,8 +28,12 @@ function loadContract() {
 
 //TODO : send Contract name to Server, get the abi + binary back, then deploy as shown below
 function createNewOrga() {
+    alert("INSIDE create!");
     var gasNb = (web3.eth.estimateGas({from:web3.eth.coinbase, data:BasicOrga.binary}));
+
+    alert("INSIDE create2!");
     var contract = Pudding.whisk(BasicOrga.abi, BasicOrga.binary);
+    alert("INSIDE create3!");
     contract.new({gas:gasNb, from:web3.eth.coinbase, data:BasicOrga.binary}).then(function (tx) {
         console.log("orga deployed", tx);
     });

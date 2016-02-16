@@ -1,6 +1,9 @@
 {
   "build": {
-    "index.html": "index.html",
+      "index.html":
+      "index.html",
+      "createOrga.html":
+      "createOrga.html",
     "app.js": [
       "javascripts/ethereumjs-accounts.min.js",
       "javascripts/socket.io.js",
