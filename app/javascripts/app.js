@@ -23,14 +23,12 @@ function refreshBalance() {
 
 function tryDeploy() {
     var name = document.getElementById("trydeploy");
-	alert("befor create!");
     createNewOrga();
-	alert("after create!");
     if (name) {
 	self.location.href = "index.html";
     }
-    else
-	alert("I am an alert box!");
+	else
+		alert("I am an alert box!");
 }
 
 function getPeerNumber() {
