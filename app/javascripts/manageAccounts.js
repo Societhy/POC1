@@ -1,5 +1,7 @@
 //TODO : export keyfile in the same format as geth (keythereum like)
 function exportKeyFile() {
+    if (browserAccounts === undefined)
+        browserAccounts = new Accounts({minPassphraseLength : 0});
     var accountObject = browserAccounts.new('passphrase');
     var JSONData = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(accountObject));
     var link = document.createElement('a');

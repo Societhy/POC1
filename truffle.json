@@ -1,20 +1,25 @@
 {
   "build": {
     "app.js": [
-	"javascripts/ethereumjs-accounts.min.js",
-	"javascripts/hooked-web3-provider.min.js",
-	"javascripts/socket.io.js",
-	"javascripts/manageAccounts.js",
-	"javascripts/manageContracts.js",
-	"javascripts/app.js",
-	"javascripts/handleNetwork.js"
-    ]
-  },
-    "deploy": [
-	"BasicOrga"
+      "javascripts/hooked-web3-provider.min.js",
+      "javascripts/manageContracts.js",
+      "javascripts/app.js"
     ],
-    "rpc": {
-	"host": "localhost",
-	"port": 8101
-    }
+    "index.js" : [
+      "javascripts/socket.io.js",
+      "javascripts/handleNetwork.js"
+    ],
+    "manageAccounts.js" : [
+      "javascripts/manageAccounts.js",
+      "javascripts/ethereumjs-accounts.min.js"
+      ]
+
+  },
+  "deploy": [
+    "BasicOrga"
+  ],
+  "rpc": {
+    "host": "localhost",
+    "port": 8101
+  }
 }
