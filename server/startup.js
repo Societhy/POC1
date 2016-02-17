@@ -1,6 +1,7 @@
 var debug = require('debug')('SociethyWebsite:server');
 var app = require('./core.js');
 var http = require('http');
+
 /**
  * Module dependencies.
  */
@@ -21,8 +22,9 @@ var server = {
    * Create HTTP server.
    */
 
-    console.log("here");
-  var server = http.createServer(app);
+    var server = http.createServer(app);
+    global.io = require('socket.io')(server);
+    var io = require('./routes/socketIORoutes');
 
   /**
    * Listen on provided port, on all network interfaces.
