@@ -9,6 +9,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var organisation = require('./routes/organisation')
 var register = require('./routes/register')
+var debug = require('./routes/debug')
 
 var app = express();
 var db = require('./database/db')
@@ -25,7 +26,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use("/", express.static(path.join(__dirname, 'public')));
+app.use("/contract", express.static(path.join(__dirname, "../environments/development/build")));
 
 db.connect(url, function (err) {
     if (err){
@@ -76,6 +78,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/organisation', organisation);
 app.use('/register', register);
+app.use('/debug', debug);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -25,10 +25,8 @@ function tryDeploy() {
     var name = document.getElementById("trydeploy");
     createNewOrga();
     if (name) {
-	self.location.href = "index.html";
+	self.location.href = "debug.html";
     }
-	else
-		alert("I am an alert box!");
 }
 
 function getPeerNumber() {
