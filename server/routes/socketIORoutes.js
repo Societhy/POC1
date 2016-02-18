@@ -17,6 +17,10 @@ global.io.on('connection', function (socket) {
         console.log(data);
     });
 
+    socket.on('updateppic', function (data) {
+       console.log(data);
+    });
+
     //files
     ss(socket).on("userimg", function (stream, data) {
         var buff;
