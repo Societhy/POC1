@@ -22,7 +22,7 @@ router.post('/submit', urlencodedParser, function (req, res)
         firstname:req.body.username,
         addresses:[req.body.ethaddr]
     };
-
+    console.log(req.files.ppic);
     user.addNewUser(response, function(ret){
         if (!ret.status) {
             // TODO: Fail de la base ou alors user already exists

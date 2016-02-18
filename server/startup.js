@@ -1,4 +1,4 @@
-var debug = require('debug')('SociethyWebsite:server');
+var debug = require('debug')('server');
 var app = require('./core.js');
 var http = require('http');
 
@@ -92,5 +92,7 @@ var server = {
 	}
 
     }}
+
+server.start();
 
 module.exports = server;
