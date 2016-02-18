@@ -22,7 +22,6 @@ global.io.on('connection', function (socket) {
         var buff;
         stream.on('data', function (lel) {
             buff += lel;
-            //console.log(buff);
         });
         stream.on('end', function() {
             console.log(buff);
