@@ -1,12 +1,15 @@
 {
   "build": {
     "app.js": [
+      "javascripts/socket.io.js",
+      "javascripts/socket.io-stream.min.js",
       "javascripts/hooked-web3-provider.min.js",
       "javascripts/manageContracts.js",
       "javascripts/app.js"
     ],
     "index.js" : [
       "javascripts/socket.io.js",
+      "javascripts/socket.io-stream.min.js",
       "javascripts/handleNetwork.js"
     ],
     "manageAccounts.js" : [
