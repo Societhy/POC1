@@ -15,7 +15,7 @@ var app = express();
 var db = require('./database/db');
 var dbUser = require('./database/users');
 var dbOrga = require('./database/orga');
-var url = 'mongodb://localhost:27017/test';
+var url = 'mongodb://10.41.177.67:27017/test';
 
 var fs = require('fs');
 
