@@ -35,10 +35,10 @@ function existsUser(user, toDo, finalCallback) {
     });
 }
 
-function notExistsUser(user, toDo, finalCallback) {
+function notExistsUser(searchUser, toDo, finalCallback) {
     // console.log("Searching user: ", user.addresses," from db.")
     var cursor = db.get().collection('users').find({
-        'addresses': user.addresses
+        'addresses': searchUser.addresses
     });
 
     cursor.hasNext(function(err, user) {
@@ -51,7 +51,7 @@ function notExistsUser(user, toDo, finalCallback) {
         } else {
             cursor.next(function(err, user) {
                 if (err) {
-                    toDo(user, finalCallback);
+                    toDo(searchUser, finalCallback);
                 } else {
                     finalCallback({
                         status: false,
