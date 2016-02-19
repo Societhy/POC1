@@ -88,7 +88,7 @@ function uploadImage() {
 function update() {
     refreshBalance();
     getPeerNumber();
-	loadContract();
+	//loadContract();
 	//createNewOrga();
     //createNewCampaign();
     filter = web3.eth.filter('latest');
