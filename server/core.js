@@ -13,7 +13,7 @@ var debug = require('./routes/debug');
 
 var app = express();
 var db = require('./database/db');
-var url = 'mongodb://localhost:27017/test';
+var url = 'mongodb://10.41.177.67:27017/test';
 
 var fs = require('fs');
 

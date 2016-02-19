@@ -2,6 +2,10 @@
  * Created by Roman on 09/02/2016.
  */
 
+var address = $('#ethaddr');
+var submit = $('#submit_form');
+var socket = io.connect('/');
+var img64;
 
 function previewFile(){
     var preview = document.querySelector('img'); //selects the query named img
@@ -9,10 +13,9 @@ function previewFile(){
     var reader  = new FileReader();
 
     reader.onloadend = function () {
-        console.log(reader.result);
+        img64 = reader.result;
         preview.src = reader.result;
     }
-
 
     if (file) {
         reader.readAsDataURL(file); //reads the data as a URL
@@ -22,3 +25,14 @@ function previewFile(){
 }
 
 previewFile();
+
+submit.click(function(){
+    console.log("zizipanpan")
+    socket.emit(
+      'updateppic',
+        {
+            addr : address.val(),
+            ppic : img64
+        }
+    );
+});
