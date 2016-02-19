@@ -33,7 +33,7 @@ router.post('/submit', urlencodedParser, function (req, res)
             // TODO: Fail de la base ou alors user already exists
             console.log(ret.message);
         } else {
-            console.log('User added', ret.body);
+            console.log('User added:', ret.object);
         }
     }, response);
 
