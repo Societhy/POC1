@@ -25,6 +25,7 @@ exports.getUser = function() {
     });
 };
 
+// USAGE: ADD AN ADDRESS TO ADDRESS LIST
 exports.addAddress = function() {
     user.addAddress("1", "13", function(ret) {
         if (!ret.status)
@@ -34,6 +35,7 @@ exports.addAddress = function() {
     });
 };
 
+// USAGE: CAHNGE USER FIRSTNAME
 exports.changeFirstName = function() {
     user.changeFirstName("1", "philippes", function(ret) {
         if (!ret.status)
@@ -43,6 +45,7 @@ exports.changeFirstName = function() {
     });
 };
 
+// USAGE: CHANGE USER LASTNAME
 exports.changeLastName = function() {
     user.changeLastName("1", "Maurice", function(ret) {
         if (!ret.status)
@@ -52,6 +55,7 @@ exports.changeLastName = function() {
     });
 };
 
+// USAGE: CHANGE USER NICKNAME
 exports.changeNickName = function() {
     user.changeNickName("1", "PPPM", function(ret) {
         if (!ret.status)
@@ -61,6 +65,7 @@ exports.changeNickName = function() {
     });
 };
 
+// USAGE: CHANGE USER MAIL
 exports.changeMail = function() {
     user.changeMail("1", "philippes@maurice.com", function(ret) {
         if (!ret.status)
@@ -70,6 +75,7 @@ exports.changeMail = function() {
     });
 };
 
+// USAGE: CHANGE USER PROFILE PIC
 exports.changeProfilePic = function() {
     user.changeProfilePic("1", "CECI EST LA DATA DE MA PHOTO", function(ret) {
         if (!ret.status)
@@ -79,6 +85,7 @@ exports.changeProfilePic = function() {
     });
 };
 
+// USAGE: ADD AN ORGA ADDRESS TO ORGA LIST
 exports.addOrgaAddress = function() {
     user.addOrgaAddress("1", "addresse d'orga", function(ret) {
         if (!ret.status)
@@ -88,6 +95,7 @@ exports.addOrgaAddress = function() {
     });
 };
 
+// USAGE: ADD A TX TO TX LIST
 exports.addTransaction = function() {
     user.addTransaction("1", {
         hash: "434RA23ERA34",
@@ -103,6 +111,7 @@ exports.addTransaction = function() {
     });
 };
 
+// USAGE: ADD A CONTACT ADDRESS TO CONTACT LIST
 exports.addContact = function() {
     user.addContact("1", "2", function(ret) {
         if (!ret.status)
@@ -112,6 +121,7 @@ exports.addContact = function() {
     });
 };
 
+// USAGE: FILL DB
 exports.fillUserDb = function() {
     for (var i = 0; i < 20; i++) {
         user.addUser(i, function(ret) {
