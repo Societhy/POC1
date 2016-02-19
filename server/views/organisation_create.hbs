@@ -1,0 +1,21 @@
+<link rel='stylesheet' href='/stylesheets/register.css' />
+
+<div class="container auth">
+    <h1 class="text-center">Create an organisation</h1>
+    <div id="big-form" class="well auth-box">
+        <div class="form-group">
+            <label class=" control-label" for="textinput">Name</label>
+            <div class="">
+                <input id="name" name="name" placeholder="Name" class="form-control input-md" type="text">
+            </div>
+        </div>
+
+        <input type="submit"  id='submit_form' value="Create !"  />
+
+    </div>
+    <div class="clearfix"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascripts/organisation_create.js"></script>
+
+</div>

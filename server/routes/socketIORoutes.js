@@ -19,16 +19,19 @@ global.io.on('connection', function (socket) {
     //});
 
     socket.on('updateppic', function (data) {
-        user.changeProfilePic(data.addr, data.ppic, function(ret) {
-            if (ret.status)
-            {
-                socket.emit('OK', ret.message);
-            }
-            else
-            {
-                socket.emit("KO", ret.message);
-            }
-        })
+        setTimeout(function()
+        {
+            user.changeProfilePic(data.addr, data.ppic, function(ret) {
+                if (ret.status)
+                {
+                    socket.emit('OK', ret.message);
+                }
+                else
+                {
+                    socket.emit("KO", ret.message);
+                }
+            })
+        }, 3000);
     });
 
     ////files
