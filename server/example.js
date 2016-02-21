@@ -1,16 +1,20 @@
 var user = require('./database/newUser');
+var orga = require('./database/newOrga');
 
 // USAGE: ADD NEW USER
-exports.addUser = function(i) {
-    user.addUser(i, function(ret) {
+exports.addUser = function() {
+    var addr = '0x' + (function co(lor) {
+        return (lor += [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'][Math.floor(Math.random() * 16)]) && (lor.length == 8) ? lor : co(lor);
+    })('');
+    user.addUser(addr, function(ret) {
         if (!ret.status)
             console.log(ret.message);
         else
             console.log('User added');
     }, {
-        firstname: i,
-        lastname: i,
-        nickname: i,
+        firstname: addr,
+        lastname: addr,
+        nickname: addr,
         mail: 'test@test.com'
     });
 };
@@ -121,19 +125,139 @@ exports.addContact = function() {
     });
 };
 
-// USAGE: FILL DB
+// USAGE: FILL USER DB
 exports.fillUserDb = function() {
     for (var i = 0; i < 20; i++) {
-        user.addUser(i, function(ret) {
+        var addr = '0x' + (function co(lor) {
+            return (lor += [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'][Math.floor(Math.random() * 16)]) && (lor.length == 8) ? lor : co(lor);
+        })('');
+        user.addUser(addr, function(ret) {
             if (!ret.status)
                 console.log(ret.message);
             else
                 console.log('User well added');
         }, {
-            firstname: i,
-            lastname: i,
-            nickname: i,
+            firstname: addr,
+            lastname: addr,
+            nickname: addr,
             mail: 'test@test.com'
+        });
+    }
+};
+
+// USAGE: ADD NEW ORGA
+exports.addOrga = function() {
+    var addr = '0x' + (function co(lor) {
+        return (lor += [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'][Math.floor(Math.random() * 16)]) && (lor.length == 8) ? lor : co(lor);
+    })('');
+    orga.addOrga(addr, function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log('Orga added');
+    }, {
+        name: addr
+    });
+};
+
+// USAGE: GET ORGA BY ADDRESS
+exports.getOrga = function() {
+    orga.getOrga("0x05d4e538", function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message);
+    });
+};
+
+exports.changeABI = function() {
+    orga.changeABI("0x05d4e538", {
+        name: "New ABI LOL",
+        type: "function",
+        inputs: [{
+            name: 'a',
+            type: 'uint32'
+        }, ],
+        outputs: [{
+            name: 'd',
+            type: 'uint32'
+        }, ]
+    }, function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message);
+    });
+};
+
+exports.addMemberAddress = function() {
+    orga.addMemberAddress("0x05d4e538", "0x5b18e694", function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message);
+    });
+};
+
+exports.addProjectAddress = function() {
+    orga.addProjectAddress("0x05d4e538", "testProject", function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message);
+    });
+};
+
+exports.addSubOrga = function() {
+    // TODO: define how is passed a suborga
+};
+
+exports.addTransaction = function() {
+    orga.addTransaction("0x05d4e538", {
+        hash: 0xF43A2E5C,
+        date: (new Date()).toJSON(),
+        from: "0x5b18e694",
+        to: "0x05d4e538",
+        amount: 2
+    }, function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message);
+    });
+};
+
+exports.addActuality = function() {
+    orga.addActuality("0x05d4e538", "Nous, c'est cool!", function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message);
+    });
+};
+
+exports.addFile = function() {
+    orga.addFile("0x05d4e538", "TOUT PLEIN DE DATA DE FICHIER", function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message);
+    });
+};
+
+// USAGE: FILL ORGA DB
+exports.fillOrgaDb = function() {
+    for (var i = 0; i < 20; i++) {
+        var addr = '0x' + (function co(lor) {
+            return (lor += [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'][Math.floor(Math.random() * 16)]) && (lor.length == 8) ? lor : co(lor);
+        })('');
+        orga.addOrga(addr, function(ret) {
+            if (!ret.status)
+                console.log(ret.message);
+            else
+                console.log('Orga added');
+        }, {
+            name: addr
         });
     }
 };

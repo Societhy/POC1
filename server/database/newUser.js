@@ -315,7 +315,7 @@ function existsUser(user, doExists, finalCallback) {
     };
 
     if (user.addresses[0] === "") {
-        ret.message = "Address cannot be empty.";
+        ret.message = "Address is empty.";
         finalCallback(ret);
     } else {
         var cursor = db.get().collection(USER).find({
@@ -348,7 +348,7 @@ function notExistsUser(searchUser, doNotExists, finalCallback) {
     };
 
     if (searchUser.addresses[0] === "") {
-        ret.message = "Address cannot be empty.";
+        ret.message = "Address is empty.";
         finalCallback(ret);
     } else {
         var cursor = db.get().collection(USER).find({
