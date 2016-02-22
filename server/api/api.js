@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var user = require('../database/newUser')
+var user = require('../database/user')
 
 router.get('/', function(req, res, next)
 {
