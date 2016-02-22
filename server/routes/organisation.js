@@ -11,6 +11,11 @@ router.get('/', function (req, res, next)
 res.render('organisation_homepage')
 })
 
+router.get('/create', function(req, res, next)
+{
+    res.render('organisation_create')
+});
+
 router.get('/:name', function(req, res, next)
 {
     orga.getOrgaByName(req.params.name, function (ret)
@@ -25,4 +30,5 @@ router.get('/:name', function(req, res, next)
         res.render('organisation', {name: ret.body.name, memberList: ret.body.memberList,  });
     });
 });
+
 module.exports = router;

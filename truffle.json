@@ -1,27 +1,57 @@
 {
   "build": {
-      "index.html":
-      "index.html",
-      "createOrga.html":
-      "createOrga.html",
-    "app.js": [
-	"javascripts/ethereumjs-accounts.min.js",
-	"javascripts/hooked-web3-provider.min.js",
-	"javascripts/socket.io.js",
-	"javascripts/manageAccounts.js",
-	"javascripts/manageContracts.js",
-	"javascripts/app.js",
-	"javascripts/handleNetwork.js"
+    "index.js": [
+      "javascripts/lib/socket.io.min.js",
+      "javascripts/lib/socket.io-stream.min.js",
+      "javascripts/lib/web3.min.js",
+      "javascripts/lib/hooked-web3-provider.min.js",
+      "javascripts/index.js"
     ],
-      "app.css": [
-	  "stylesheets/app.css"
-      ]
+    "user.js": [
+      "javascripts/lib/socket.io.min.js",
+      "javascripts/lib/socket.io-stream.min.js",
+      "javascripts/lib/web3.min.js",
+      "javascripts/lib/hooked-web3-provider.min.js",
+      "javascripts/user.js"
+    ],
+    "orga.js": [
+      "javascripts/lib/socket.io.min.js",
+      "javascripts/lib/socket.io-stream.min.js",
+      "javascripts/lib/web3.min.js",
+      "javascripts/lib/hooked-web3-provider.min.js",
+      "javascripts/lib/ether-pudding.min.js",
+      "javascripts/orga.js"
+    ],
+    "project.js": [
+      "javascripts/lib/socket.io.min.js",
+      "javascripts/lib/socket.io-stream.min.js",
+      "javascripts/lib/web3.min.js",
+      "javascripts/lib/hooked-web3-provider.min.js",
+      "javascripts/lib/ether-pudding.min.js",
+      "javascripts/project.js"
+    ],
+    "newOrga.js": [
+      "javascripts/lib/socket.io.min.js",
+      "javascripts/lib/socket.io-stream.min.js",
+      "javascripts/lib/web3.min.js",
+      "javascripts/lib/hooked-web3-provider.min.js",
+      "javascripts/lib/ether-pudding.min.js",
+      "javascripts/newOrga.js"
+    ],
+    "newProject.js": [
+      "javascripts/lib/socket.io.min.js",
+      "javascripts/lib/socket.io-stream.min.js",
+      "javascripts/lib/web3.min.js",
+      "javascripts/lib/hooked-web3-provider.min.js",
+      "javascripts/lib/ether-pudding.min.js",
+      "javascripts/newProject.js"
+    ]
   },
-    "deploy": [
-	"BasicOrga"
-    ],
-    "rpc": {
-	"host": "localhost",
-	"port": 8101
-    }
+  "deploy": [
+    "BasicOrga"
+  ],
+  "rpc": {
+    "host": "localhost",
+    "port": 8101
+  }
 }
