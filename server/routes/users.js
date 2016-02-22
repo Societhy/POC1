@@ -14,7 +14,13 @@ router.get('/:addr', function(req, res, next)
 
     user.getUser(addr, function(ret) {
         if (!ret.status)
-            console.log(ret.message);
+        {
+            console.log(ret);
+            var err = new Error(ret.message);
+            err.status = 404;
+            next(err);
+            return;
+        }
         else
             res.render('user', ret.object);
     });
