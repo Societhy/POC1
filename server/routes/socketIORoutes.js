@@ -34,15 +34,14 @@ global.io.on('connection', function (socket) {
         }, 3000);
     });
 
-    ////files
-    //ss(socket).on("userimg", function (stream, data) {
-    //    var buff;
-    //    stream.on('data', function (lel) {
-    //        buff += lel;
-    //        //console.log(buff);
-    //    });
-    //    stream.on('end', function() {
-    //        console.log(buff);
-    //    });
-    //});
+    //files
+    ss(socket).on("userimg", function (stream, data) {
+        var buff;
+        stream.on('data', function (lel) {
+            buff += lel;
+        });
+        stream.on('end', function() {
+            console.log(buff);
+        });
+    });
 });
