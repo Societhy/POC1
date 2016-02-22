@@ -2,11 +2,27 @@ var express = require('express');
 var router = express.Router();
 var user = require('../database/newUser')
 
-/* GET users listing. */
-router.get('/', function(req, res, next)
-{
-  res.send('Homepage des users , a voir si on mets qq chose. Ou alors on fait la page my prcfile ici');
-});
+var handlebars = require('handlebars'),
+    fs = require('fs');
+
+var pages = {user:"Elements/Profile.hbs"};
+
+function getRender(callback) {
+  for (var key in pages)
+  {
+    fs.readFile(pages[key],'utf-8', function (err, data) {
+      pages[key] = data.toString();
+    });
+  }
+  callback();
+}
+
+function callback() {
+  router.get('/', function(req, res, next) {
+    res.render('users', {Title: "Societhy", data:pages});
+  });
+}
+
 
 router.get('/:addr', function(req, res, next)
 {
@@ -19,4 +35,5 @@ router.get('/:addr', function(req, res, next)
             res.render('user', ret.object);
     });
 });
+getRender(callback);
 module.exports = router;
