@@ -1,3 +1,5 @@
+import "Project"
+
 contract BasicOrga {
 
   struct Rights {
@@ -13,19 +15,27 @@ contract BasicOrga {
     Rights rights;
   }
 
+  struct Project {
+    string name;
+    string description;
+    uint startDate;
+  }
+
   event newDonation(address addr, uint value);
   event newUser(string name);
 
   mapping (address => User) members;
+  address[] projects;
   address public creator;
   string public name;
 
   function BasicOrga(string _name) {
     creator = msg.sender;
+    name = _name;
   }
 
-  function donate() {
-    members[msg.sender].contribution = msg.value;
+  function donation() {
+    members[msg.sender].contribution += msg.value;
     newDonation(msg.sender, msg.value);
   }
 
@@ -36,6 +46,7 @@ contract BasicOrga {
     members[msg.sender].rights.propose = true;
     members[msg.sender].rights.vote = true;
     members[msg.sender].name = _name;
+    members[msg.sender].contribution = 0;
     newUser(members[msg.sender].name);
   }
 
@@ -43,6 +54,9 @@ contract BasicOrga {
     return members[user].name;
   }
 
+  function createProject(string _name, string _description, uint _date) {
+    projects.push(new Project(name : _name, description : _description, date : _date));
+  }
 
   function kill() {
     suicide(creator);

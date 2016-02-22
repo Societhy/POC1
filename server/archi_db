@@ -1,0 +1,120 @@
+██    ██ ███████ ███████ ██████
+██    ██ ██      ██      ██   ██
+██    ██ ███████ █████   ██████
+██    ██      ██ ██      ██   ██
+ ██████  ███████ ███████ ██   ██
+{
+    address:
+        [
+            address: STRING
+        ],
+    firstname: STRING,
+    lastname: STRING,
+    pseudo: STRING,
+    mail: STRING,
+    photo: IMG,
+    listOrga:
+        [
+            {
+                orgaName: ORGA.name,
+                orgaAddr: ORGA.addr
+            }
+        ],
+    transHisto:
+        [
+            {
+                hash:   NUMERIC,
+                date:   DATE,
+                from:   STRING,
+                to:     STRING,
+                amount: NUMERIC
+            }
+        ],
+    friends:
+        [
+            {
+                userName: USER.name,
+                userAddr: USER.address
+            }
+        ]
+}
+
+
+ ██████  ██████   ██████   █████
+██    ██ ██   ██ ██       ██   ██
+██    ██ ██████  ██   ███ ███████
+██    ██ ██   ██ ██    ██ ██   ██
+ ██████  ██   ██  ██████  ██   ██
+{
+    name: STRING,
+    contractAbi, params, owner,
+    memberList:
+        [
+            {
+                userAddr: USER.address,
+                userName: USER.name,
+                right:
+                    {
+                        admin: BOOL,
+                        proposeDonation: BOOL
+                    }
+            }
+        ],
+    executives:
+        [
+            {
+                userName: USER.name,
+                userAddr: USER.addr
+            }
+        ],
+    project:
+        [
+            OBJECTS
+        ],
+    subOrga:
+        [
+            ORGA
+        ],
+    transHisto:
+        [
+            {
+                hash: NUMERIC,
+                date: DATE,
+                from: STRING,
+                to: STRING,
+                amount: NUMERIC
+            }
+        ],
+    actualities:
+        [
+            STRING
+        ]
+}
+
+
+██████  ██████   ██████       ██ ███████  ██████ ████████
+██   ██ ██   ██ ██    ██      ██ ██      ██         ██
+██████  ██████  ██    ██      ██ █████   ██         ██
+██      ██   ██ ██    ██ ██   ██ ██      ██         ██
+██      ██   ██  ██████   █████  ███████  ██████    ██
+{
+    name: STRING,
+    description: STRING,
+    memberList:
+        [
+            {
+                userName: USER.name,
+                userAddr: USER.addr
+            }
+        ],
+    fundRaising:
+        {
+            isFundRaising:  BOOL,
+            goal:           NUMERIC
+        },
+    img: IMG,
+    review  s:
+        [
+            STRING
+        ]
+}

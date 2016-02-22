@@ -6,10 +6,29 @@ var express = require('express');
 var router = express.Router();
 var orga = require('../database/orga')
 
-router.get('/', function (req, res, next)
-{
-res.render('organisation_homepage')
-})
+
+var handlebars = require('handlebars'),
+    fs = require('fs');
+
+var pages = {user:"Elements/Orga.hbs"};
+
+function getRender(callback) {
+    for (var key in pages)
+    {
+        fs.readFile(pages[key],'utf-8', function (err, data) {
+            pages[key] = data.toString();
+        });
+    }
+    callback();
+}
+
+function callback() {
+    router.get('/', function (req, res, next)
+    {
+        res.render('organisation_homepage', {data: pages})
+    })
+}
+getRender(callback);
 
 router.get('/create', function(req, res, next)
 {
