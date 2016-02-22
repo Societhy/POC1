@@ -99,8 +99,8 @@ contract Project {
 
   modifier deadlineReached(uint deadline) { if (now >= deadline) _ }
 
-  function endProposal(Proposal pro) deadlineReached (pro.timeLimit) returns (bool) {
-    if (pro.positive > pro.negative) {
+  function endProposal(Proposal pro) deadlineReached(pro.timeLimit) returns (bool) {
+    if (pro.positive > pro.negative)
         createProposal(pro);
     else
         return false;
@@ -111,7 +111,7 @@ contract Project {
     return members[user].name;
   }
 
-  function getFundraise(address fundraise) returns () {
+  function getFundraise(address fundraise) returns (string) {
     return fundraises.name;
   }
 

@@ -44,7 +44,7 @@ contract Fundraise {
   }
 
   function endCampaign() returns (boolean) {
-    if (now > deadline {
+    if (now > deadline) {
         if (alreadyRaised >= fundingGoal) {
           beneficiary.send(alreadyRaised);
           endOfCampaign(true, alreadyRaised);
