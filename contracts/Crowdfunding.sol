@@ -23,12 +23,17 @@ contract Crowdfunding {
   }
 
   function () {
-    uint amount = msg.value;
-    address sender = msg.sender;
-
-    contributors.push(Contributor({addr:sender, contribution:amount}));
-    alreadyRaised += amount;
-    newContribution(sender, amount);
+  uint i;
+    for (i = 0; i < contibutors.length; ++i) {
+        if (contributors[i].addr == msg.sender) {
+            contributors[i].contribution += msg.value;
+            break;
+        }
+    }
+    if (i == contributors.length)
+        contributors.push(Contributor({addr:msg.sender, contribution:msg.value}));
+    alreadyRaised += msg.value;
+    newContribution(msg.sender, amount);
   }
 
   modifier afterDeadline() { if (now >= deadline) _ }
