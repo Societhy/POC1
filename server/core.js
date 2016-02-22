@@ -16,7 +16,7 @@ var db = require('./database/db');
  var url = 'mongodb://10.41.177.67:27017/test';
 //var url = 'mongodb://localhost:27017/test';
 
-var example = require('./example');
+var example = require('./database/example');
 
 var fs = require('fs');
 

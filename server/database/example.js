@@ -1,6 +1,4 @@
 var user = require('./newUser');
-var user = require('./database/newUser');
-var orga = require('./database/newOrga');
 
 // USAGE: ADD NEW USER
 exports.addUser = function() {
