@@ -93,5 +93,5 @@ var server = {
 	    }
 
 	}}
-
+server.start(function(){});
 module.exports = server;

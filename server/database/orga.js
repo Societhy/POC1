@@ -1,121 +1,318 @@
 var db = require('./db');
+var ORGA = "orga";
 
-// finalCallback param = {
-//     success: false,
-//     message: '',
-//     body: null
-// }
-
-function existsOrga(orga, toDo, finalCallback) {
-    // console.log("Searching orga: ", orga.name," from db.")
-    var cursor = db.get().collection('orga').find({
-        'name': orga.name
-    });
-
-    cursor.count(function(err, nb) {
-        if (err) {
-            finalCallback({
-                status: false,
-                message: err.message,
-                body: null
-            });
-            return;
-        }
-        if (nb !== 0) {
-            // console.log("Orga: ", orga.name," exists.")
-            toDo(orga, finalCallback);
-        } else {
-            // console.log("Orga: ", orga.name," doesn't exists.")
-            finalCallback({
-                status: false,
-                message: "Organisation doesn't exists.",
-                body: null
-            });
-        }
-    });
-}
-
-function notExistsOrga(orga, toDo, finalCallback) {
-    // console.log("Searching orga: ", orga.name," from db.")
-    var cursor = db.get().collection('orga').find({
-        'name': orga.name
-    });
-
-    cursor.count(function(err, nb) {
-        if (err) {
-            finalCallback({
-                status: false,
-                message: err.message,
-                body: null
-            });
-            return;
-        }
-        if (nb !== 0) {
-            // console.log("Orga: ", orga.name," exists.")
-            finalCallback({
-                status: false,
-                message: "Organisation already exists.",
-                body: null
-            });
-        } else {
-            // console.log("Orga: ", orga.name," doesn't exists.")
-            toDo(orga, finalCallback);
-        }
-    });
-}
-
-exports.getOrgaByName = function(name, finalCallback) {
-    // console.log("Searching orga for name:", name)
-    var nameNonSensitive = new RegExp(["^", name, "$"].join(""), "i");
-
-    var orgaCursor = db.get().collection('orga').find({
-        'name': nameNonSensitive
-    });
-    orgaCursor.hasNext(function(err, orga) {
-        if (err) {
-            finalCallback({
-                status: false,
-                message: err.message
-            });
-        }
-        orgaCursor.next(function(err, orga) {
+exports.addOrga = function(orgaAddress, finalCallback, orgaInfos) {
+    var orga = {
+        address: orgaAddress,
+        name: orgaInfos && orgaInfos.name ? orgaInfos.name : "",
+        ABI: orgaInfos && orgaInfos.ABI ? orgaInfos.ABI : {},
+        memberList: orgaInfos && orgaInfos.memberList ? orgaInfos.memberList : [],
+        projects: orgaInfos && orgaInfos.projects ? orgaInfos.projects : [],
+        subOrga: orgaInfos && orgaInfos.subOrga ? orgaInfos.subOrga : [],
+        transactionHistoric: orgaInfos && orgaInfos.transactionHistoric ? orgaInfos.transactionHistoric : [],
+        actualities: orgaInfos && orgaInfos.actualities ? orgaInfos.actualities : [],
+        files: orgaInfos && orgaInfos.files ? orgaInfos.files : []
+    };
+    notExistsOrga(orga, function(orga, finalCallback) {
+        var ret = {
+            status: false,
+            message: "",
+            object: null
+        };
+        db.get().collection(ORGA).insertOne(orga, function(err, orga) {
             if (err) {
-                finalCallback({
-                    status: false,
-                    message: 'No such organisation.',
-                    body: null
-                });
+                ret.message = err.message;
+                finalCallback(ret);
             } else {
-                finalCallback({
-                    status: true,
-                    message: 'No error.',
-                    body: orga
+                ret.status = true;
+                ret.message = "Organisation added.";
+                ret.object = orga;
+                finalCallback(ret);
+            }
+        });
+    }, finalCallback);
+};
+
+exports.getOrga = function(orgaAddress, finalCallback) {
+    var orga = {
+        address: orgaAddress
+    };
+    existsOrga(orga, function(orga, finalCallback) {
+        var ret = {
+            status: true,
+            message: "Found Organisation.",
+            object: orga
+        };
+        finalCallback(ret);
+    }, finalCallback);
+};
+
+exports.changeABI = function(orgaAddress, newABI, finalCallback) {
+    var orga = {
+        address: orgaAddress
+    };
+
+    existsOrga(orga, function(orga, finalCallback) {
+        var ret = {
+            status: false,
+            message: "",
+            object: null
+        };
+        db.get().collection(ORGA).updateOne(orga, {
+            $set: {
+                ABI: newABI
+            }
+        }, function(err, result) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                ret.status = true;
+                ret.message = "ABI changed.";
+                ret.object = orga;
+                finalCallback(ret);
+            }
+        });
+        finalCallback(ret);
+    }, finalCallback);
+};
+
+exports.addMemberAddress = function(orgaAddress, userAddress, finalCallback) {
+    var orga = {
+        address: orgaAddress
+    };
+    existsOrga(orga, function(orga, finalCallback) {
+        var ret = {
+            status: false,
+            message: "",
+            object: null
+        };
+        db.get().collection(ORGA).updateOne(orga, {
+            $push: {
+                memberList: userAddress
+            }
+        }, function(err, result) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                ret.status = true;
+                ret.message = "Member address added.";
+                ret.object = orga;
+                finalCallback(ret);
+            }
+        });
+        finalCallback(ret);
+    }, finalCallback);
+};
+
+exports.addProjectAddress = function(orgaAddress, projAddress, finalCallback) {
+    var orga = {
+        address: orgaAddress
+    };
+    existsOrga(orga, function(orga, finalCallback) {
+        var ret = {
+            status: false,
+            message: "",
+            object: null
+        };
+        db.get().collection(ORGA).updateOne(orga, {
+            $push: {
+                projects: projAddress
+            }
+        }, function(err, result) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                ret.status = true;
+                ret.message = "Project address added.";
+                ret.object = orga;
+                finalCallback(ret);
+            }
+        });
+        finalCallback(ret);
+    }, finalCallback);
+};
+
+exports.addSubOrga = function(orgaAddress, subOrga, finalCallback) {
+    var orga = {
+        address: orgaAddress
+    };
+    existsOrga(orga, function(orga, finalCallback) {
+        var ret = {
+            status: false,
+            message: "",
+            object: null
+        };
+        db.get().collection(ORGA).updateOne(orga, {
+            $push: {
+                subOrga: subOrga
+            }
+        }, function(err, result) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                ret.status = true;
+                ret.message = "SubOrganisation added.";
+                ret.object = orga;
+                finalCallback(ret);
+            }
+        });
+        finalCallback(ret);
+    }, finalCallback);
+};
+
+exports.addTransaction = function(orgaAddress, transaction, finalCallback) {
+    var orga = {
+        address: orgaAddress
+    };
+    existsOrga(orga, function(orga, finalCallback) {
+        var ret = {
+            status: false,
+            message: "",
+            object: null
+        };
+        db.get().collection(ORGA).updateOne(orga, {
+            $push: {
+                transactionHistoric: transaction
+            }
+        }, function(err, result) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                ret.status = true;
+                ret.message = "Transaction added.";
+                ret.object = orga;
+                finalCallback(ret);
+            }
+        });
+        finalCallback(ret);
+    }, finalCallback);
+}
+
+exports.addActuality = function(orgaAddress, actuality, finalCallback) {
+    var orga = {
+        address: orgaAddress
+    };
+    existsOrga(orga, function(orga, finalCallback) {
+        var ret = {
+            status: false,
+            message: "",
+            object: null
+        };
+        db.get().collection(ORGA).updateOne(orga, {
+            $push: {
+                actualities: actuality
+            }
+        }, function(err, result) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                ret.status = true;
+                ret.message = "Actuality added.";
+                ret.object = orga;
+                finalCallback(ret);
+            }
+        });
+        finalCallback(ret);
+    }, finalCallback);
+}
+
+exports.addFile = function(orgaAddress, fileData, finalCallback) {
+    var orga = {
+        address: orgaAddress
+    };
+    existsOrga(orga, function(orga, finalCallback) {
+        var ret = {
+            status: false,
+            message: "",
+            object: null
+        };
+        db.get().collection(ORGA).updateOne(orga, {
+            $push: {
+                files: fileData
+            }
+        }, function(err, result) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                ret.status = true;
+                ret.message = "File added.";
+                ret.object = orga;
+                finalCallback(ret);
+            }
+        });
+        finalCallback(ret);
+    }, finalCallback);
+}
+
+function existsOrga(orga, doExists, finalCallback) {
+    var ret = {
+        status: false,
+        message: "",
+        object: null
+    };
+
+    if (orga.address === "") {
+        ret.message = "Address is empty.";
+        finalCallback(ret);
+    } else {
+        var cursor = db.get().collection(ORGA).find({
+            'address': orga.address
+        });
+
+        cursor.hasNext(function(err, orga) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                cursor.next(function(err, orga) {
+                    if (err) {
+                        ret.message = "Organisation doesn't exists.";
+                        finalCallback(ret);
+                    } else {
+                        doExists(orga, finalCallback);
+                    }
+                })
+            }
+        })
+    }
+}
+
+function notExistsOrga(searchOrga, doNotExists, finalCallback) {
+    var ret = {
+        status: false,
+        message: "",
+        object: null
+    };
+
+    if (searchOrga.address === "") {
+        ret.message = "Address is empty.";
+        finalCallback(ret);
+    } else {
+        var cursor = db.get().collection(ORGA).find({
+            'address': searchOrga.address
+        });
+
+        cursor.hasNext(function(err, orga) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                cursor.next(function(err, orga) {
+                    if (err) {
+                        doNotExists(searchOrga, finalCallback);
+                    } else {
+                        ret.message = "Organisation already exists.";
+                        finalCallback(ret);
+                    }
                 });
             }
         });
-    });
-};
-
-function addOrga(orga, finalCallback) {
-    // console.log("Insertion of new orga.")
-
-    db.get().collection('orga').insertOne(orga, function(err, result) {
-        if (err) {
-            finalCallback({
-                status: false,
-                message: err.message
-            });
-        } else {
-            // console.log("Inserted new orga in orga collection.")
-            finalCallback({
-                status: true,
-                message: "Organisation added.",
-                body: null
-            });
-        }
-    });
+    }
 }
-
-exports.addNewOrga = function(orga, finalCallback) {
-    notExistsOrga(orga, addOrga, finalCallback);
-};

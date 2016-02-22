@@ -4,7 +4,7 @@
 
 var express = require('express');
 var router = express.Router();
-var orga = require('../database/orga')
+var orga = require('../database/orga');
 
 
 var handlebars = require('handlebars'),
@@ -25,14 +25,14 @@ function getRender(callback) {
 function callback() {
     router.get('/', function (req, res, next)
     {
-        res.render('organisation_homepage', {data: pages})
-    })
+        res.render('organisation_homepage', {data: pages});
+    });
 }
 getRender(callback);
 
 router.get('/create', function(req, res, next)
 {
-    res.render('organisation_create')
+    res.render('organisation_create');
 });
 
 router.get('/:name', function(req, res, next)

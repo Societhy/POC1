@@ -11,6 +11,8 @@ var organisation = require('./routes/organisation');
 var register = require('./routes/register');
 var debug = require('./routes/debug');
 
+var api = require('./api/api.js')
+
 var app = express();
 var db = require('./database/db');
  var url = 'mongodb://10.41.177.67:27017/test';
@@ -47,6 +49,9 @@ app.use('/users', users);
 app.use('/organisation', organisation);
 app.use('/register', register);
 app.use('/debug', debug);
+
+//api
+app.use('/api', api)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

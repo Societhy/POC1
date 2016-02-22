@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var user = require('../database/newUser')
+var user = require('../database/user');
 
 var handlebars = require('handlebars'),
     fs = require('fs');
@@ -30,7 +30,13 @@ router.get('/:addr', function(req, res, next)
 
     user.getUser(addr, function(ret) {
         if (!ret.status)
-            console.log(ret.message);
+        {
+            console.log(ret);
+            var err = new Error(ret.message);
+            err.status = 404;
+            next(err);
+            return;
+        }
         else
             res.render('user', ret.object);
     });

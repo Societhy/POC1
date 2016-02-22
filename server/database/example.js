@@ -1,4 +1,4 @@
-var user = require('./newUser');
+var user = require('./user');
 
 // USAGE: ADD NEW USER
 exports.addUser = function() {
