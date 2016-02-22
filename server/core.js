@@ -32,14 +32,14 @@ app.use(cookieParser());
 app.use("/", express.static(path.join(__dirname, 'public')));
 app.use("/contract", express.static(path.join(__dirname, "../environments/development/build")));
 
-db.connect(url, function (err) {
-    if (err){
-        console.log('Unable to connect to Mongo.');
-        process.exit(1);
-    } else {
-        console.log('Connected to db');
-    }
-});
+//db.connect(url, function (err) {
+//    if (err){
+//        console.log('Unable to connect to Mongo.');
+//        process.exit(1);
+//    } else {
+//        console.log('Connected to db');
+//    }
+//});
 
 //routing
 app.use('/', index);

@@ -4,10 +4,10 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-var user = require('../database/newUser');
+var db = require('../database/db')
 
 // Create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 router.get('/', function(req, res, next)
 {
@@ -19,24 +19,35 @@ router.post('/submit', urlencodedParser, function (req, res)
 {
     // Prepare output in JSON format
     var response = {
-        firstname:req.body.fname,
-        lastname:req.body.lname,
-        nickname:req.body.username,
-        mail:req.body.mail,
-        profilePic:"" // TODO: DATA DE LA PHOTO
+        firstname:req.body.username,
+        addresses:[req.body.ethaddr]
     };
 
-//    console.log(req.files.ppic);
-
-    user.addUser(req.body.ethaddr, function(ret){
-        if (!ret.status) {
-            // TODO: Fail de la base ou alors user already exists
-            console.log(ret.message);
-        } else {
-            console.log('User added:', ret.object);
+    db.existUser(response,
+        //CALLBACK EXIST
+        function ()
+        {
+            db.insertNewUser(function(error)
+            {
+                if (!error)
+                {
+                    //OK
+                    return;
+                }
+                else
+                {
+                    // ERROR !
+                    return;
+                }
+            })
+        },
+        //CALLBACK NOT EXIST
+        function ()
+        {
         }
-    }, response);
+    );
 
+    console.log(response);
     res.end(JSON.stringify(response));
 });
 
