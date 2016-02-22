@@ -5,7 +5,7 @@
 var path = require('path');
 var ss =    require('socket.io-stream');
 var fs = require('fs');
-var user = require('../database/newUser')
+var user = require('../database/user');
 
 // init socketio
 global.io.on('connection', function (socket) {
