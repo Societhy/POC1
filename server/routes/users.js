@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var user = require('../database/user');
-
 var handlebars = require('handlebars'),
     fs = require('fs');
 
