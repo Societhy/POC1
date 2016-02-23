@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use("/", express.static(path.join(__dirname, 'public')));
-app.use("/contract", express.static(path.join(__dirname, "../environments/development/build")));
+app.use("/eth", express.static(path.join(__dirname, "../environments/development/build")));
 
 db.connect(url, function(err) {
     if (err) {
