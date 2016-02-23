@@ -1,4 +1,4 @@
-var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8103"));
+var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
 
 var accounts = null;
 var account = null;
@@ -17,14 +17,10 @@ function refreshBalance() {
     var ethbalance_elem = document.getElementById("ethbalance");
 
     ethvalue = account ? web3.fromWei(web3.eth.getBalance(account)) : "?????";
-
-    ethbalance_elem.innerHTML = ethvalue.valueOf();
-    latestBlock_elem.innerHTML = latestBlock.valueOf();
 };
 
 function getPeerNumber() {
     var peers_elem = document.getElementById("peerNumber");
-    peers_elem.innerHTML = web3.net.peerCount.valueOf();
 }
 
 function update() {

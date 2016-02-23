@@ -1,48 +1,30 @@
 {
   "build": {
-    "index.js": [
+    "ethBase.js" : [
       "javascripts/lib/socket.io.min.js",
       "javascripts/lib/socket.io-stream.min.js",
       "javascripts/lib/web3.min.js",
-      "javascripts/lib/hooked-web3-provider.min.js",
+      "javascripts/lib/hooked-web3-provider.min.js"
+      ],
+    "index.js": [
       "javascripts/index.js"
     ],
     "user.js": [
-      "javascripts/lib/socket.io.min.js",
-      "javascripts/lib/socket.io-stream.min.js",
-      "javascripts/lib/web3.min.js",
-      "javascripts/lib/hooked-web3-provider.min.js",
       "javascripts/user.js"
     ],
     "orga.js": [
-      "javascripts/lib/socket.io.min.js",
-      "javascripts/lib/socket.io-stream.min.js",
-      "javascripts/lib/web3.min.js",
-      "javascripts/lib/hooked-web3-provider.min.js",
       "javascripts/lib/ether-pudding.min.js",
       "javascripts/orga.js"
     ],
     "project.js": [
-      "javascripts/lib/socket.io.min.js",
-      "javascripts/lib/socket.io-stream.min.js",
-      "javascripts/lib/web3.min.js",
-      "javascripts/lib/hooked-web3-provider.min.js",
       "javascripts/lib/ether-pudding.min.js",
       "javascripts/project.js"
     ],
     "newOrga.js": [
-      "javascripts/lib/socket.io.min.js",
-      "javascripts/lib/socket.io-stream.min.js",
-      "javascripts/lib/web3.min.js",
-      "javascripts/lib/hooked-web3-provider.min.js",
       "javascripts/lib/ether-pudding.min.js",
       "javascripts/newOrga.js"
     ],
     "newProject.js": [
-      "javascripts/lib/socket.io.min.js",
-      "javascripts/lib/socket.io-stream.min.js",
-      "javascripts/lib/web3.min.js",
-      "javascripts/lib/hooked-web3-provider.min.js",
       "javascripts/lib/ether-pudding.min.js",
       "javascripts/newProject.js"
     ]
