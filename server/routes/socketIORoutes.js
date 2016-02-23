@@ -7,7 +7,13 @@ var ss =    require('socket.io-stream');
 var fs = require('fs');
 var user = require('../database/user');
 
-// init socketio
+var contractLocation = path.join(__dirname, "../../environments/development/contracts");
+var Pudding = require("ether-pudding");
+var PuddingLoader = require("ether-pudding/loader");
+Pudding.setWeb3(global.web3);
+PuddingLoader.load(contractLocation, Pudding, global, function(error, names) {
+});
+
 global.io.on('connection', function (socket) {
 
     ////emit
@@ -31,6 +37,13 @@ global.io.on('connection', function (socket) {
                     socket.emit("KO", ret.message);
                 }
             })
+        }, 3000);
+    });
+
+    socket.on("newOrga", function (data) {
+        setTimeout(function()
+        {
+            socket.emit("resultOrga", {abi:BasicOrga.abi, binary:BasicOrga.binary, address:BasicOrga.address});
         }, 3000);
     });
 

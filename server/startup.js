@@ -1,6 +1,9 @@
 var debug = require('debug')('server');
 var app = require('./core.js');
 var http = require('http');
+var Web3 = require("web3");
+global.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
+
 
 /**
  * Module dependencies.
