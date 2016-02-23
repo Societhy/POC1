@@ -1,4 +1,4 @@
-import "Project"
+import "Project";
 
 contract BasicOrga {
 
@@ -15,26 +15,29 @@ contract BasicOrga {
     Rights rights;
   }
 
-  struct Project {
+  struct ProjectInfo {
     string name;
     string description;
     uint startDate;
+address addr;
   }
 
   event newDonation(address addr, uint value);
   event newUser(string name);
 
   mapping (address => User) members;
-  address[] projects;
-  address public creator;
+  ProjectInfo[] projects;
+  address public owner;
   string public name;
 
+modifier onlyOwner() { if (msg.sender == owner) _ }
+
   function BasicOrga(string _name) {
-    creator = msg.sender;
+    owner = msg.sender;
     name = _name;
   }
 
-  function donation() {
+  function () {
     members[msg.sender].contribution += msg.value;
     newDonation(msg.sender, msg.value);
   }
@@ -54,11 +57,13 @@ contract BasicOrga {
     return members[user].name;
   }
 
-  function createProject(string _name, string _description, uint _date) {
-    projects.push(new Project(name : _name, description : _description, date : _date));
+  function createProject(string _name, string _description, uint _date) returns (address) {
+address projectAddr = new Project(_name, _description, _date);
+    projects.push(ProjectInfo(_name, _description, _date, projectAddr));
+    return projectAddr;
   }
 
-  function kill() {
-    suicide(creator);
+  function kill() onlyOwner {
+    suicide(owner);
   }
 }
