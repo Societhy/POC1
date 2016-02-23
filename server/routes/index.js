@@ -5,7 +5,7 @@ var    fs = require('fs');
 
 
     router.get('/', function(req, res, next) {
-        res.render('index', {Title: "Societhy", data:pages});
+        res.render('index', {Title: "Societhy"});
     });
 
 
