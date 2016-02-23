@@ -8,6 +8,13 @@ contract Project {
   string public description;
   uint public date;
 
+  struct Rights {
+    bool destroy;
+    bool vote;
+    bool propose;
+    bool spend;
+  }
+
   struct User {
     string name;
     uint contribution;
@@ -19,6 +26,7 @@ contract Project {
     string description;
     uint goal;
     uint timeLimit;
+    bool isActive;
   }
 
   struct Proposal {
@@ -29,11 +37,15 @@ contract Project {
     FundraiseInfo info;
   }
 
-  address[] activeCampaigns;
+  Fundraise[] activeCampaigns;
   Proposal[] proposal;
   mapping (address => User) members;
 
-  function Project(string _name, string _description, uint date) {
+  event newUser(string name);
+
+modifier onlyOwner() { if (msg.sender == owner) _ }
+
+  function Project(string _name, string _description, uint _date) {
     name = _name;
     description = _description;
     date = _date;
@@ -52,20 +64,22 @@ contract Project {
 
   function createProposal(string name, string description, uint goal, uint timeLimit, uint proposalLimit)
   {
-    Proposal buff;
+    Proposal memory buff;
     buff.id = maxid++;
-    buff.timeLimit = now + proposalLimit * 1 minutes;;
+    buff.timeLimit = now + proposalLimit * 1 minutes;
     buff.positive = 0;
     buff.against = 0;
     buff.info.name = name;
     buff.info.description = description;
     buff.info.goal = goal;
     buff.info.timeLimit = now + timeLimit * 1 minutes;
+buff.info.isActive = false;
     proposal.push(buff);
   }
 
-  function createFundraise(Proposal proposal) {
-    activeCampaigns.push(new Fundraise(name : proposal.info.name, description : proposal.info.description, goal : proposal.info.goal, timeLimit : proposal.info.timeLimit));
+  function createFundraise(Proposal proposal) private {
+proposal.info.isActive = true;
+    activeCampaigns.push(new Fundraise(proposal.info.name, proposal.info.description, proposal.info.goal, proposal.info.timeLimit));
   }
 
   function voteForProposal(uint id, bool vote)
@@ -99,9 +113,9 @@ contract Project {
 
   modifier deadlineReached(uint deadline) { if (now >= deadline) _ }
 
-  function endProposal(Proposal pro) deadlineReached(pro.timeLimit) returns (bool) {
-    if (pro.positive > pro.negative)
-        createProposal(pro);
+  function endProposal(Proposal pro) internal deadlineReached(pro.timeLimit) returns (bool) {
+    if (pro.positive > pro.against)
+        createFundraise(pro);
     else
         return false;
     return true;
@@ -111,12 +125,11 @@ contract Project {
     return members[user].name;
   }
 
-  function getFundraise(address fundraise) returns (string) {
-    return fundraises.name;
+  function getProposals(address fundraise) returns (bool) {
+return true;
   }
 
-  function kill() {
-    if (msg.sender = owner)
-        suicide(creator);
+  function kill() onlyOwner {
+        suicide(owner);
   }
 }

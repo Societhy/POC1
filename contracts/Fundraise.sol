@@ -6,7 +6,7 @@ contract Fundraise {
   string public description;
   uint public deadline;
   uint public goal;
-  uint public actual;
+  uint public alreadyRaised;
   bool public isRaising;
 
   struct Contributor {
@@ -16,22 +16,23 @@ contract Fundraise {
 
   Contributor[] contributors;
 
-  event newDonation(address addr, uint value);
+  event newDonation(address addr, uint amount);
+  event endOfCampaign(bool success, uint amount);
 
-  function Fundraise(address _beneficiary, string _name, string _description, uint _goal, uint _duration) {
-    beneficiary = _beneficiary;
+  function Fundraise(string _name, string _description, uint _goal, uint _timeLimit) {
+    beneficiary = msg.sender;
     name = _name;
     description = _description;
     goal = _goal;
-    deadline = now + _duration * 1 minutes;
+    deadline = now + _timeLimit * 1 minutes;
     isRaising = false;
-    actual = 0;
+    alreadyRaised = 0;
     owner = msg.sender;
   }
 
-  function donate() {
+  function () {
     uint i;
-    for (i = 0; i < contibutors.length; ++i) {
+    for (i = 0; i < contributors.length; ++i) {
         if (contributors[i].addr == msg.sender) {
             contributors[i].contribution += msg.value;
             break;
@@ -39,13 +40,14 @@ contract Fundraise {
     }
     if (i == contributors.length)
         contributors.push(Contributor({addr:msg.sender, contribution:msg.value}));
-    actual += msg.value;
+    alreadyRaised += msg.value;
     newDonation(msg.sender, msg.value);
   }
 
-  function endCampaign() returns (boolean) {
-    if (now > deadline) {
-        if (alreadyRaised >= fundingGoal) {
+  modifier deadlineReached { if (now >= deadline) _ }
+
+  function endCampaign() public deadlineReached returns (bool) {
+        if (alreadyRaised >= goal) {
           beneficiary.send(alreadyRaised);
           endOfCampaign(true, alreadyRaised);
         }
@@ -56,7 +58,4 @@ contract Fundraise {
         suicide(beneficiary);
         return true;
     }
-    else
-        return false;
-  }
 }
