@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var users = require('./routes/user');
 var organisation = require('./routes/organisation');
 var register = require('./routes/register');
 var debug = require('./routes/debug');
@@ -16,6 +16,8 @@ var api = require('./api/api.js');
 var app = express();
 var db = require('./database/db');
 var url = 'mongodb://localhost:27017/test';
+
+var example = require('./database/example');
 
 var fs = require('fs');
 
@@ -31,7 +33,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use("/", express.static(path.join(__dirname, 'public')));
-app.use("/eth", express.static(path.join(__dirname, "../environments/development/build")));
+app.use("/contract", express.static(path.join(__dirname, "../environments/development/build")));
 
 db.connect(url, function(err) {
     if (err) {
