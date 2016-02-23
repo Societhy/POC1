@@ -12,7 +12,7 @@ function createNewOrga() {
     window.socket.on("resultOrga", function (contractData) {
         console.log(contractData);
         var gasNb = (web3.eth.estimateGas({from:web3.eth.coinbase, data:contractData.binary}));
-        alert("deploying this contract will cost you " + web3.fromWei(gasNb) + " ether.");
+        alert("deploying this contract will cost you " + web3.fromWei(gasNb * gasPrice) + " ether.");
         var contract = Pudding.whisk({abi:contractData.abi, binary:contractData.binary});
         contract.new({gas:gasNb, from:web3.eth.coinbase, data:contractData.binary}).then(function (tx) {
             console.log("orga deployed", tx);
