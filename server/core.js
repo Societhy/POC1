@@ -15,7 +15,7 @@ var api = require('./api/api.js');
 
 var app = express();
 var db = require('./database/db');
-var url = 'mongodb://localhost:27017/test';
+var url = 'mongodb://10.224.9.117:27017/test';
 
 
 var fs = require('fs');
