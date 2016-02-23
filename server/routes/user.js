@@ -6,7 +6,6 @@ var path = require("path");
 
 var pages = {user:path.join(__dirname, "../views/Elements/Profile.hbs")};
 
-console.log(pages.user);
 var data = fs.readFileSync(pages.user).toString();
 
 router.get('/', function(req, res, next) {

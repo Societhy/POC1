@@ -8,10 +8,15 @@ var browserAccounts;
 //TODO : normal si ça marche pas
 function createNewOrga() {
     console.log(account);
-    var gasNb = (web3.eth.estimateGas({from:web3.eth.coinbase, data:BasicOrga.binary}));
-    var contract = Pudding.whisk(BasicOrga.abi, BasicOrga.binary);
-    contract.new({gas:gasNb, from:web3.eth.coinbase, data:BasicOrga.binary}).then(function (tx) {
-        console.log("orga deployed", tx);
+    window.socket.emit("newOrga", { lel:"lel"});
+    window.socket.on("resultOrga", function (contractData) {
+        console.log(contractData);
+        var gasNb = (web3.eth.estimateGas({from:web3.eth.coinbase, data:contractData.binary}));
+        alert("deploying this contract will cost you " + web3.fromWei(gasNb) + " ether.");
+        var contract = Pudding.whisk({abi:contractData.abi, binary:contractData.binary});
+        contract.new({gas:gasNb, from:web3.eth.coinbase, data:contractData.binary}).then(function (tx) {
+            console.log("orga deployed", tx);
+        });
     });
 }
 
@@ -85,6 +90,7 @@ function launchRemoteMode() {
 
 window.onload = function() {
     window.socket = io();
+    Pudding.setWeb3(web3);
     if (web3.isConnected()) {
         launchConnectedMode();
     }
