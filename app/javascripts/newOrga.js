@@ -92,3 +92,5 @@ window.onload = function() {
         launchRemoteMode();
     }
 }
+
+$("#submit_form").click(createNewOrga);
