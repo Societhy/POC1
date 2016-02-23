@@ -2,9 +2,11 @@ var express = require('express');
 var router = express.Router();
 var user = require('../database/user');
 var fs = require('fs');
+var path = require("path");
 
-var pages = {user:"views/Elements/Profile.hbs"};
+var pages = {user:path.join(__dirname, "../views/Elements/Profile.hbs")};
 
+console.log(pages.user);
 var data = fs.readFileSync(pages.user).toString();
 
 router.get('/', function(req, res, next) {

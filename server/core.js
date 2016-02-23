@@ -17,8 +17,6 @@ var app = express();
 var db = require('./database/db');
 var url = 'mongodb://localhost:27017/test';
 
-var example = require('./database/example');
-
 var fs = require('fs');
 
 // view engine setup
