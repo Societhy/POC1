@@ -8,7 +8,9 @@ var orga = require('../database/orga');
 
 
 var fs = require('fs');
-var pages = {user:"views/Elements/Orga.hbs"};
+var path = require("path");
+
+var pages = {user:path.join(__dirname, "../views/Elements/Orga.hbs")};
 
 var data = fs.readFileSync(pages.user).toString();
 
