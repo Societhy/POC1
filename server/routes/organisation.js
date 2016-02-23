@@ -13,10 +13,9 @@ var handlebars = require('handlebars'),
 var pages = {user:"Elements/Orga.hbs"};
 
 function getRender(callback) {
-    for (var key in pages)
-    {
-        fs.readFile(pages[key],'utf-8', function (err, data) {
-            pages[key] = data.toString();
+    for (var key in pages) {
+        fs.readFile(pages[key], 'utf-8', function (err, data) {
+            pages[key] = data;
         });
     }
     callback();

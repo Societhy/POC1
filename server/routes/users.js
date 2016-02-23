@@ -11,7 +11,7 @@ function getRender(callback) {
   for (var key in pages)
   {
     fs.readFile(pages[key],'utf-8', function (err, data) {
-      pages[key] = data.toString();
+        pages[key] = data;
     });
   }
   callback();
