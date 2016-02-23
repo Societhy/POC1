@@ -7,91 +7,88 @@ var http = require('http');
  */
 
 var server = {
-    start: function (done)
-	{
-	    /**
-	     * Get port from environment and store in Express.
-	     */
-	    
-	    var port = normalizePort(process.env.PORT || '3000');
-	    app.set('port', port);
-	    
-	    /**
-	     * Create HTTP server.
-	     */
-	    
-	    var server = http.createServer(app);
-	    global.io = require('socket.io')(server);
-	    var io = require('./routes/socketIORoutes');
+    start: function(done) {
+        /**
+         * Get port from environment and store in Express.
+         */
 
-	    /**
-	     * Listen on provided port, on all network interfaces.
-	     */
+        var port = normalizePort(process.env.PORT || '3000');
+        app.set('port', port);
 
-	    server.listen(port);
-	    server.on('error', onError);
-	    server.on('listening', onListening);
-	    done();
-	    /**
-	     * Normalize a port into a number, string, or false.
-	     */
+        /**
+         * Create HTTP server.
+         */
 
-	    function normalizePort(val) {
-		var port = parseInt(val, 10);
+        var server = http.createServer(app);
+        global.io = require('socket.io')(server);
+        var io = require('./routes/socketIORoutes');
 
-		if (isNaN(port)) {
-		    // named pipe
-		    return val;
-		}
+        /**
+         * Listen on provided port, on all network interfaces.
+         */
 
-		if (port >= 0) {
-		    // port number
-		    return port;
-		}
+        server.listen(port);
+        server.on('error', onError);
+        server.on('listening', onListening);
+        done();
+        /**
+         * Normalize a port into a number, string, or false.
+         */
 
-		return false;
-	    }
+        function normalizePort(val) {
+            var port = parseInt(val, 10);
 
-	    /**
-	     * Event listener for HTTP server "error" event.
-	     */
+            if (isNaN(port)) {
+                // named pipe
+                return val;
+            }
 
-	    function onError(error) {
-		if (error.syscall !== 'listen') {
-		    throw error;
-		}
+            if (port >= 0) {
+                // port number
+                return port;
+            }
 
-		var bind = typeof port === 'string'
-		    ? 'Pipe ' + port
-		    : 'Port ' + port;
+            return false;
+        }
 
-		// handle specific listen errors with friendly messages
-		switch (error.code) {
-		case 'EACCES':
-		    console.error(bind + ' requires elevated privileges');
-		    process.exit(1);
-		    break;
-		case 'EADDRINUSE':
-		    console.error(bind + ' is already in use');
-		    process.exit(1);
-		    break;
-		default:
-		    throw error;
-		}
-	    }
+        /**
+         * Event listener for HTTP server "error" event.
+         */
 
-	    /**
-	     * Event listener for HTTP server "listening" event.
-	     */
+        function onError(error) {
+            if (error.syscall !== 'listen') {
+                throw error;
+            }
 
-	    function onListening() {
-		var addr = server.address();
-		var bind = typeof addr === 'string'
-		    ? 'pipe ' + addr
-		    : 'port ' + addr.port;
-		debug('Listening on ' + bind);
-	    }
+            var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
-	}}
-server.start(function(){});
+            // handle specific listen errors with friendly messages
+            switch (error.code) {
+                case 'EACCES':
+                    console.error(bind + ' requires elevated privileges');
+                    process.exit(1);
+                    break;
+                case 'EADDRINUSE':
+                    console.error(bind + ' is already in use');
+                    process.exit(1);
+                    break;
+                default:
+                    throw error;
+            }
+        }
+
+        /**
+         * Event listener for HTTP server "listening" event.
+         */
+
+        function onListening() {
+            var addr = server.address();
+            var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+            debug('Listening on ' + bind);
+        }
+
+    }
+};
+
+server.start(function() {});
 module.exports = server;
