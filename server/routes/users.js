@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var user = require('../database/user');
-
 var handlebars = require('handlebars'),
     fs = require('fs');
 
@@ -11,7 +10,7 @@ function getRender(callback) {
   for (var key in pages)
   {
     fs.readFile(pages[key],'utf-8', function (err, data) {
-      pages[key] = data.toString();
+        pages[key] = data;
     });
   }
   callback();

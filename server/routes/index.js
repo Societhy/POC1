@@ -9,8 +9,8 @@ var pages = {user:"Elements/Profile.hbs"};
 function getRender(callback) {
     for (var key in pages)
     {
-        fs.readFile("../Elements/Profile.hbs",'utf-8', function (err, data) {
-            pages[key] = data.toString();
+        fs.readFile(pages[key],'utf-8', function (err, data) {
+            pages[key] = data;
         });
     }
     callback();
