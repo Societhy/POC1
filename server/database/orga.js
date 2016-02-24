@@ -1,11 +1,13 @@
 var db = require('./db');
-var ORGA = "orga";
+var ORGA = "orgas";
 
 exports.addOrga = function(orgaAddress, finalCallback, orgaInfos) {
     var orga = {
         address: orgaAddress,
         name: orgaInfos && orgaInfos.name ? orgaInfos.name : "",
+        created: orgaInfos && orgaInfos.created ? orgaInfos.created : {},
         ABI: orgaInfos && orgaInfos.ABI ? orgaInfos.ABI : {},
+        binary: orgaInfos && orgaInfos.binary ? orgaInfos.binary : "",
         memberList: orgaInfos && orgaInfos.memberList ? orgaInfos.memberList : [],
         projects: orgaInfos && orgaInfos.projects ? orgaInfos.projects : [],
         subOrga: orgaInfos && orgaInfos.subOrga ? orgaInfos.subOrga : [],
@@ -73,7 +75,35 @@ exports.changeABI = function(orgaAddress, newABI, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
+    }, finalCallback);
+};
+
+exports.changeBinary = function(orgaAddress, newBinary, finalCallback) {
+    var orga = {
+        address: orgaAddress
+    };
+
+    existsOrga(orga, function(orga, finalCallback) {
+        var ret = {
+            status: false,
+            message: "",
+            object: null
+        };
+        db.get().collection(ORGA).updateOne(orga, {
+            $set: {
+                binary: newBinary
+            }
+        }, function(err, result) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                ret.status = true;
+                ret.message = "Binary changed.";
+                ret.object = orga;
+                finalCallback(ret);
+            }
+        });
     }, finalCallback);
 };
 
@@ -102,7 +132,6 @@ exports.addMemberAddress = function(orgaAddress, userAddress, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
     }, finalCallback);
 };
 
@@ -131,7 +160,6 @@ exports.addProjectAddress = function(orgaAddress, projAddress, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
     }, finalCallback);
 };
 
@@ -160,7 +188,6 @@ exports.addSubOrga = function(orgaAddress, subOrga, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
     }, finalCallback);
 };
 
@@ -189,9 +216,8 @@ exports.addTransaction = function(orgaAddress, transaction, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
     }, finalCallback);
-}
+};
 
 exports.addActuality = function(orgaAddress, actuality, finalCallback) {
     var orga = {
@@ -218,9 +244,8 @@ exports.addActuality = function(orgaAddress, actuality, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
     }, finalCallback);
-}
+};
 
 exports.addFile = function(orgaAddress, fileData, finalCallback) {
     var orga = {
@@ -247,9 +272,8 @@ exports.addFile = function(orgaAddress, fileData, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
     }, finalCallback);
-}
+};
 
 function existsOrga(orga, doExists, finalCallback) {
     var ret = {
@@ -263,7 +287,7 @@ function existsOrga(orga, doExists, finalCallback) {
         finalCallback(ret);
     } else {
         var cursor = db.get().collection(ORGA).find({
-            'address': orga.address
+            'address': new RegExp(["^", orga.address, "$"].join(""), "i")
         });
 
         cursor.hasNext(function(err, orga) {
@@ -278,9 +302,9 @@ function existsOrga(orga, doExists, finalCallback) {
                     } else {
                         doExists(orga, finalCallback);
                     }
-                })
+                });
             }
-        })
+        });
     }
 }
 
@@ -296,7 +320,7 @@ function notExistsOrga(searchOrga, doNotExists, finalCallback) {
         finalCallback(ret);
     } else {
         var cursor = db.get().collection(ORGA).find({
-            'address': searchOrga.address
+            'address': new RegExp(["^", searchOrga.address, "$"].join(""), "i")
         });
 
         cursor.hasNext(function(err, orga) {
