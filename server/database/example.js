@@ -2,14 +2,6 @@ var user = require('./user');
 var orga = require('./orga');
 var proj = require('./project');
 
-##     ##  ######  ######## ########
-##     ## ##    ## ##       ##     ##
-##     ## ##       ##       ##     ##
-##     ##  ######  ######   ########
-##     ##       ## ##       ##   ##
-##     ## ##    ## ##       ##    ##
- #######   ######  ######## ##     ##
-
 // USAGE: ADD NEW USER
 exports.addUser = function() {
     var addr = '0x' + (function co(lor) {
@@ -35,6 +27,15 @@ exports.getUser = function() {
             console.log(ret.message);
         else
             console.log(ret.object);
+    });
+};
+
+exports.getAllUsers = function() {
+    user.getAllUsers(function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message, ret.object);
     });
 };
 
@@ -154,14 +155,6 @@ exports.fillUserDb = function() {
     }
 };
 
- #######  ########   ######      ###
-##     ## ##     ## ##    ##    ## ##
-##     ## ##     ## ##         ##   ##
-##     ## ########  ##   #### ##     ##
-##     ## ##   ##   ##    ##  #########
-##     ## ##    ##  ##    ##  ##     ##
- #######  ##     ##  ######   ##     ##
-
 // USAGE: ADD NEW ORGA
 exports.addOrga = function() {
     var addr = '0x' + (function co(lor) {
@@ -174,6 +167,15 @@ exports.addOrga = function() {
             console.log('Orga added');
     }, {
         name: addr
+    });
+};
+
+exports.getAllOrgas = function() {
+    orga.getAllOrgas(function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message, ret.object);
     });
 };
 
@@ -278,14 +280,6 @@ exports.fillOrgaDb = function() {
         });
     }
 };
-
-########  ########   #######        ## ########  ######  ########
-##     ## ##     ## ##     ##       ## ##       ##    ##    ##
-##     ## ##     ## ##     ##       ## ##       ##          ##
-########  ########  ##     ##       ## ######   ##          ##
-##        ##   ##   ##     ## ##    ## ##       ##          ##
-##        ##    ##  ##     ## ##    ## ##       ##    ##    ##
-##        ##     ##  #######   ######  ########  ######     ##
 
 // USAGE: ADD NEW PROJECT
 exports.addProject = function() {

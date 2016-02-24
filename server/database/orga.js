@@ -1,5 +1,5 @@
 var db = require('./db');
-var ORGA = "orgas";
+var ORGA = "orga";
 
 exports.addOrga = function(orgaAddress, finalCallback, orgaInfos) {
     var orga = {
@@ -47,6 +47,29 @@ exports.getOrga = function(orgaAddress, finalCallback) {
         };
         finalCallback(ret);
     }, finalCallback);
+};
+
+exports.getAllOrgas = function(finalCallback) {
+    var ret = {
+        status: false,
+        message: "",
+        object: null
+    };
+    db.get().collection(ORGA).find({}, {
+        '_id': false,
+        'name': true,
+        'address': true
+    }).toArray(function(err, docs) {
+        if (err) {
+            ret.message = err.message;
+            finalCallback(ret);
+        } else {
+            ret.status = true;
+            ret.message = "List of organisation";
+            ret.object = docs;
+            finalCallback(ret);
+        }
+    });
 };
 
 exports.changeABI = function(orgaAddress, newABI, finalCallback) {
