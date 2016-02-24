@@ -5,6 +5,7 @@ exports.addOrga = function(orgaAddress, finalCallback, orgaInfos) {
     var orga = {
         address: orgaAddress,
         name: orgaInfos && orgaInfos.name ? orgaInfos.name : "",
+        created: orgaInfos && orgaInfos.created ? orgaInfos.created : {},
         ABI: orgaInfos && orgaInfos.ABI ? orgaInfos.ABI : {},
         binary: orgaInfos && orgaInfos.binary ? orgaInfos.binary : "",
         memberList: orgaInfos && orgaInfos.memberList ? orgaInfos.memberList : [],
