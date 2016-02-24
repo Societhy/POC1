@@ -14,17 +14,11 @@ Pudding.setWeb3(global.web3);
 PuddingLoader.load(contractLocation, Pudding, global, function(error, names) {
 });
 
-global.io.on('connection', function (socket) {
+global.io.on('connection', function (socket)
+{
 
-    ////emit
-    //socket.emit('news', { hello: 'world' });
-    //
-    ////receive
-    //socket.on('my other event', function (data) {
-    //    console.log(data);
-    //});
-
-    socket.on('updateppic', function (data) {
+    socket.on('updateppic', function (data)
+    {
         setTimeout(function()
         {
             user.changeProfilePic(data.addr, data.ppic, function(ret) {
@@ -40,7 +34,8 @@ global.io.on('connection', function (socket) {
         }, 3000);
     });
 
-    socket.on("newOrga", function (data) {
+    socket.on("newOrga", function (data)
+    {
         setTimeout(function()
         {
             socket.emit("resultOrga", {abi:BasicOrga.abi, binary:BasicOrga.binary, address:BasicOrga.address});
@@ -48,7 +43,8 @@ global.io.on('connection', function (socket) {
     });
 
     //files
-    ss(socket).on("userimg", function (stream, data) {
+    ss(socket).on("userimg", function (stream, data)
+    {
         var buff;
         stream.on('data', function (lel) {
             buff += lel;
