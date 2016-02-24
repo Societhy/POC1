@@ -7,7 +7,8 @@ var path = require("path");
 process.env['VARIABLE'] = 'value';
 
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res, next)
+{
     res.render('user', {Title: "Societhy"});
 });
 
