@@ -45,7 +45,7 @@ db.connect(url, function(err) {
 
 //routing
 app.use('/', index);
-app.use('/users', users);
+app.use('/user', users);
 app.use('/organisation', organisation);
 app.use('/register', register);
 app.use('/debug', debug);

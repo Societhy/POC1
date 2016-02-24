@@ -4,12 +4,11 @@ var user = require('../database/user');
 var fs = require('fs');
 var path = require("path");
 
-var pages = {user:path.join(__dirname, "../views/Elements/Profile.hbs")};
+process.env['VARIABLE'] = 'value';
 
-var data = fs.readFileSync(pages.user).toString();
 
 router.get('/', function(req, res, next) {
-res.render('user', {Title: "Societhy", data:data});
+    res.render('user', {Title: "Societhy"});
 });
 
 

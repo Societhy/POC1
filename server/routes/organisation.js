@@ -7,22 +7,14 @@ var router = express.Router();
 var orga = require('../database/orga');
 
 
-var fs = require('fs');
 var path = require("path");
-
-var pages = {user:path.join(__dirname, "../views/Elements/Orga.hbs")};
-
-var data = fs.readFileSync(pages.user).toString();
-
-router.get('/', function(req, res, next) {
-    res.render('user', {Title: "Societhy", data:data});
-});
-
 
 
 router.get('/', function (req, res, next)
 {
-    res.render('organisation_homepage', {data: pages});
+    var main = res;
+    main.render('Elements/Orga');
+    res.render('organisation_homepage', {data: main.toString});
 });
 
 router.get('/create', function(req, res, next)

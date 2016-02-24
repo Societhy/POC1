@@ -368,7 +368,6 @@ if (typeof jQuery === 'undefined') {
     var itemIndex = (activeIndex + delta) % this.$items.length
     return this.$items.eq(itemIndex)
   }
-
   Carousel.prototype.to = function (pos) {
     var that        = this
     var activeIndex = this.getItemIndex(this.$active = this.$element.find('.item.active'))
