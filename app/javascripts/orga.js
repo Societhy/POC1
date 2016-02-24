@@ -20,23 +20,34 @@ function joinExistingOrga() {
 }
 
 function destroyOrga() {
+    contractInstance.kill({gas:gasNb, from:account, to:orga.address}).then(function (tx) {
+        console.log("orga destroyed", tx);
+        socket.emit("orgaDeleted", {orgAddress:orga.address});
+    });
 
 }
 
 function createProject() {
+    var projName;
+    var projDescription;
+    var projDate;
 
-}
-
-function getOrgaMembers() {
+    contractInstance.createProject(projName, projDescription, projDate, {gas:gasNb, from:account, to:orga.address}).then(function (tx) {
+        console.log("project Created", tx);
+        socket.emit("userJoinedOrga", {userAddress:account, orgaAddress:orga.address});
+    });
 
 }
 
 function sendFundToProject() {
-
+    contractInstance.register(userName, {gas:gasNb, from:account, to:orga.address}).then(function (tx) {
+        console.log("orga joined", tx);
+        socket.emit("userJoinedOrga", {userAddress:account, orgaAddress:orga.address});
+    });
 }
 
 function donateToOrga() {
-    var contractInstance = BasicOrga.deployed();
+    var amount;
 
     var eventNewUser = contractInstance.newUser();
     var eventDonation = contractInstance.newDonation();
@@ -47,19 +58,11 @@ function donateToOrga() {
         console.log("new don", web3.fromWei(res.args.value.valueOf()));
     });
 
-    contractInstance.donate({from:web3.eth.coinbase, value:web3.toWei(100), to:BasicOrga.address})
-        .then(function(res) {
-            console.log(web3.fromWei(web3.eth.getBalance(BasicOrga.address)).valueOf());
-            return contractInstance.register("simon", {from: web3.eth.coinbase})
-        })
-        .then(function(tx) {
-            console.log("register sent", tx);
-            return contractInstance.getMember.call(web3.eth.coinbase);
-        })
-        .then(function (res) {
-            console.log(res);
-        });
+    contractInstance.sendTransaction({from:web3.eth.coinbase, value:web3.toWei(amount), to:BasicOrga.address}).then(function(res) {
+        console.log("donation processed");
+    });
 }
+
 function uploadImage() {
     var stream = ss.createStream();
     var input, file;

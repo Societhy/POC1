@@ -63,6 +63,18 @@ address projectAddr = new Project(_name, _description, _date);
     return projectAddr;
   }
 
+function transferFundToProject(address projectAddr, uint amount) {
+if (!members[msg.sender].rights.spend
+|| amount > this.balance)
+throw;
+
+for (uint i = 0; i != projects.length; ++i) {
+if (projects[i].addr == projectAddr) {
+projects[i].addr.send(msg.value);
+}
+}
+}
+
   function kill() onlyOwner {
     suicide(owner);
   }
