@@ -132,13 +132,15 @@ function launchRemoteMode() {
 }
 
 window.onload = function() {
+    var addr = $("#orgAddr").text();
+
     socket = io();
     socket.emit("getOrgaData", null);
     socket.on("orgaData", function (data) {
         orga = data;
         contract = Pudding.whisk({abi:orga.abi, binary:orga.binary});
-        contractInstance = contract.at(orga.address);
-        console.log(orga);
+        contractInstance = contract.at(addr);
+        console.log(contractInstance);
     });
 
     if (web3.isConnected()) {

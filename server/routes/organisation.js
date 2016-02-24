@@ -30,8 +30,8 @@ router.get('/create', function(req, res, next) {
 
 router.get('/:addr', function(req, res, next)
 {
-    var main = res.copy();
-    main.render('Elements/orga_profile');
+    //var main = res.copy();
+    //main.render('Elements/orga_profile');
 
     orga.getOrga(req.params.addr, function (ret) {
         if (!ret.status)
