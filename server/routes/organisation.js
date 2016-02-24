@@ -12,6 +12,7 @@ var path = require("path");
 
 router.get('/', function (req, res, next)
 {
+
     orga.getAllOrgas(function (ret) {
         if (!ret.status) {
             var err = new Error(ret.message);
@@ -30,7 +31,7 @@ router.get('/create', function(req, res, next) {
 
 router.get('/:addr', function(req, res, next)
 {
-    var main = res.copy();
+    var main = res;
     main.render('Elements/orga_profile');
 
     orga.getOrga(req.params.addr, function (ret) {
