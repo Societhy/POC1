@@ -27,10 +27,6 @@ router.get('/create', function(req, res, next)
 router.get('/:addr', function(req, res, next)
 {
     orga.getOrga(req.params.addr, function (ret) {
-        global.io.on('connection', function (socket) {
-            console.log(ret);
-            socket.emit("orgaData", {abi: BasicOrga.abi, binary: BasicOrga.binary});
-        });
         if (!ret.status)
         {
             var err = new Error(ret.message);
@@ -38,7 +34,7 @@ router.get('/:addr', function(req, res, next)
             next(err);
             return;
         }
-        res.render('organisation', {name: ret.body.name, memberList: ret.body.memberList,  });
+        res.render('organisation', {name: ret.body.name, memberList: ret.body.memberList});
     });
 });
 

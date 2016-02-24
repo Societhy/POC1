@@ -16,13 +16,6 @@ PuddingLoader.load(contractLocation, Pudding, global, function(error, names) {})
 
 global.io.on('connection', function(socket) {
 
-    ////emit
-    //socket.emit('news', { hello: 'world' });
-    //
-    ////receive
-    //socket.on('my other event', function (data) {
-    //    console.log(data);
-    //});
     socket.on('updateppic', function (data) {
         setTimeout(function()
         {
@@ -37,6 +30,13 @@ global.io.on('connection', function(socket) {
     });
 
     socket.on("newOrga", function() {
+        socket.emit("newOrgaCode", {
+            abi: BasicOrga.abi,
+            binary: BasicOrga.binary
+        });
+    });
+
+    socket.on("getOrgaData", function () {
         socket.emit("newOrgaCode", {
             abi: BasicOrga.abi,
             binary: BasicOrga.binary

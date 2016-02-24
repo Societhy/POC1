@@ -130,7 +130,6 @@ function launchRemoteMode() {
 
 window.onload = function() {
     socket = io();
-
     socket.emit("getOrgaData", null);
     socket.on("orgaData", function (data) {
         orga = data;
