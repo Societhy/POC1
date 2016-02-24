@@ -23,10 +23,6 @@ global.io.on('connection', function (socket) {
     //socket.on('my other event', function (data) {
     //    console.log(data);
     //});
-
-    console.log(socket);
-    //socket.of('/organisation').emit('orgaData', {abi:BasicOrga.abi, binary:BasicOrga.binary, address:BasicOrga.address});
-
     socket.on('updateppic', function (data) {
         setTimeout(function()
         {
@@ -45,10 +41,6 @@ global.io.on('connection', function (socket) {
 
     socket.on("newOrga", function () {
         socket.emit("newOrgaCode", {abi:BasicOrga.abi, binary:BasicOrga.binary});
-    });
-
-    socket.on("getOrgaData", function () {
-        socket.emit("orgaData", {abi:BasicOrga.abi, binary:BasicOrga.binary});
     });
 
     socket.on("newOrgaAddress", function (data) {

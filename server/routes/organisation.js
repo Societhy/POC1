@@ -24,10 +24,13 @@ router.get('/create', function(req, res, next)
     res.render('organisation_create');
 });
 
-router.get('/:name', function(req, res, next)
+router.get('/:addr', function(req, res, next)
 {
-    orga.getOrgaByName(req.params.name, function (ret)
-    {
+    orga.getOrga(req.params.addr, function (ret) {
+        global.io.on('connection', function (socket) {
+            console.log(ret);
+            socket.emit("orgaData", {abi: BasicOrga.abi, binary: BasicOrga.binary});
+        });
         if (!ret.status)
         {
             var err = new Error(ret.message);
