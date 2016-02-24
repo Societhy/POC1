@@ -40,12 +40,14 @@ global.io.on('connection', function (socket) {
         }, 3000);
     });
 
-    socket.on("newOrga", function (data) {
-        setTimeout(function()
-        {
-            socket.emit("resultOrga", {abi:BasicOrga.abi, binary:BasicOrga.binary, address:BasicOrga.address});
-        }, 3000);
+    socket.on("newOrga", function () {
+        socket.emit("newOrgaCode", {abi:BasicOrga.abi, binary:BasicOrga.binary});
     });
+
+    socket.on("newOrgaAddress", function (data) {
+        //store data.address in db
+    });
+
 
     //files
     ss(socket).on("userimg", function (stream, data) {
