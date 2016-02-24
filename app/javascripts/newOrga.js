@@ -15,8 +15,8 @@ function createNewOrga() {
         var contract = Pudding.whisk({abi:contractData.abi, binary:contractData.binary});
         contract.new({gas:gasNb, from:account, data:contractData.binary}).then(function (tx) {
             console.log("orga deployed", tx);
-            window.socket.emit("newOrgaAddress", {orgAddr:tx.address, userAddr:account});
-        });
+            window.socket.emit("newOrgaAddress", {orgAddr:tx.address, userAddr:account, orgName:orgaName});
+        })
     });
 }
 

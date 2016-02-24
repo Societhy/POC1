@@ -12,7 +12,16 @@ var path = require("path");
 
 router.get('/', function (req, res, next)
 {
-    res.render('organisation_homepage', {Title: "Societhy"});
+    orga.getAllOrgas(function (ret) {
+        if (!ret.status) {
+            var err = new Error(ret.message);
+            err.status = 404;
+            next(err);
+            return;
+        }
+        console.log(ret.object);
+        res.render('organisation_homepage', {Title: "Societhy", orgas:ret.object});
+    });
 });
 
 router.get('/create', function(req, res, next) {
