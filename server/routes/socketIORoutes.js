@@ -47,11 +47,11 @@ global.io.on('connection', function(socket) {
         //store data.address in db
         var infos = {
             created: {
-                by: data.creator,
+                by: data.userAddr,
                 at: new Date().toJSON()
             }
         };
-        orga.addOrga(data.address, function(ret) {
+        orga.addOrga(data.orgAddr, function(ret) {
             if (!ret.status) {
                 console.log(ret.message);
             } else {
