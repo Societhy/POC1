@@ -14,15 +14,9 @@ var pages = {user:path.join(__dirname, "../views/Elements/Orga.hbs")};
 
 var data = fs.readFileSync(pages.user).toString();
 
-router.get('/', function(req, res, next) {
-    res.render('user', {Title: "Societhy", data:data});
-});
-
-
-
 router.get('/', function (req, res, next)
 {
-    res.render('organisation_homepage', {data: pages});
+    res.render('organisation_homepage', {data: data});
 });
 
 router.get('/create', function(req, res, next)
