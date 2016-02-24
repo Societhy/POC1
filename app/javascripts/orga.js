@@ -1,12 +1,41 @@
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
+Pudding.setWeb3(web3);
+var socket;
+
+var orga;
+var contract;
+var contractInstance;
 
 var accounts = null;
 var account = null;
-var browserAccounts;
 
-//TODO : send Contract name to server, get abi + adress back, then connect with at()
-//TODO : normal si ça fail
-function loadContract() {
+function joinExistingOrga() {
+    var orgaName = $("#name").val();
+    var userName = "simon";
+    //var userName = $("#name").val();
+    contractInstance.register(userName, {gas:gasNb, from:account, to:orga.address}).then(function (tx) {
+        console.log("orga joined", tx);
+        socket.emit("userJoinedOrga", {userAddress:account, orgaAddress:orga.address});
+    });
+}
+
+function destroyOrga() {
+
+}
+
+function createProject() {
+
+}
+
+function getOrgaMembers() {
+
+}
+
+function sendFundToProject() {
+
+}
+
+function donateToOrga() {
     var contractInstance = BasicOrga.deployed();
 
     var eventNewUser = contractInstance.newUser();
@@ -100,7 +129,15 @@ function launchRemoteMode() {
 }
 
 window.onload = function() {
-    window.socket = io();
+    socket = io();
+    socket.emit("getOrgaData", null);
+    socket.on("orgaData", function (data) {
+        orga = data;
+        contract = Pudding.whisk({abi:orga.abi, binary:orga.binary});
+        contractInstance = contract.at(orga.address);
+        console.log(orga);
+    });
+
     if (web3.isConnected()) {
         launchConnectedMode();
     }

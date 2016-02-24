@@ -1,5 +1,4 @@
 var db = require('./db');
-
 var USER = 'users';
 
 exports.addUser = function(userAddress, finalCallback, userInfos) {
@@ -48,6 +47,30 @@ exports.getUser = function(userAddress, finalCallback) {
     }, finalCallback);
 };
 
+exports.getAllUsers = function(finalCallback) {
+    var ret = {
+        status: false,
+        message: "",
+        object: null
+    };
+    db.get().collection(USER).find({}, {
+        '_id': false,
+        'lastname': true,
+        'firstname': true,
+        'addresses': true
+    }).toArray(function(err, docs) {
+        if (err) {
+            ret.message = err.message;
+            finalCallback(ret);
+        } else {
+            ret.status = true;
+            ret.message = "List of users";
+            ret.object = docs;
+            finalCallback(ret);
+        }
+    });
+};
+
 exports.addAddress = function(userAddress, addrToAdd, finalCallback) {
     var user = {
         addresses: [userAddress]
@@ -73,7 +96,6 @@ exports.addAddress = function(userAddress, addrToAdd, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
     }, finalCallback);
 };
 
@@ -242,7 +264,6 @@ exports.addOrgaAddress = function(userAddress, orgaAddress, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
     }, finalCallback);
 };
 
@@ -271,7 +292,6 @@ exports.addTransaction = function(userAddress, transaction, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
     }, finalCallback);
 };
 
@@ -303,7 +323,6 @@ exports.addContact = function(userAddress, userToAdd, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
     }, finalCallback);
 };
 
@@ -319,7 +338,7 @@ function existsUser(user, doExists, finalCallback) {
         finalCallback(ret);
     } else {
         var cursor = db.get().collection(USER).find({
-            'addresses': user.addresses[0]
+            'addresses': new RegExp(["^", user.addresses[0], "$"].join(""), "i")
         });
 
         cursor.hasNext(function(err, user) {
@@ -352,7 +371,7 @@ function notExistsUser(searchUser, doNotExists, finalCallback) {
         finalCallback(ret);
     } else {
         var cursor = db.get().collection(USER).find({
-            'addresses': searchUser.addresses[0]
+            'addresses': new RegExp(["^", searchUser.addresses[0], "$"].join(""), "i")
         });
 
         cursor.hasNext(function(err, user) {
