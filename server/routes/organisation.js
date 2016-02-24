@@ -30,9 +30,6 @@ router.get('/create', function(req, res, next) {
 
 router.get('/:addr', function(req, res, next)
 {
-    var main = res;
-    main.render('organisation');
-
     orga.getOrga(req.params.addr, function (ret) {
         if (!ret.status)
         {
