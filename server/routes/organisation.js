@@ -34,7 +34,7 @@ router.get('/:addr', function(req, res, next)
             next(err);
             return;
         }
-        res.render('organisation', {name: ret.body.name, memberList: ret.body.memberList});
+        res.render('organisation', {name: ret.body.name, memberList: ret.body.memberList, address:ret.body.address});
     });
 });
 

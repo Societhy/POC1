@@ -37,7 +37,7 @@ global.io.on('connection', function(socket) {
     });
 
     socket.on("getOrgaData", function () {
-        socket.emit("newOrgaCode", {
+        socket.emit("orgaData", {
             abi: BasicOrga.abi,
             binary: BasicOrga.binary
         });
