@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/user');
+var user = require('./routes/user');
 var organisation = require('./routes/organisation');
 var register = require('./routes/register');
 var debug = require('./routes/debug');
@@ -45,7 +45,7 @@ db.connect(url, function(err) {
 
 //routing
 app.use('/', index);
-app.use('/user', users);
+app.use('/user', user);
 app.use('/organisation', organisation);
 app.use('/register', register);
 app.use('/debug', debug);
