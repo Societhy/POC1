@@ -19,13 +19,12 @@
             <table class="table table-hover">
                 <tbody>
                 <tr>
-                    <th></th>
                     <th>Nom</th>
                     <th>Addresse</th>
                 </tr>
-                {{#each orga}}
+                {{#each orgas}}
                     <tr>
-                        <td><a href="/organisation/{{this.addr}}"> {{this.lastname}} </a></td>
+                        <td><a href="/organisation/{{address}}"> {{name}} </a></td>
                         <td>{{address}}</td>
                     </tr>
                 {{/each}}

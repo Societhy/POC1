@@ -8,7 +8,16 @@ process.env['VARIABLE'] = 'value';
 
 
 router.get('/', function(req, res, next) {
-    res.render('user', {Title: "Societhy"});
+    user.getAllUsers(function (ret) {
+        if (!ret.status) {
+            var err = new Error(ret.message);
+            err.status = 404;
+            next(err);
+            return;
+        }
+        console.log(ret.object);
+        res.render('user', {Title: "Societhy", users: ret.object});
+    });
 });
 
 
