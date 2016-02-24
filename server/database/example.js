@@ -1,5 +1,14 @@
 var user = require('./user');
 var orga = require('./orga');
+var proj = require('./project');
+
+##     ##  ######  ######## ########
+##     ## ##    ## ##       ##     ##
+##     ## ##       ##       ##     ##
+##     ##  ######  ######   ########
+##     ##       ## ##       ##   ##
+##     ## ##    ## ##       ##    ##
+ #######   ######  ######## ##     ##
 
 // USAGE: ADD NEW USER
 exports.addUser = function() {
@@ -30,7 +39,7 @@ exports.getUser = function() {
 };
 
 // USAGE: ADD AN ADDRESS TO ADDRESS LIST
-exports.addAddress = function() {
+exports.userAddAddress = function() {
     user.addAddress("0x5b18e694", "0x5b18e694", function(ret) {
         if (!ret.status)
             console.log(ret.message);
@@ -40,7 +49,7 @@ exports.addAddress = function() {
 };
 
 // USAGE: CAHNGE USER FIRSTNAME
-exports.changeFirstName = function() {
+exports.userChangeFirstName = function() {
     user.changeFirstName("0x5b18e694", "philippes", function(ret) {
         if (!ret.status)
             console.log(ret.message);
@@ -50,7 +59,7 @@ exports.changeFirstName = function() {
 };
 
 // USAGE: CHANGE USER LASTNAME
-exports.changeLastName = function() {
+exports.userChangeLastName = function() {
     user.changeLastName("0x5b18e694", "Maurice", function(ret) {
         if (!ret.status)
             console.log(ret.message);
@@ -60,7 +69,7 @@ exports.changeLastName = function() {
 };
 
 // USAGE: CHANGE USER NICKNAME
-exports.changeNickName = function() {
+exports.userChangeNickName = function() {
     user.changeNickName("0x5b18e694", "PPPM", function(ret) {
         if (!ret.status)
             console.log(ret.message);
@@ -70,7 +79,7 @@ exports.changeNickName = function() {
 };
 
 // USAGE: CHANGE USER MAIL
-exports.changeMail = function() {
+exports.userChangeMail = function() {
     user.changeMail("0x5b18e694", "philippes@maurice.com", function(ret) {
         if (!ret.status)
             console.log(ret.message);
@@ -80,7 +89,7 @@ exports.changeMail = function() {
 };
 
 // USAGE: CHANGE USER PROFILE PIC
-exports.changeProfilePic = function() {
+exports.userChangeProfilePic = function() {
     user.changeProfilePic("0x5b18e694", "CECI EST LA DATA DE MA PHOTO", function(ret) {
         if (!ret.status)
             console.log(ret.message);
@@ -90,7 +99,7 @@ exports.changeProfilePic = function() {
 };
 
 // USAGE: ADD AN ORGA ADDRESS TO ORGA LIST
-exports.addOrgaAddress = function() {
+exports.userAddOrgaAddress = function() {
     user.addOrgaAddress("0x5b18e694", "addresse d'orga", function(ret) {
         if (!ret.status)
             console.log(ret.message);
@@ -100,7 +109,7 @@ exports.addOrgaAddress = function() {
 };
 
 // USAGE: ADD A TX TO TX LIST
-exports.addTransaction = function() {
+exports.userAddTransaction = function() {
     user.addTransaction("0x5b18e694", {
         hash: "434RA23ERA34",
         date: 18 / 02 / 2016,
@@ -116,7 +125,7 @@ exports.addTransaction = function() {
 };
 
 // USAGE: ADD A CONTACT ADDRESS TO CONTACT LIST
-exports.addContact = function() {
+exports.userAddContact = function() {
     user.addContact("0x5b18e694", "0x5b18e694", function(ret) {
         if (!ret.status)
             console.log(ret.message);
@@ -145,6 +154,14 @@ exports.fillUserDb = function() {
     }
 };
 
+ #######  ########   ######      ###
+##     ## ##     ## ##    ##    ## ##
+##     ## ##     ## ##         ##   ##
+##     ## ########  ##   #### ##     ##
+##     ## ##   ##   ##    ##  #########
+##     ## ##    ##  ##    ##  ##     ##
+ #######  ##     ##  ######   ##     ##
+
 // USAGE: ADD NEW ORGA
 exports.addOrga = function() {
     var addr = '0x' + (function co(lor) {
@@ -170,7 +187,7 @@ exports.getOrga = function() {
     });
 };
 
-exports.changeABI = function() {
+exports.orgaChangeABI = function() {
     orga.changeABI("0x05d4e538", {
         name: "New ABI LOL",
         type: "function",
@@ -190,7 +207,7 @@ exports.changeABI = function() {
     });
 };
 
-exports.addMemberAddress = function() {
+exports.orgaAddMemberAddress = function() {
     orga.addMemberAddress("0x05d4e538", "0x5b18e694", function(ret) {
         if (!ret.status)
             console.log(ret.message);
@@ -199,7 +216,7 @@ exports.addMemberAddress = function() {
     });
 };
 
-exports.addProjectAddress = function() {
+exports.orgaAddProjectAddress = function() {
     orga.addProjectAddress("0x05d4e538", "testProject", function(ret) {
         if (!ret.status)
             console.log(ret.message);
@@ -208,11 +225,11 @@ exports.addProjectAddress = function() {
     });
 };
 
-exports.addSubOrga = function() {
+exports.orgaAddSubOrga = function() {
     // TODO: define how is passed a suborga
 };
 
-exports.addTransaction = function() {
+exports.orgaAddTransaction = function() {
     orga.addTransaction("0x05d4e538", {
         hash: 0xF43A2E5C,
         date: (new Date()).toJSON(),
@@ -227,7 +244,7 @@ exports.addTransaction = function() {
     });
 };
 
-exports.addActuality = function() {
+exports.orgaAddActuality = function() {
     orga.addActuality("0x05d4e538", "Nous, c'est cool!", function(ret) {
         if (!ret.status)
             console.log(ret.message);
@@ -236,7 +253,7 @@ exports.addActuality = function() {
     });
 };
 
-exports.addFile = function() {
+exports.orgaAddFile = function() {
     orga.addFile("0x05d4e538", "TOUT PLEIN DE DATA DE FICHIER", function(ret) {
         if (!ret.status)
             console.log(ret.message);
@@ -260,4 +277,103 @@ exports.fillOrgaDb = function() {
             name: addr
         });
     }
+};
+
+########  ########   #######        ## ########  ######  ########
+##     ## ##     ## ##     ##       ## ##       ##    ##    ##
+##     ## ##     ## ##     ##       ## ##       ##          ##
+########  ########  ##     ##       ## ######   ##          ##
+##        ##   ##   ##     ## ##    ## ##       ##          ##
+##        ##    ##  ##     ## ##    ## ##       ##    ##    ##
+##        ##     ##  #######   ######  ########  ######     ##
+
+// USAGE: ADD NEW PROJECT
+exports.addProject = function() {
+    var addr = '0x' + (function co(lor) {
+        return (lor += [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'][Math.floor(Math.random() * 16)]) && (lor.length == 8) ? lor : co(lor);
+    })('');
+    proj.addProject(addr, function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log('Project added');
+    }, {
+        name: addr
+    });
+};
+
+// USAGE: GET PROJECT BY ADDRESS
+exports.getProject = function() {
+    proj.getProject("0xaa33acc9", function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message, ret.object);
+    });
+};
+
+// USAGE: CHANGE PROJECT NAME
+exports.projChangeName = function() {
+    proj.changeName("0xaa33acc9", "New proj name", function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message);
+    });
+};
+
+// USAGE: CHANGE PROJECT DESCRIPTION
+exports.projChangeDescription = function() {
+    proj.changeDescription("0xaa33acc9", "New descripition olololololololol", function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message);
+    });
+};
+
+// USAGE: ADD MEMBER ADDRESS
+exports.projAddMemberAddress = function() {
+    proj.addMemberAddress("0xaa33acc9", "0xa415eaf", function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message);
+    });
+};
+
+// USAGE: CHANGE PROJECT FUNDRAISING
+exports.projChangeFundRaising = function() {
+    proj.changeFundRaising("0xaa33acc9", {
+        isFundRaising: true,
+        goal: 120
+    }, function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message);
+    });
+};
+
+// USAGE: ADD REVIEW TO PROJECT
+exports.projAddReview = function() {
+    proj.addReview("0xaa33acc9", {
+        author: "Grt le magnifaik",
+        review: "C'est vraiment trooop top"
+    }, function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message);
+    });
+};
+
+// USAGE: ADD FILE TO PROJECT
+exports.projAddFile = function() {
+    proj.addFile("0xaa33acc9", "file data", function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message);
+    });
 };

@@ -1,5 +1,4 @@
 var db = require('./db');
-
 var USER = 'users';
 
 exports.addUser = function(userAddress, finalCallback, userInfos) {
@@ -73,7 +72,6 @@ exports.addAddress = function(userAddress, addrToAdd, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
     }, finalCallback);
 };
 
@@ -242,7 +240,6 @@ exports.addOrgaAddress = function(userAddress, orgaAddress, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
     }, finalCallback);
 };
 
@@ -271,7 +268,6 @@ exports.addTransaction = function(userAddress, transaction, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
     }, finalCallback);
 };
 
@@ -303,7 +299,6 @@ exports.addContact = function(userAddress, userToAdd, finalCallback) {
                 finalCallback(ret);
             }
         });
-        finalCallback(ret);
     }, finalCallback);
 };
 
@@ -319,7 +314,7 @@ function existsUser(user, doExists, finalCallback) {
         finalCallback(ret);
     } else {
         var cursor = db.get().collection(USER).find({
-            'addresses': user.addresses[0]
+            'addresses': new RegExp(["^", user.addresses[0], "$"].join(""), "i")
         });
 
         cursor.hasNext(function(err, user) {
@@ -352,7 +347,7 @@ function notExistsUser(searchUser, doNotExists, finalCallback) {
         finalCallback(ret);
     } else {
         var cursor = db.get().collection(USER).find({
-            'addresses': searchUser.addresses[0]
+            'addresses': new RegExp(["^", searchUser.addresses[0], "$"].join(""), "i")
         });
 
         cursor.hasNext(function(err, user) {
