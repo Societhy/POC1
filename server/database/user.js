@@ -47,6 +47,30 @@ exports.getUser = function(userAddress, finalCallback) {
     }, finalCallback);
 };
 
+exports.getAllUsers = function(finalCallback) {
+    var ret = {
+        status: false,
+        message: "",
+        object: null
+    };
+    db.get().collection(USER).find({}, {
+        '_id': false,
+        'lastname': true,
+        'firstname': true,
+        'addresses': true
+    }).toArray(function(err, docs) {
+        if (err) {
+            ret.message = err.message;
+            finalCallback(ret);
+        } else {
+            ret.status = true;
+            ret.message = "List of users";
+            ret.object = docs;
+            finalCallback(ret);
+        }
+    });
+};
+
 exports.addAddress = function(userAddress, addrToAdd, finalCallback) {
     var user = {
         addresses: [userAddress]
