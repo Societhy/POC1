@@ -2,10 +2,7 @@ var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
 
 var accounts = null;
 var account = null;
-var browserAccounts;
 
-//TODO : send Contract name to Server, get the abi + binary back, then deploy as shown below
-//TODO : normal si ça marche pas
 function createNewOrga() {
     var orgaName = $("#name").val();
 
@@ -13,12 +10,12 @@ function createNewOrga() {
 
     window.socket.on("newOrgaCode", function (contractData) {
         console.log(contractData);
-        var gasNb = (web3.eth.estimateGas({from:web3.eth.coinbase, data:contractData.binary}));
+        var gasNb = (web3.eth.estimateGas({from:account, data:contractData.binary}));
         alert("deploying this contract cost you " + web3.fromWei(gasNb * web3.eth.gasPrice) + " ether.");
         var contract = Pudding.whisk({abi:contractData.abi, binary:contractData.binary});
-        contract.new({gas:gasNb, from:web3.eth.coinbase, data:contractData.binary}).then(function (tx) {
+        contract.new({gas:gasNb, from:account, data:contractData.binary}).then(function (tx) {
             console.log("orga deployed", tx);
-            window.socket.emit("newOrgaAddress", {address:tx.address});
+            window.socket.emit("newOrgaAddress", {orgAddr:tx.address, userAddr:account});
         });
     });
 }

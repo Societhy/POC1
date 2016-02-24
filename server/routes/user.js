@@ -8,7 +8,7 @@ var pages = {user:path.join(__dirname, "../views/Elements/Profile.hbs")};
 
 var data = fs.readFileSync(pages.user).toString();
 
-router.get('/', function(req, res, next) {
+-router.get('/', function(req, res, next) {
 res.render('user', {Title: "Societhy", data:data});
 });
 

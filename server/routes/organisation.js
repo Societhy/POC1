@@ -7,7 +7,6 @@ var router = express.Router();
 var orga = require('../database/orga');
 
 
-var fs = require('fs');
 var path = require("path");
 
 var pages = {
@@ -15,15 +14,6 @@ var pages = {
 };
 
 var data = fs.readFileSync(pages.user).toString();
-
-router.get('/', function(req, res, next) {
-    res.render('user', {
-        Title: "Societhy",
-        data: data
-    });
-});
-
-
 
 router.get('/', function(req, res, next) {
     res.render('organisation_homepage', {
@@ -35,15 +25,17 @@ router.get('/create', function(req, res, next) {
     res.render('organisation_create');
 });
 
-router.get('/:name', function(req, res, next) {
-    orga.getOrgaByName(req.params.name, function(ret) {
-        if (!ret.status) {
+router.get('/:addr', function(req, res, next)
+{
+    orga.getOrga(req.params.addr, function (ret) {
+        if (!ret.status)
+        {
+            res.render('organisation', {
             var err = new Error(ret.message);
             err.status = 404;
             next(err);
             return;
         }
-        res.render('organisation', {
             name: ret.object.name,
             address: ret.object.address
         });
