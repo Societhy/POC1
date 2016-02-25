@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
             return;
         }
         console.log(ret.object);
-        res.render('user', {Title: "Societhy", users: ret.object});
+        res.render('user_homepage', {Title: "Societhy", users: ret.object});
     });
 });
 

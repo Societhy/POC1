@@ -20,7 +20,11 @@
                     <div class="box-header with-border">
 
                     </div><!-- /.box-header -->
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle" style="margin-top: 2%; margin-left: 44%; height: 140px" alt="User Image">
+                    {{#if profilePic}}
+                            <img src="/images/{{profilePic}}" class="img-circle" style="margin-top: 2%; margin-left: 44%; height: 140px" alt="User Image">
+                    {{else}}
+                            <img src="/images/guest.jpg" class="img-circle" style="margin-top: 2%; margin-left: 44%; height: 140px" alt="User Image">
+                    {{/if}}
                     <hr>
                     <div class="tab-pane" id="Profil">
                         <h3 class="box-title">Informations générales</h3>
