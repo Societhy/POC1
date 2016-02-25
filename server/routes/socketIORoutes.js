@@ -16,9 +16,8 @@ PuddingLoader.load(contractLocation, Pudding, global, function(error, names) {})
 
 global.io.on('connection', function(socket) {
 
-    socket.on('updateppic', function (data) {
-        setTimeout(function()
-        {
+    socket.on('updateppic', function(data) {
+        setTimeout(function() {
             user.changeProfilePic(data.addr, data.ppic, function(ret) {
                 if (ret.status) {
                     socket.emit('OK', ret.message);
@@ -36,15 +35,21 @@ global.io.on('connection', function(socket) {
         });
     });
 
-    socket.on("getOrgaData", function () {
+    socket.on("getOrgaData", function() {
         socket.emit("orgaData", {
             'abi': BasicOrga.abi,
             'binary': BasicOrga.binary
         });
     });
 
-    socket.on("orgaDeleted", function (data) {
-        });
+    socket.on("orgaDeleted", function(data) {
+        orga.deleteOrga(function(ret) {
+            if (!ret.status) {
+                console.log(ret.message);
+            } else {
+                console.log(ret.message, ret.object);
+            }
+        })
     });
 
 
