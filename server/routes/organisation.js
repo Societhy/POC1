@@ -38,10 +38,9 @@ router.get('/:addr', function(req, res, next)
             next(err);
             return;
         }
-        res.render('organisation', {
-            name: ret.object.name,
-            address: ret.object.address
-        });
+        ret.object.created.at =  ret.object.created.at.substr(0,10);
+        console.log(ret.object);
+        res.render('orga_profile', ret.object );
     });
 });
 

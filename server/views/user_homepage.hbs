@@ -18,7 +18,6 @@
             <table class="table table-hover">
                 <tbody>
                 <tr>
-                    <th></th>
                     <th>Nom</th>
                     <th>Prenom</th>
                     <th>Email</th>
@@ -29,7 +28,7 @@
                         <td>{{lastname}}</td>
                         <td>{{firstname}}</td>
                         <td>{{mail}}</td>
-                        <td>{{addresses}}</td>
+                        <td><a href="/user/{{addresses}}">{{addresses}}</a></td>
                     </tr>
                 {{/each}}
 
