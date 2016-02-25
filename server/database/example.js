@@ -186,6 +186,15 @@ exports.addOrga = function() {
     });
 };
 
+exports.deleteOrga = function() {
+    orga.deleteOrga("0x05d4e538", function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message, ret.object);
+    });
+};
+
 exports.getAllOrgas = function() {
     orga.getAllOrgas(function(ret) {
         if (!ret.status)
