@@ -31,25 +31,25 @@ global.io.on('connection', function(socket) {
 
     socket.on("newOrga", function() {
         socket.emit("newOrgaCode", {
-            abi: BasicOrga.abi,
-            binary: BasicOrga.binary
+            'abi': BasicOrga.abi,
+            'binary': BasicOrga.binary
         });
     });
 
     socket.on("getOrgaData", function () {
         socket.emit("orgaData", {
-            abi: BasicOrga.abi,
-            binary: BasicOrga.binary
+            'abi': BasicOrga.abi,
+            'binary': BasicOrga.binary
         });
     });
 
     socket.on("newOrgaAddress", function(data) {
         //store data.address in db
         var infos = {
-            name: data.orgName,
-            created: {
-                by: data.userAddr,
-                at: new Date().toJSON()
+            'name': data.orgName,
+            'created': {
+                'by': data.userAddr,
+                'at': (new Date()).toJSON()
             }
         };
         orga.addOrga(data.orgAddr, function(ret) {
