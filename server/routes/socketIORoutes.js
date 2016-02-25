@@ -43,6 +43,12 @@ global.io.on('connection', function(socket) {
         });
     });
 
+    socket.on("orgaDeleted", function (data) {
+        });
+    });
+
+
+
     socket.on("newOrgaAddress", function(data) {
         //store data.address in db
         var infos = {
