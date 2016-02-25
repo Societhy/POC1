@@ -3,19 +3,20 @@ var PROJ = "projects";
 
 exports.addProject = function(projAddress, finalCallback, projInfos) {
     var project = {
-        address: projAddress,
-        name: projInfos && projInfos.name ? projInfos.name : "",
-        description: projInfos && projInfos.description ? projInfos.description : "",
-        memberList: projInfos && projInfos.memberList ? projInfos.memberList : [],
-        fundRaising: projInfos && projInfos.fundRaising ? projInfos.fundRaising : {},
-        review: projInfos && projInfos.review ? projInfos.review : [],
-        files: projInfos && projInfos.files ? projInfos.files : [],
+        'address': projAddress,
+        'name': projInfos && projInfos.name ? projInfos.name : "",
+        'orgaAddress': projInfos && projInfos.orgaAddress ? projInfos.orgaAddress : "",
+        'description': projInfos && projInfos.description ? projInfos.description : "",
+        'memberList': projInfos && projInfos.memberList ? projInfos.memberList : [],
+        'fundRaising': projInfos && projInfos.fundRaising ? projInfos.fundRaising : {},
+        'review': projInfos && projInfos.review ? projInfos.review : [],
+        'files': projInfos && projInfos.files ? projInfos.files : [],
     };
     notExistsProj(project, function(proj, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(PROJ).insertOne(proj, function(err, proj) {
             if (err) {
@@ -33,31 +34,81 @@ exports.addProject = function(projAddress, finalCallback, projInfos) {
 
 exports.getProject = function(projAddress, finalCallback) {
     var project = {
-        address: projAddress
+        'address': projAddress
     };
     existsProj(project, function(proj, finalCallback) {
         var ret = {
-            status: true,
-            message: "Found project.",
-            object: proj
+            'status': true,
+            'message': "Found project.",
+            'object': proj
         };
         finalCallback(ret);
     }, finalCallback);
 };
 
+exports.getAllProjects = function(finalCallback) {
+    var ret = {
+        'status': false,
+        'message': "",
+        'object': null
+    };
+    db.get().collection(PROJ).find({}, {
+        '_id': false,
+        'name': true,
+        'description': true,
+        'address': true
+    }).toArray(function(err, docs) {
+        if (err) {
+            ret.message = err.message;
+            finalCallback(ret);
+        } else {
+            ret.status = true;
+            ret.message = "List of projects";
+            ret.object = docs;
+            finalCallback(ret);
+        }
+    });
+};
+
+exports.getProjectsByOrga = function(orgaAddress, finalCallback) {
+    var ret = {
+        'status': false,
+        'message': "",
+        'object': null
+    };
+    db.get().collection(PROJ).find({
+        'orgaAddress': orgaAddress
+    }, {
+        '_id': false,
+        'name': true,
+        'description': true,
+        'address': true
+    }).toArray(function(err, docs) {
+        if (err) {
+            ret.message = err.message;
+            finalCallback(ret);
+        } else {
+            ret.status = true;
+            ret.message = "List of projects";
+            ret.object = docs;
+            finalCallback(ret);
+        }
+    });
+};
+
 exports.changeName = function(projAddress, newName, finalCallback) {
     var project = {
-        address: projAddress
+        'address': projAddress
     };
     existsProj(project, function(proj, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(PROJ).updateOne(proj, {
             $set: {
-                name: newName
+                'name': newName
             }
         }, function(err, result) {
             if (err) {
@@ -75,17 +126,17 @@ exports.changeName = function(projAddress, newName, finalCallback) {
 
 exports.changeDescription = function(projAddress, newDesc, finalCallback) {
     var project = {
-        address: projAddress
+        'address': projAddress
     };
     existsProj(project, function(proj, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(PROJ).updateOne(proj, {
             $set: {
-                description: newDesc
+                'description': newDesc
             }
         }, function(err, result) {
             if (err) {
@@ -103,17 +154,17 @@ exports.changeDescription = function(projAddress, newDesc, finalCallback) {
 
 exports.addMemberAddress = function(projAddress, userAddress, finalCallback) {
     var project = {
-        address: projAddress
+        'address': projAddress
     };
     existsProj(project, function(proj, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(PROJ).updateOne(proj, {
             $push: {
-                memberList: userAddaress
+                'memberList': userAddaress
             }
         }, function(err, result) {
             if (err) {
@@ -131,17 +182,17 @@ exports.addMemberAddress = function(projAddress, userAddress, finalCallback) {
 
 exports.changeFundRaising = function(projAddress, newFundRaising, finalCallback) {
     var project = {
-        address: projAddress
+        'address': projAddress
     };
     existsProj(project, function(proj, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(PROJ).updateOne(proj, {
             $set: {
-                fundRaising: newFundRaising
+                'fundRaising': newFundRaising
             }
         }, function(err, result) {
             if (err) {
@@ -159,17 +210,17 @@ exports.changeFundRaising = function(projAddress, newFundRaising, finalCallback)
 
 exports.addReview = function(projAddress, review, finalCallback) {
     var project = {
-        address: projAddress
+        'address': projAddress
     };
     existsProj(project, function(proj, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(PROJ).updateOne(proj, {
             $push: {
-                reviews: review
+                'reviews': review
             }
         }, function(err, result) {
             if (err) {
@@ -187,17 +238,17 @@ exports.addReview = function(projAddress, review, finalCallback) {
 
 exports.addFile = function(projAddress, file, finalCallback) {
     var project = {
-        address: projAddress
+        'address': projAddress
     };
     existsProj(project, function(proj, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(PROJ).updateOne(proj, {
             $push: {
-                files: file
+                'files': file
             }
         }, function(err, result) {
             if (err) {
@@ -215,9 +266,9 @@ exports.addFile = function(projAddress, file, finalCallback) {
 
 function existsProj(proj, doExists, finalCallback) {
     var ret = {
-        status: false,
-        message: "",
-        object: null
+        'status': false,
+        'message': "",
+        'object': null
     };
 
     if (proj.address === "") {
@@ -248,9 +299,9 @@ function existsProj(proj, doExists, finalCallback) {
 
 function notExistsProj(searchProj, doNotExists, finalCallback) {
     var ret = {
-        status: false,
-        message: "",
-        object: null
+        'status': false,
+        'message': "",
+        'object': null
     };
 
     if (searchProj.address === "") {

@@ -139,6 +139,7 @@ window.onload = function() {
     socket.on("orgaData", function (data) {
         orga = data;
         contract = Pudding.whisk({abi:orga.abi, binary:orga.binary});
+        console.log(addr);
         contractInstance = contract.at(addr);
         console.log(contractInstance);
     });

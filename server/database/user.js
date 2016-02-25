@@ -3,21 +3,21 @@ var USER = 'users';
 
 exports.addUser = function(userAddress, finalCallback, userInfos) {
     var user = {
-        addresses: [userAddress],
-        firstname: userInfos && userInfos.firstname ? userInfos.firstname : "",
-        lastname: userInfos && userInfos.lastname ? userInfos.lastname : "",
-        nickname: userInfos && userInfos.nickname ? userInfos.nickname : "",
-        mail: userInfos && userInfos.mail ? userInfos.mail : "",
-        profilePic: userInfos && userInfos.profilePic ? userInfos.profilePic : "",
-        listOrga: userInfos && userInfos.listOrga ? userInfos.listOrga : [],
-        transactionHistoric: userInfos && userInfos.transactionHistoric ? userInfos.transactionHistoric : [],
-        contacts: userInfos && userInfos.contacts ? userInfos.contacts : []
+        'addresses': [userAddress],
+        'firstname': userInfos && userInfos.firstname ? userInfos.firstname : "",
+        'lastname': userInfos && userInfos.lastname ? userInfos.lastname : "",
+        'nickname': userInfos && userInfos.nickname ? userInfos.nickname : "",
+        'mail': userInfos && userInfos.mail ? userInfos.mail : "",
+        'profilePic': userInfos && userInfos.profilePic ? userInfos.profilePic : "",
+        'listOrga': userInfos && userInfos.listOrga ? userInfos.listOrga : [],
+        'transactionHistoric': userInfos && userInfos.transactionHistoric ? userInfos.transactionHistoric : [],
+        'contacts': userInfos && userInfos.contacts ? userInfos.contacts : []
     };
     notExistsUser(user, function(user, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(USER).insertOne(user, function(err, user) {
             if (err) {
@@ -33,25 +33,11 @@ exports.addUser = function(userAddress, finalCallback, userInfos) {
     }, finalCallback);
 };
 
-exports.getUser = function(userAddress, finalCallback) {
-    var user = {
-        addresses: [userAddress]
-    };
-    existsUser(user, function(user, finalCallback) {
-        var ret = {
-            status: true,
-            message: "Found user.",
-            object: user
-        };
-        finalCallback(ret);
-    }, finalCallback);
-};
-
 exports.getAllUsers = function(finalCallback) {
     var ret = {
-        status: false,
-        message: "",
-        object: null
+        'status': false,
+        'message': "",
+        'object': null
     };
     db.get().collection(USER).find({}, {
         '_id': false,
@@ -71,19 +57,81 @@ exports.getAllUsers = function(finalCallback) {
     });
 };
 
-exports.addAddress = function(userAddress, addrToAdd, finalCallback) {
+exports.getUser = function(userAddress, finalCallback) {
     var user = {
-        addresses: [userAddress]
+        'addresses': [userAddress]
     };
     existsUser(user, function(user, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': true,
+            'message': "Found user.",
+            'object': user
+        };
+        finalCallback(ret);
+    }, finalCallback);
+};
+
+exports.getUserByLastName = function (searchLastName, finalCallback) {
+    var ret = {
+        'status': false,
+        'message': "",
+        'object': null
+    };
+    db.get().collection(USER).find({'lastname': searchLastName}, {
+        '_id': false,
+        'lastname': true,
+        'firstname': true,
+        'addresses': true
+    }).toArray(function(err, docs) {
+        if (err) {
+            ret.message = err.message;
+            finalCallback(ret);
+        } else {
+            ret.status = true;
+            ret.message = "List of users";
+            ret.object = docs;
+            finalCallback(ret);
+        }
+    });
+};
+
+exports.getUserByFirstName = function (searchFirstName, finalCallback) {
+    var ret = {
+        'status': false,
+        'message': "",
+        'object': null
+    };
+    db.get().collection(USER).find({'firstname': searchFirstName}, {
+        '_id': false,
+        'lastname': true,
+        'firstname': true,
+        'addresses': true
+    }).toArray(function(err, docs) {
+        if (err) {
+            ret.message = err.message;
+            finalCallback(ret);
+        } else {
+            ret.status = true;
+            ret.message = "List of users";
+            ret.object = docs;
+            finalCallback(ret);
+        }
+    });
+};
+
+exports.addAddress = function(userAddress, addrToAdd, finalCallback) {
+    var user = {
+        'addresses': [userAddress]
+    };
+    existsUser(user, function(user, finalCallback) {
+        var ret = {
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(USER).updateOne(user, {
             $push: {
-                addresses: addrToAdd
+                'addresses': addrToAdd
             }
         }, function(err, result) {
             if (err) {
@@ -101,17 +149,17 @@ exports.addAddress = function(userAddress, addrToAdd, finalCallback) {
 
 exports.changeFirstName = function(userAddress, newFN, finalCallback) {
     var user = {
-        addresses: [userAddress]
+        'addresses': [userAddress]
     };
     existsUser(user, function(user, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(USER).updateOne(user, {
             $set: {
-                firstname: newFN
+                'firstname': newFN
             }
         }, function(err, result) {
             if (err) {
@@ -129,17 +177,17 @@ exports.changeFirstName = function(userAddress, newFN, finalCallback) {
 
 exports.changeLastName = function(userAddress, newLN, finalCallback) {
     var user = {
-        addresses: [userAddress]
+        'addresses': [userAddress]
     };
     existsUser(user, function(user, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(USER).updateOne(user, {
             $set: {
-                lastname: newLN
+                'lastname': newLN
             }
         }, function(err, result) {
             if (err) {
@@ -157,17 +205,17 @@ exports.changeLastName = function(userAddress, newLN, finalCallback) {
 
 exports.changeNickName = function(userAddress, newNM, finalCallback) {
     var user = {
-        addresses: [userAddress]
+        'addresses': [userAddress]
     };
     existsUser(user, function(user, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(USER).updateOne(user, {
             $set: {
-                nickname: newNM
+                'nickname': newNM
             }
         }, function(err, result) {
             if (err) {
@@ -185,17 +233,17 @@ exports.changeNickName = function(userAddress, newNM, finalCallback) {
 
 exports.changeMail = function(userAddress, newMail, finalCallback) {
     var user = {
-        addresses: [userAddress]
+        'addresses': [userAddress]
     };
     existsUser(user, function(user, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(USER).updateOne(user, {
             $set: {
-                mail: newMail
+                'mail': newMail
             }
         }, function(err, result) {
             if (err) {
@@ -213,17 +261,17 @@ exports.changeMail = function(userAddress, newMail, finalCallback) {
 
 exports.changeProfilePic = function(userAddress, newPicData, finalCallback) {
     var user = {
-        addresses: [userAddress]
+        'addresses': [userAddress]
     };
     existsUser(user, function(user, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(USER).updateOne(user, {
             $set: {
-                profilePic: newPicData
+                'profilePic': newPicData
             }
         }, function(err, result) {
             if (err) {
@@ -241,17 +289,17 @@ exports.changeProfilePic = function(userAddress, newPicData, finalCallback) {
 
 exports.addOrgaAddress = function(userAddress, orgaAddress, finalCallback) {
     var user = {
-        addresses: [userAddress]
+        'addresses': [userAddress]
     };
     existsUser(user, function(user, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(USER).updateOne(user, {
             $push: {
-                listOrga: orgaAddress
+                'listOrga': orgaAddress
             }
         }, function(err, result) {
             if (err) {
@@ -269,17 +317,17 @@ exports.addOrgaAddress = function(userAddress, orgaAddress, finalCallback) {
 
 exports.addTransaction = function(userAddress, transaction, finalCallback) {
     var user = {
-        addresses: [userAddress]
+        'addresses': [userAddress]
     };
     existsUser(user, function(user, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(USER).updateOne(user, {
             $push: {
-                transactionHistoric: transaction
+                'transactionHistoric': transaction
             }
         }, function(err, result) {
             if (err) {
@@ -297,20 +345,20 @@ exports.addTransaction = function(userAddress, transaction, finalCallback) {
 
 exports.addContact = function(userAddress, userToAdd, finalCallback) {
     var user = {
-        addresses: [userAddress]
+        'addresses': [userAddress]
     };
     var contact = {
-        addresses: [userToAdd]
+        'addresses': [userToAdd]
     };
     existsUser(user, function(user, finalCallback) {
         var ret = {
-            status: false,
-            message: "",
-            object: null
+            'status': false,
+            'message': "",
+            'object': null
         };
         db.get().collection(USER).updateOne(user, {
             $push: {
-                contacts: userToAdd
+                'contacts': userToAdd
             }
         }, function(err, result) {
             if (err) {
@@ -328,9 +376,9 @@ exports.addContact = function(userAddress, userToAdd, finalCallback) {
 
 function existsUser(user, doExists, finalCallback) {
     var ret = {
-        status: false,
-        message: "",
-        object: null
+        'status': false,
+        'message': "",
+        'object': null
     };
 
     if (user.addresses[0] === "") {
@@ -361,9 +409,9 @@ function existsUser(user, doExists, finalCallback) {
 
 function notExistsUser(searchUser, doNotExists, finalCallback) {
     var ret = {
-        status: false,
-        message: "",
-        object: null
+        'status': false,
+        'message': "",
+        'object': null
     };
 
     if (searchUser.addresses[0] === "") {
