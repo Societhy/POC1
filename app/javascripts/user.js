@@ -1,5 +1,7 @@
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
 
+var socket;
+
 var accounts = null;
 var account = null;
 var browserAccounts;
@@ -112,7 +114,7 @@ function uploadImage() {
     }
     else {
         file = input.files[0];
-        ss(window.socket).emit('userimg', stream, {size: file.size, name:file.name});
+        ss(socket).emit('userimg', stream, {size: file.size, name:file.name});
         ss.createBlobReadStream(file).pipe(stream);
     }
 }
@@ -165,7 +167,7 @@ function launchRemoteMode() {
 }
 
 window.onload = function() {
-    window.socket = io();
+    socket = io();
     if (web3.isConnected()) {
         launchConnectedMode();
     }
