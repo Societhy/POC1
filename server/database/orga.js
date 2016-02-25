@@ -109,7 +109,7 @@ exports.changeABI = function(orgaAddress, newABI, finalCallback) {
         }, function(err, result) {
             if (err) {
                 ret.message = err.message;
-                finalCallback(ret);
+                    finalCallback(ret);
             } else {
                 ret.status = true;
                 ret.message = "ABI changed.";

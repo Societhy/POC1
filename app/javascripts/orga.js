@@ -13,16 +13,16 @@ function joinExistingOrga() {
     var orgaName = $("#name").val();
     var userName = "simon";
     //var userName = $("#name").val();
-    contractInstance.register(userName, {gas:gasNb, from:account, to:orga.address}).then(function (tx) {
+    contractInstance.register(userName, {from:account}).then(function (tx) {
         console.log("orga joined", tx);
-        socket.emit("userJoinedOrga", {userAddress:account, orgaAddress:orga.address});
+        socket.emit("userJoinedOrga", {userAddress:account, orgaAddress:contractInstance.address});
     });
 }
 
 function destroyOrga() {
-    contractInstance.kill({gas:gasNb, from:account, to:orga.address}).then(function (tx) {
+    contractInstance.kill({from:account}).then(function (tx) {
         console.log("orga destroyed", tx);
-        socket.emit("orgaDeleted", {orgAddress:orga.address});
+        socket.emit("orgaDeleted", {orgAddress:contractInstance.address});
     });
 
 }
@@ -32,56 +32,29 @@ function createProject() {
     var projDescription;
     var projDate;
 
-    contractInstance.createProject(projName, projDescription, projDate, {gas:gasNb, from:account, to:orga.address}).then(function (tx) {
+    contractInstance.createProject(projName, projDescription, projDate, {from:account}).then(function (tx) {
         console.log("project Created", tx);
-        socket.emit("userJoinedOrga", {userAddress:account, orgaAddress:orga.address});
+        socket.emit("userJoinedOrga", {userAddress:account, orgaAddress:contractInstance.address});
     });
 
 }
 
 function sendFundToProject() {
-    contractInstance.register(userName, {gas:gasNb, from:account, to:orga.address}).then(function (tx) {
+    var projectAddr;
+    var amount;
+
+    contractInstance.transferFundToProject(projectAddr, amount, {from:account}).then(function (tx) {
         console.log("orga joined", tx);
-        socket.emit("userJoinedOrga", {userAddress:account, orgaAddress:orga.address});
+        socket.emit("userJoinedOrga", {userAddress:account, orgaAddress:contractInstance.address});
     });
 }
 
 function donateToOrga() {
     var amount;
 
-    var eventNewUser = contractInstance.newUser();
-    var eventDonation = contractInstance.newDonation();
-    eventNewUser.watch(function(err, res) {
-        console.log("new User event", res.args.name);
-    });
-    eventDonation.watch(function(err, res) {
-        console.log("new don", web3.fromWei(res.args.value.valueOf()));
-    });
-
-    contractInstance.sendTransaction({from:web3.eth.coinbase, value:web3.toWei(amount), to:BasicOrga.address}).then(function(res) {
+    web3.eth.sendTransaction({from:account, value:web3.toWei(amount), to:contractInstance.address}).then(function(tx) {
         console.log("donation processed");
     });
-}
-
-function uploadImage() {
-    var stream = ss.createStream();
-    var input, file;
-
-    input = document.getElementById('imageinput');
-    if (!input) {
-        alert("Um, couldn't find the fileinput element.");
-    }
-    else if (!input.files) {
-        alert("This browser doesn't seem to support the `files` property of file inputs.");
-    }
-    else if (!input.files[0]) {
-        alert("Please select a file before clicking 'Load'");
-    }
-    else {
-        file = input.files[0];
-        ss(window.socket).emit('orgaimg', stream, {size: file.size, name:file.name});
-        ss.createBlobReadStream(file).pipe(stream);
-    }
 }
 
 function getLocalAccounts() {
