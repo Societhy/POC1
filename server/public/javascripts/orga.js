@@ -3,8 +3,7 @@
  */
 
 $("#createProject").on('click', function() {
-    console.log($('#projectName').val());
-    return;
+    
     var socket = io('http://localhost:3000');
 
     socket.emit('newProject', {name: $('#projectName').val(), desc: $('#projectDesc').val()});
