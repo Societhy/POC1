@@ -12,11 +12,9 @@
                     <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                 </div>
                 <ul class="nav nav-tabs">
-                    <li class=""><a href="#Profil" data-toggle="tab" aria-expanded="false">Profil</a></li>
+                    <li class="active"><a href="#Dashboard" data-toggle="tab" aria-expanded="true">Dashboard</a></li>
                     <li class=""><a href="#activity" data-toggle="tab" aria-expanded="false">Activity</a></li>
                     <li class=""><a href="#timeline" data-toggle="tab" aria-expanded="false">Timeline</a></li>
-                    <li class="active"><a href="#settings" data-toggle="tab" aria-expanded="true">Settings</a></li>
-                    <li class=""><a href="#Actions" data-toggle="tab" aria-expanded="false">Actions</a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -24,21 +22,103 @@
                         <h3 class="box-title">Informations générales</h3>
 
                     </div><!-- /.box-header -->
-                    <img src="/images/defaultOrga.jpg" class="img-circle" style="margin-top: 2%; margin-left: 44%; height: 140px" alt="User Image">
-                    <hr>
-                    <div class="tab-pane" id="Profil">
-                        <div class="box-body">
-                            <label style="display: inline-flex;margin: 15px;  margin-right: 105px;font-size: 22px; margin-left: 25%;">Nom de l'organisation :</label>
-                            <div class="info" style="display: inline-flex; font-size: 25px;  float: right; margin-right: 40%; margin-top: 14px; ">{{name}}</div>
-                            <div></div>
-                            <label style="display: inline-flex;margin: 15px;  margin-right: 50px;font-size: 22px; margin-left: 25%;">Adresse :</label>
-                            <div class="info" style="display: inline-flex; font-size: 25px;  float: right; margin-right: 40%; margin-top: 14px; ">{{_id}}</div>
-                            <div></div>
-                            <label style="display: inline-flex; margin: 15px;  margin-right: 95px;  font-size: 22px;  margin-left: 25%;">Date de création :</label>
-                            <div class="info"  style="display: inline-flex; font-size: 25px;  float: right; margin-right: 40%; margin-top: 14px; ">{{created.at}}</div>
-                            <div></div>
-                        </div>
+                    <!--<img src="/images/defaultOrga.jpg" class="img-circle" style="margin-top: 2%; margin-left: 44%; height: 140px" alt="User Image">-->
+                    <!--<hr>-->
+                    <div class="tab-pane" id="Dashboard">
+                        <img class="profile-user-img img-responsive img-circle" alt="Organisation profile picture">
 
+                        <h3 class="profile-username text-center">{{name}}</h3>
+
+                        <p class="text-muted text-center">{{_id}}</p>
+
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>Created</b> <a class="pull-right">{{created.at}}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Balance</b> <a class="pull-right">543 ether</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Members</b> <a class="pull-right">10</a>
+                            </li>
+                        </ul>
+
+                        <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalMakeDonation">Faire un don</button>
+                        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModalDelete">Détruire l'organisation</button>
+                        <button type="button" class="btn btn-primary btn-lg" style="float:right;" data-toggle="modal" data-target="#myModalCreateProject">Créer un projet</button>
+
+                        <!-- Modal -->
+                        <div id="myModalCreateOrga" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <link rel='stylesheet' href='/stylesheets/register.css' />
+
+                                <div class="container auth">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="text-center">Faire un don</h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="big-form" class="well auth-box">
+                                                <div class="form-group">
+                                                    <label class=" control-label" for="textinput">Name</label>
+                                                    <div class="">
+                                                        <input id="name" name="name" placeholder="Amount" class="form-control input-md" type="text">
+                                                    </div>
+                                                </div>
+                                                <input type="submit"  id='submit_form' class='btn btn-info' value="Faire un don !" data-dismiss="modal"/>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="myModalCreateProject" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <link rel='stylesheet' href='/stylesheets/register.css' />
+
+                                <div class="container auth">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="text-center">Create a Project</h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="big-form" class="well auth-box">
+                                                <div class="form-group">
+                                                    <label class=" control-label" for="textinput">Name</label>
+                                                    <div class="">
+                                                        <input id="projectName" name="name" placeholder="Name" class="form-control input-md" type="text">
+                                                    </div>
+                                                    <br/>
+                                                    <div class="">
+                                                        <input id="projectDesc" name="Desc" placeholder="Description" class="form-control input-md" type="text">
+                                                    </div>
+                                                </div>
+
+                                                <input type="submit"  id='createProject' class='btn btn-info' value="Create a new project !" data-dismiss="modal"/>
+
+                                            </div>
+                                            <div class="clearfix"></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="myModalDelete" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1>Êtes-vous sûr de vouloir supprimer l'organisation </h1></div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" onclick="destroyOrga()">Supprimer</button>
+                                        <button type="button" class="btn btn-info btn-lg" data-dismiss="modal">Annuler</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane" id="activity">
                         <!-- Post -->
@@ -248,100 +328,6 @@
                                 <i class="fa fa-clock-o bg-gray"></i>
                             </li>
                         </ul>
-                    </div>
-                    <!-- /.tab-pane -->
-                    <div class="tab-pane active" id="settings">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">Name</label>
-
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputName" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-danger">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="tab-pane" id="Actions">
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalCreateOrga">Créer une sous-organisation</button>
-                        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModalDelete">Détruire l'organisation</button>
-                        <button type="button" class="btn btn-primary btn-lg" style="float:right;" data-toggle="modal" data-target="#myModalCreateProject">Créer un projet</button>
-
-                        <!-- Modal -->
-                        <div id="myModalCreateOrga" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <link rel='stylesheet' href='/stylesheets/register.css' />
-
-                                <div class="container auth">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="text-center">Create an organisation</h1>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div id="big-form" class="well auth-box">
-                                                <div class="form-group">
-                                                    <label class=" control-label" for="textinput">Name</label>
-                                                    <div class="">
-                                                        <input id="name" name="name" placeholder="Name" class="form-control input-md" type="text">
-                                                    </div>
-                                                </div>
-                                                <input type="submit"  id='submit_form' class='btn btn-info' value="Create a new orga !" data-dismiss="modal"/>
-                                            </div>
-                                            <div class="clearfix"></div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="myModalCreateProject" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <link rel='stylesheet' href='/stylesheets/register.css' />
-
-                                <div class="container auth">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="text-center">Create a Project</h1>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div id="big-form" class="well auth-box">
-                                                <div class="form-group">
-                                                    <label class=" control-label" for="textinput">Name</label>
-                                                    <div class="">
-                                                        <input id="projectName" name="name" placeholder="Name" class="form-control input-md" type="text">
-                                                    </div>
-                                                    <br/>
-                                                    <div class="">
-                                                        <input id="projectDesc" name="Desc" placeholder="Description" class="form-control input-md" type="text">
-                                                    </div>
-                                                </div>
-
-                                                <input type="submit"  id='createProject' class='btn btn-info' value="Create a new project !" data-dismiss="modal"/>
-
-                                            </div>
-                                            <div class="clearfix"></div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="myModalDelete" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1>Êtes-vous sûr de vouloir supprimer l'organisation </h1></div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" onclick="destroyOrga()">Supprimer</button>
-                                        <button type="button" class="btn btn-info btn-lg" data-dismiss="modal">Annuler</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!-- /.tab-pane -->
                 </div>
