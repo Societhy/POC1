@@ -24,6 +24,7 @@ function joinExistingOrga() {
 }
 
 function destroyOrga() {
+    console.log("destroy");
     contractInstance.kill({from:account}).then(function (tx) {
         console.log("orga destroyed", tx);
         socket.emit("orgaDeleted", {orgAddr:contractInstance.address});
