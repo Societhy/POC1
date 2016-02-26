@@ -43,13 +43,13 @@ global.io.on('connection', function(socket) {
     });
 
     socket.on("orgaDeleted", function(data) {
-        orga.deleteOrga(function(ret) {
+        orga.deleteOrga(data.orgAddr, function(ret) {
             if (!ret.status) {
                 console.log(ret.message);
             } else {
                 console.log(ret.message, ret.object);
             }
-        })
+        });
     });
 
 
