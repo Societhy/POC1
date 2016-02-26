@@ -9,14 +9,13 @@ var index = require('./routes/index');
 var user = require('./routes/user');
 var organisation = require('./routes/organisation');
 var register = require('./routes/register');
-var debug = require('./routes/debug');
+var projet = require('./routes/projet');
 
 var api = require('./api/api.js');
 
 var app = express();
 var db = require('./database/db');
-var url = 'mongodb://10.224.9.117:27017/test';
-
+var url = 'mongodb://163.5.84.117:27017/test';
 
 var fs = require('fs');
 
@@ -48,7 +47,7 @@ app.use('/', index);
 app.use('/user', user);
 app.use('/organisation', organisation);
 app.use('/register', register);
-app.use('/debug', debug);
+app.use('/projet', projet);
 
 //api
 app.use('/api', api);

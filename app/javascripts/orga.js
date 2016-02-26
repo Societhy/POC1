@@ -9,7 +9,7 @@ var contractInstance;
 var accounts = null;
 var account = null;
 
-function joinExistingOrga() {
+function    joinExistingOrga() {
     var orgaName = $("#name").val();
     var userName = "simon";
     //var userName = $("#name").val();
@@ -20,6 +20,7 @@ function joinExistingOrga() {
 }
 
 function destroyOrga() {
+    console.log("destroy");
     contractInstance.kill({from:account}).then(function (tx) {
         console.log("orga destroyed", tx);
         socket.emit("orgaDeleted", {orgAddr:contractInstance.address});
@@ -111,7 +112,6 @@ window.onload = function() {
     socket.on("orgaData", function (data) {
         orga = data;
         contract = Pudding.whisk({abi:orga.abi, binary:orga.binary});
-        console.log(addr);
         contractInstance = contract.at(addr);
         console.log(contractInstance);
     });

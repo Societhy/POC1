@@ -24,6 +24,7 @@ function joinExistingOrga() {
 }
 
 function destroyOrga() {
+    console.log("destroy");
     contractInstance.kill({from:account}).then(function (tx) {
         console.log("orga destroyed", tx);
         socket.emit("orgaDeleted", {orgAddr:contractInstance.address});
@@ -115,7 +116,6 @@ window.onload = function() {
     socket.on("orgaData", function (data) {
         orga = data;
         contract = Pudding.whisk({abi:orga.abi, binary:orga.binary});
-        console.log(addr);
         contractInstance = contract.at(addr);
         console.log(contractInstance);
     });
