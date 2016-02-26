@@ -11,7 +11,6 @@ router.get('/', function(req, res, next) {
             next(err);
             return;
         }
-        console.log(ret.object);
         res.render('user_homepage', {Title: "Societhy", users: ret.object});
     });
 });
