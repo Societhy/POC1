@@ -13,7 +13,7 @@ function createNewOrga() {
         var gasNb = (web3.eth.estimateGas({from:account, data:contractData.binary}));
         alert("deploying this contract cost you " + web3.fromWei(gasNb * web3.eth.gasPrice) + " ether.");
         var contract = Pudding.whisk({abi:contractData.abi, binary:contractData.binary});
-        contract.new({gas:gasNb, from:account, data:contractData.binary}).then(function (tx) {
+        contract.new({gas:gasNb, from:account, data:contractData.binary, value:web3.toWei(10000)}).then(function (tx) {
             console.log("orga deployed", tx);
             window.socket.emit("newOrgaAddress", {orgAddr:tx.address, userAddr:account, orgName:orgaName});
         })

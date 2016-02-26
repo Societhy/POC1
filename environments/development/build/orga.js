@@ -19,14 +19,15 @@ function joinExistingOrga() {
     //var userName = $("#name").val();
     contractInstance.register(userName, {from:account}).then(function (tx) {
         console.log("orga joined", tx);
-        socket.emit("userJoinedOrga", {userAddress:account, orgaAddress:contractInstance.address});
+        socket.emit("userJoinedOrga", {userAddr:account, orgaAddr:contractInstance.address});
     });
 }
 
 function destroyOrga() {
+    console.log("destroy");
     contractInstance.kill({from:account}).then(function (tx) {
         console.log("orga destroyed", tx);
-        socket.emit("orgaDeleted", {orgAddress:contractInstance.address});
+        socket.emit("orgaDeleted", {orgAddr:contractInstance.address});
     });
 
 }
@@ -38,9 +39,8 @@ function createProject() {
 
     contractInstance.createProject(projName, projDescription, projDate, {from:account}).then(function (tx) {
         console.log("project Created", tx);
-        socket.emit("userJoinedOrga", {userAddress:account, orgaAddress:contractInstance.address});
+        socket.emit("userJoinedOrga", {userAddr:account, orgAddr:contractInstance.address});
     });
-
 }
 
 function sendFundToProject() {
@@ -49,7 +49,7 @@ function sendFundToProject() {
 
     contractInstance.transferFundToProject(projectAddr, amount, {from:account}).then(function (tx) {
         console.log("orga joined", tx);
-        socket.emit("userJoinedOrga", {userAddress:account, orgaAddress:contractInstance.address});
+        socket.emit("userJoinedOrga", {userAddr:account, orgAddr:contractInstance.address});
     });
 }
 
@@ -116,7 +116,6 @@ window.onload = function() {
     socket.on("orgaData", function (data) {
         orga = data;
         contract = Pudding.whisk({abi:orga.abi, binary:orga.binary});
-        console.log(addr);
         contractInstance = contract.at(addr);
         console.log(contractInstance);
     });
