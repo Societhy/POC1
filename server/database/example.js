@@ -47,6 +47,15 @@ exports.getAllUsers = function() {
     });
 };
 
+exports.getUserByOrga = function () {
+    user.getUserByOrga("0x6acd520f", function (ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message, ret.object);
+    });
+};
+
 // 'USAGE': ADD AN ADDRESS TO ADDRESS LIST
 exports.userAddAddress = function() {
     user.addAddress("0x5b18e694", "0x5b18e694", function(ret) {
