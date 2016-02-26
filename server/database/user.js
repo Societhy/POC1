@@ -68,13 +68,15 @@ exports.getUser = function(userAddress, finalCallback) {
     }, finalCallback);
 };
 
-exports.getUserByOrga = function (orgaAddress, finalCallback) {
+exports.getUserByOrga = function(orgaAddress, finalCallback) {
     var ret = {
         'status': false,
         'message': "",
         'object': null
     };
-    db.get().collection(USER).find({'listOrga': orgaAddress}, {
+    db.get().collection(USER).find({
+        'listOrga': orgaAddress
+    }, {
         '_id': false,
     }).toArray(function(err, docs) {
         if (err) {
@@ -89,13 +91,15 @@ exports.getUserByOrga = function (orgaAddress, finalCallback) {
     });
 };
 
-exports.getUserByLastName = function (searchLastName, finalCallback) {
+exports.getUserByLastName = function(searchLastName, finalCallback) {
     var ret = {
         'status': false,
         'message': "",
         'object': null
     };
-    db.get().collection(USER).find({'lastname': searchLastName}, {
+    db.get().collection(USER).find({
+        'lastname': searchLastName
+    }, {
         '_id': false,
     }).toArray(function(err, docs) {
         if (err) {
@@ -110,13 +114,15 @@ exports.getUserByLastName = function (searchLastName, finalCallback) {
     });
 };
 
-exports.getUserByFirstName = function (searchFirstName, finalCallback) {
+exports.getUserByFirstName = function(searchFirstName, finalCallback) {
     var ret = {
         'status': false,
         'message': "",
         'object': null
     };
-    db.get().collection(USER).find({'firstname': searchFirstName}, {
+    db.get().collection(USER).find({
+        'firstname': searchFirstName
+    }, {
         '_id': false,
     }).toArray(function(err, docs) {
         if (err) {
@@ -399,6 +405,8 @@ function existsUser(user, doExists, finalCallback) {
     } else {
         var cursor = db.get().collection(USER).find({
             'addresses': new RegExp(["^", user.addresses[0], "$"].join(""), "i")
+        }, {
+            '_id': false
         });
 
         cursor.hasNext(function(err, user) {
@@ -432,6 +440,8 @@ function notExistsUser(searchUser, doNotExists, finalCallback) {
     } else {
         var cursor = db.get().collection(USER).find({
             'addresses': new RegExp(["^", searchUser.addresses[0], "$"].join(""), "i")
+        }, {
+            '_id': false
         });
 
         cursor.hasNext(function(err, user) {
