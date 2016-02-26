@@ -12,8 +12,10 @@ var path = require("path");
 router.get('/', function (req, res, next)
 {
 
-    orga.getAllOrgas(function (ret) {
-        if (!ret.status) {
+    orga.getAllOrgas(function (ret)
+    {
+        if (!ret.status)
+        {
             var err = new Error(ret.message);
             err.status = 404;
             next(err);
@@ -24,13 +26,15 @@ router.get('/', function (req, res, next)
     });
 });
 
-router.get('/create', function(req, res, next) {
+router.get('/create', function(req, res, next)
+{
     res.render('organisation_create');
 });
 
 router.get('/:addr', function(req, res, next)
 {
-    orga.getOrga(req.params.addr, function (ret) {
+    orga.getOrga(req.params.addr, function (ret)
+    {
         if (!ret.status)
         {
             var err = new Error(ret.message);
