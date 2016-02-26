@@ -43,7 +43,6 @@ router.get('/:addr', function(req, res, next)
             return;
         }
         ret.object.created.at =  ret.object.created.at.substr(0,10);
-        console.log(ret.object);
         res.render('orga_profile', ret.object );
     });
 });
