@@ -142,7 +142,7 @@ exports.addAddress = function(userAddress, addrToAdd, finalCallback) {
             'object': null
         };
         db.get().collection(USER).updateOne(user, {
-            $push: {
+            $addToSet: {
                 'addresses': addrToAdd
             }
         }, function(err, result) {
@@ -310,7 +310,7 @@ exports.addOrgaAddress = function(userAddress, orgaAddress, finalCallback) {
             'object': null
         };
         db.get().collection(USER).updateOne(user, {
-            $push: {
+            $addToSet: {
                 'listOrga': orgaAddress
             }
         }, function(err, result) {
@@ -369,7 +369,7 @@ exports.addContact = function(userAddress, userToAdd, finalCallback) {
             'object': null
         };
         db.get().collection(USER).updateOne(user, {
-            $push: {
+            $addToSet: {
                 'contacts': userToAdd
             }
         }, function(err, result) {

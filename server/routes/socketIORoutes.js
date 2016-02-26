@@ -42,6 +42,23 @@ global.io.on('connection', function(socket) {
         });
     });
 
+    socket.on("userJoinedOrga", function(data) {
+        user.addOrgaAddress(data.userAddr, data.orgAddr, function(ret) {
+            if (!ret.status) {
+                console.log(ret.message);
+            } else {
+                console.log(ret.message, ret.object);
+            }
+        });
+        orga.addMemberAddress(data.orgAddr, data.userAddr, function(ret) {
+            if (!ret.status) {
+                console.log(ret.message);
+            } else {
+                console.log(ret.message, ret.object);
+            }
+        });
+    });
+
     socket.on("orgaDeleted", function(data) {
         orga.deleteOrga(data.orgAddr, function(ret) {
             if (!ret.status) {
@@ -51,8 +68,6 @@ global.io.on('connection', function(socket) {
             }
         });
     });
-
-
 
     socket.on("newOrgaAddress", function(data) {
         //store data.address in db
