@@ -35,6 +35,25 @@ exports.addOrga = function(orgaAddress, finalCallback, orgaInfos) {
     }, finalCallback);
 };
 
+exports.deleteOrga = function (orgaAddress, finalCallback) {
+    var ret = {
+        'status': false,
+        'message': "",
+        'object': null
+    };
+    db.get().collection(ORGA).deleteOne({'address': orgaAddress}, function (err, res) {
+        if (err) {
+            ret.message = err.message;
+            finalCallback(ret);
+        } else {
+            ret.status = true;
+            ret.message = "Organisation deleted.";
+            ret.object = res.deletedCount;
+            finalCallback(ret);
+        }
+    });
+};
+
 exports.getOrga = function(orgaAddress, finalCallback) {
     var orga = {
         'address': orgaAddress
@@ -141,7 +160,7 @@ exports.addMemberAddress = function(orgaAddress, userAddress, finalCallback) {
             'object': null
         };
         db.get().collection(ORGA).updateOne(orga, {
-            $push: {
+            $addToSet: {
                 'memberList': userAddress
             }
         }, function(err, result) {
@@ -169,7 +188,7 @@ exports.addProjectAddress = function(orgaAddress, projAddress, finalCallback) {
             'object': null
         };
         db.get().collection(ORGA).updateOne(orga, {
-            $push: {
+            $addToSet: {
                 'projects': projAddress
             }
         }, function(err, result) {

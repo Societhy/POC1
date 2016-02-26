@@ -47,6 +47,15 @@ exports.getAllUsers = function() {
     });
 };
 
+exports.getUserByOrga = function () {
+    user.getUserByOrga("0x6acd520f", function (ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message, ret.object);
+    });
+};
+
 // 'USAGE': ADD AN ADDRESS TO ADDRESS LIST
 exports.userAddAddress = function() {
     user.addAddress("0x5b18e694", "0x5b18e694", function(ret) {
@@ -183,6 +192,15 @@ exports.addOrga = function() {
             console.log('Orga added');
     }, {
         'name': addr
+    });
+};
+
+exports.deleteOrga = function() {
+    orga.deleteOrga("0x05d4e538", function(ret) {
+        if (!ret.status)
+            console.log(ret.message);
+        else
+            console.log(ret.message, ret.object);
     });
 };
 

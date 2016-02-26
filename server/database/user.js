@@ -40,17 +40,14 @@ exports.getAllUsers = function(finalCallback) {
         'object': null
     };
     db.get().collection(USER).find({}, {
-        '_id': false,
-        'lastname': true,
-        'firstname': true,
-        'addresses': true
+        '_id': false
     }).toArray(function(err, docs) {
         if (err) {
             ret.message = err.message;
             finalCallback(ret);
         } else {
             ret.status = true;
-            ret.message = "List of users";
+            ret.message = "List of users.";
             ret.object = docs;
             finalCallback(ret);
         }
@@ -71,6 +68,27 @@ exports.getUser = function(userAddress, finalCallback) {
     }, finalCallback);
 };
 
+exports.getUserByOrga = function (orgaAddress, finalCallback) {
+    var ret = {
+        'status': false,
+        'message': "",
+        'object': null
+    };
+    db.get().collection(USER).find({'listOrga': orgaAddress}, {
+        '_id': false,
+    }).toArray(function(err, docs) {
+        if (err) {
+            ret.message = err.message;
+            finalCallback(ret);
+        } else {
+            ret.status = true;
+            ret.message = "List of users.";
+            ret.object = docs;
+            finalCallback(ret);
+        }
+    });
+};
+
 exports.getUserByLastName = function (searchLastName, finalCallback) {
     var ret = {
         'status': false,
@@ -79,9 +97,6 @@ exports.getUserByLastName = function (searchLastName, finalCallback) {
     };
     db.get().collection(USER).find({'lastname': searchLastName}, {
         '_id': false,
-        'lastname': true,
-        'firstname': true,
-        'addresses': true
     }).toArray(function(err, docs) {
         if (err) {
             ret.message = err.message;
@@ -103,9 +118,6 @@ exports.getUserByFirstName = function (searchFirstName, finalCallback) {
     };
     db.get().collection(USER).find({'firstname': searchFirstName}, {
         '_id': false,
-        'lastname': true,
-        'firstname': true,
-        'addresses': true
     }).toArray(function(err, docs) {
         if (err) {
             ret.message = err.message;
@@ -130,7 +142,7 @@ exports.addAddress = function(userAddress, addrToAdd, finalCallback) {
             'object': null
         };
         db.get().collection(USER).updateOne(user, {
-            $push: {
+            $addToSet: {
                 'addresses': addrToAdd
             }
         }, function(err, result) {
@@ -298,7 +310,7 @@ exports.addOrgaAddress = function(userAddress, orgaAddress, finalCallback) {
             'object': null
         };
         db.get().collection(USER).updateOne(user, {
-            $push: {
+            $addToSet: {
                 'listOrga': orgaAddress
             }
         }, function(err, result) {
@@ -357,7 +369,7 @@ exports.addContact = function(userAddress, userToAdd, finalCallback) {
             'object': null
         };
         db.get().collection(USER).updateOne(user, {
-            $push: {
+            $addToSet: {
                 'contacts': userToAdd
             }
         }, function(err, result) {

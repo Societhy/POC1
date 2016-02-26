@@ -1,5 +1,6 @@
 <div class="col-md-12">
-    <h1>Organisation</h1>
+    <h1>{{name}}</h1>
+    <h2 style="opacity:0" id="orgAddr">{{address}}</h2>
     <div class="box">
         <div class="box-body">
             <div class="nav-tabs-custom">
@@ -336,7 +337,7 @@
                                     <div class="modal-header">
                                         <h1>Êtes-vous sûr de vouloir supprimer l'organisation </h1></div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Supprimer</button>
+                                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" onclick="destroyOrga()">Supprimer</button>
                                         <button type="button" class="btn btn-info btn-lg" data-dismiss="modal">Annuler</button>
                                     </div>
                                 </div>
@@ -352,4 +353,4 @@
     </div>
 
 </div>
-
+<script src="/eth/orga.js"></script>
