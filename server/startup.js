@@ -34,6 +34,7 @@ var server = {
         server.on('error', onError);
         server.on('listening', onListening);
         done();
+
         /**
          * Normalize a port into a number, string, or false.
          */

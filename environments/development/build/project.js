@@ -4,6 +4,11 @@ var Pudding=function(t){function e(r){if(n[r])return n[r].exports;var a=n[r]={ex
 
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
 
+var socket;
+var project;
+var contract;
+var contractInstance;
+
 var accounts = null;
 var account = null;
 var browserAccounts;
@@ -27,6 +32,38 @@ function uploadImage() {
         ss(window.socket).emit('orgaimg', stream, {size: file.size, name:file.name});
         ss.createBlobReadStream(file).pipe(stream);
     }
+}
+
+function register() {
+    var username;
+
+    contractInstance.register(username, {from:account}).then(function (tx) {
+        console.log("user " + username + " registered", tx);
+        socket.emit("userRegisterProj", {userAddr:account, projAddr:contractInstance.address});
+    });
+}
+
+function createProposal() {
+    var name;
+    var description;
+    var goal;
+    var timeLimit;
+    var proposalLimit;
+
+    contractInstance.createProposal(name, description, goal, timeLimit, proposal, {from:account}).then(function (tx) {
+        console.log("proposal " + name + " created, id : ", tx);
+        socket.emit("newProposal", {userAddr:account, projAddr:contractInstance.address});
+    });
+}
+
+function voteForProposal() {
+    var id;
+    var vote;
+
+    contractInstance.voteForProposal(id, vote, {from:account}).then(function (tx) {
+        console.log("voted proposal " + id, tx);
+        socket.emit("new vote", {userAddr:account, projAddr:contractInstance.address});
+    });
 }
 
 function getLocalAccounts() {
@@ -77,7 +114,18 @@ function launchRemoteMode() {
 }
 
 window.onload = function() {
-    window.socket = io();
+    var addr = $("#projAddr").text();
+
+    socket = io();
+    socket.emit("getProjData", null);
+    socket.on("projData", function (data) {
+        project = data;
+        contract = Pudding.whisk({abi:project.abi, binary:project.binary});
+        console.log(addr);
+        contractInstance = contract.at(addr);
+        console.log(contractInstance);
+    });
+
     if (web3.isConnected()) {
         launchConnectedMode();
     }

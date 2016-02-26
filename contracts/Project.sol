@@ -62,10 +62,10 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
     newUser(members[msg.sender].name);
   }
 
-  function createProposal(string name, string description, uint goal, uint timeLimit, uint proposalLimit)
+  function createProposal(string name, string description, uint goal, uint timeLimit, uint proposalLimit) returns (uint)
   {
     Proposal memory buff;
-    buff.id = maxid++;
+    buff.id = maxid;
     buff.timeLimit = now + proposalLimit * 1 minutes;
     buff.positive = 0;
     buff.against = 0;
@@ -73,17 +73,17 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
     buff.info.description = description;
     buff.info.goal = goal;
     buff.info.timeLimit = now + timeLimit * 1 minutes;
-buff.info.isActive = false;
+    buff.info.isActive = false;
     proposal.push(buff);
+    return maxid++;
   }
 
   function createFundraise(Proposal proposal) private {
-proposal.info.isActive = true;
+    proposal.info.isActive = true;
     activeCampaigns.push(new Fundraise(proposal.info.name, proposal.info.description, proposal.info.goal, proposal.info.timeLimit));
   }
 
-  function voteForProposal(uint id, bool vote)
-  {
+  function voteForProposal(uint id, bool vote) {
     if (members[msg.sender].rights.vote == true) {
         for (uint i = 0; i < proposal.length; ++i) {
             if (id == proposal[i].id) {
