@@ -87,6 +87,10 @@ global.io.on('connection', function(socket) {
         }, infos);
     });
 
+    socket.on("newProject", function(data) {
+       console.log(data);
+    });
+
     //files
     ss(socket).on("userimg", function(stream, data) {
         var buff;
