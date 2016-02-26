@@ -35,13 +35,15 @@ exports.addOrga = function(orgaAddress, finalCallback, orgaInfos) {
     }, finalCallback);
 };
 
-exports.deleteOrga = function (orgaAddress, finalCallback) {
+exports.deleteOrga = function(orgaAddress, finalCallback) {
     var ret = {
         'status': false,
         'message': "",
         'object': null
     };
-    db.get().collection(ORGA).deleteOne({'address': orgaAddress}, function (err, res) {
+    db.get().collection(ORGA).deleteOne({
+        'address': orgaAddress
+    }, function(err, res) {
         if (err) {
             ret.message = err.message;
             finalCallback(ret);
@@ -75,9 +77,7 @@ exports.getAllOrgas = function(finalCallback) {
         'object': null
     };
     db.get().collection(ORGA).find({}, {
-        '_id': false,
-        'name': true,
-        'address': true
+        '_id': false
     }).toArray(function(err, docs) {
         if (err) {
             ret.message = err.message;
@@ -109,7 +109,7 @@ exports.changeABI = function(orgaAddress, newABI, finalCallback) {
         }, function(err, result) {
             if (err) {
                 ret.message = err.message;
-                    finalCallback(ret);
+                finalCallback(ret);
             } else {
                 ret.status = true;
                 ret.message = "ABI changed.";
@@ -330,6 +330,8 @@ function existsOrga(orga, doExists, finalCallback) {
     } else {
         var cursor = db.get().collection(ORGA).find({
             'address': new RegExp(["^", orga.address, "$"].join(""), "i")
+        }, {
+            '_id': false
         });
 
         cursor.hasNext(function(err, orga) {
@@ -363,6 +365,8 @@ function notExistsOrga(searchOrga, doNotExists, finalCallback) {
     } else {
         var cursor = db.get().collection(ORGA).find({
             'address': new RegExp(["^", searchOrga.address, "$"].join(""), "i")
+        }, {
+            '_id': false
         });
 
         cursor.hasNext(function(err, orga) {
