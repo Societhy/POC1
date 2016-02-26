@@ -160,7 +160,7 @@ exports.addMemberAddress = function(orgaAddress, userAddress, finalCallback) {
             'object': null
         };
         db.get().collection(ORGA).updateOne(orga, {
-            $push: {
+            $addToSet: {
                 'memberList': userAddress
             }
         }, function(err, result) {
@@ -188,7 +188,7 @@ exports.addProjectAddress = function(orgaAddress, projAddress, finalCallback) {
             'object': null
         };
         db.get().collection(ORGA).updateOne(orga, {
-            $push: {
+            $addToSet: {
                 'projects': projAddress
             }
         }, function(err, result) {
