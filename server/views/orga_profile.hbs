@@ -268,7 +268,7 @@
                     </div>
                     <div class="tab-pane" id="Actions">
                         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalCreate">Créer une sous-organisation</button>
-                        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModalDelete" onclick="destroyOrga()">Détruire l'organisation</button>
+                        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModalDelete">Détruire l'organisation</button>
 
                         <!-- Modal -->
                         <div id="myModalCreate" class="modal fade" role="dialog">
@@ -306,7 +306,7 @@
                                     <div class="modal-header">
                                         <h1>Êtes-vous sûr de vouloir supprimer l'organisation </h1></div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">Supprimer</button>
+                                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" onclick="destroyOrga()">Supprimer</button>
                                         <button type="button" class="btn btn-info btn-lg" data-dismiss="modal">Annuler</button>
                                     </div>
                                 </div>
