@@ -266,11 +266,12 @@
                         </form>
                     </div>
                     <div class="tab-pane" id="Actions">
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalCreate">Créer une sous-organisation</button>
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalCreateOrga">Créer une sous-organisation</button>
                         <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModalDelete">Détruire l'organisation</button>
+                        <button type="button" class="btn btn-primary btn-lg" style="float:right;" data-toggle="modal" data-target="#myModalCreateProject">Créer un projet</button>
 
                         <!-- Modal -->
-                        <div id="myModalCreate" class="modal fade" role="dialog">
+                        <div id="myModalCreateOrga" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                                 <link rel='stylesheet' href='/stylesheets/register.css' />
 
@@ -287,13 +288,43 @@
                                                         <input id="name" name="name" placeholder="Name" class="form-control input-md" type="text">
                                                     </div>
                                                 </div>
-
-                                                <input type="submit"  id='submit_form' value="Create !" data-dismiss="modal"/>
-
+                                                <input type="submit"  id='submit_form' class='btn btn-info' value="Create a new orga !" data-dismiss="modal"/>
                                             </div>
                                             <div class="clearfix"></div>
 
                                             <script src="/eth/newOrga.js"></script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="myModalCreateProject" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <link rel='stylesheet' href='/stylesheets/register.css' />
+
+                                <div class="container auth">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="text-center">Create a Project</h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="big-form" class="well auth-box">
+                                                <div class="form-group">
+                                                    <label class=" control-label" for="textinput">Name</label>
+                                                    <div class="">
+                                                        <input id="name" name="name" placeholder="Name" class="form-control input-md" type="text">
+                                                    </div>
+                                                    <br/>
+                                                    <div class="">
+                                                        <input id="Desc" name="Desc" placeholder="Description" class="form-control input-md" type="text">
+                                                    </div>
+                                                </div>
+
+                                                <input type="submit"  id='submit_form' class='btn btn-info' value="Create a new project !" data-dismiss="modal"/>
+
+                                            </div>
+                                            <div class="clearfix"></div>
+
                                         </div>
                                     </div>
                                 </div>

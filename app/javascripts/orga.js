@@ -9,7 +9,7 @@ var contractInstance;
 var accounts = null;
 var account = null;
 
-function joinExistingOrga() {
+function    joinExistingOrga() {
     var orgaName = $("#name").val();
     var userName = "simon";
     //var userName = $("#name").val();
