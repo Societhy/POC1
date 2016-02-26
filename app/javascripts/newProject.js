@@ -4,6 +4,23 @@ var accounts = null;
 var account = null;
 var browserAccounts;
 
+function createNewProj() {
+    var projName = $("#name").val();
+
+    window.socket.emit("newProject", null);
+
+    window.socket.on("newProjectCode", function (contractData) {
+        console.log(contractData);
+        var gasNb = (web3.eth.estimateGas({from:account, data:contractData.binary}));
+        alert("deploying this contract cost you " + web3.fromWei(gasNb * web3.eth.gasPrice) + " ether.");
+        var contract = Pudding.whisk({abi:contractData.abi, binary:contractData.binary});
+        contract.new({gas:gasNb, from:account, data:contractData.binary}).then(function (tx) {
+            console.log("orga deployed", tx);
+            window.socket.emit("newOrgaAddress", {orgAddr:tx.address, userAddr:account});
+        });
+    });
+}
+
 function uploadImage() {
     var stream = ss.createStream();
     var input, file;
