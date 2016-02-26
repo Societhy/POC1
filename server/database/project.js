@@ -53,10 +53,7 @@ exports.getAllProjects = function(finalCallback) {
         'object': null
     };
     db.get().collection(PROJ).find({}, {
-        '_id': false,
-        'name': true,
-        'description': true,
-        'address': true
+        '_id': false
     }).toArray(function(err, docs) {
         if (err) {
             ret.message = err.message;
@@ -79,10 +76,7 @@ exports.getProjectsByOrga = function(orgaAddress, finalCallback) {
     db.get().collection(PROJ).find({
         'orgaAddress': orgaAddress
     }, {
-        '_id': false,
-        'name': true,
-        'description': true,
-        'address': true
+        '_id': false
     }).toArray(function(err, docs) {
         if (err) {
             ret.message = err.message;
@@ -163,7 +157,7 @@ exports.addMemberAddress = function(projAddress, userAddress, finalCallback) {
             'object': null
         };
         db.get().collection(PROJ).updateOne(proj, {
-            $push: {
+            $addToSet: {
                 'memberList': userAddaress
             }
         }, function(err, result) {
@@ -277,6 +271,8 @@ function existsProj(proj, doExists, finalCallback) {
     } else {
         var cursor = db.get().collection(PROJ).find({
             'address': new RegExp(["^", proj.address, "$"].join(""), "i")
+        }, {
+            '_id': false
         });
 
         cursor.hasNext(function(err, proj) {
@@ -310,6 +306,8 @@ function notExistsProj(searchProj, doNotExists, finalCallback) {
     } else {
         var cursor = db.get().collection(PROJ).find({
             'address': new RegExp(["^", searchProj.address, "$"].join(""), "i")
+        }, {
+            '_id': false
         });
 
         cursor.hasNext(function(err, proj) {
