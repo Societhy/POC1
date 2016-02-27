@@ -43,13 +43,39 @@
                             </li>
                         </ul>
 
-                        <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModalJoinOrga">Rejoindre (10 ether)</button>
                         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalMakeDonation">Faire un don</button>
                         <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModalDelete">Détruire l'organisation</button>
                         <button type="button" class="btn btn-primary btn-lg" style="float:right;" data-toggle="modal" data-target="#myModalCreateProject">Créer un projet</button>
 
                         <!-- Modal -->
-                        <div id="myModalCreateOrga" class="modal fade" role="dialog">
+                        <div id="myModalJoinOrga" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <link rel='stylesheet' href='/stylesheets/register.css' />
+
+                                <div class="container auth">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="text-center">Inscription</h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="big-form" class="well auth-box">
+                                                <div class="form-group">
+                                                    <label class=" control-label" for="textinput">Name</label>
+                                                    <div class="">
+                                                        <input id="name" name="name" placeholder="Name" class="form-control input-md" type="text">
+                                                    </div>
+                                                </div>
+                                                <input type="submit"  id='submit_form' class='btn btn-info' value="Rejoindre !" data-dismiss="modal" onclick="joinExistingOrga()"/>
+                                            </div>
+                                            <div class="clearfix"></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="myModalMakeDonation" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                                 <link rel='stylesheet' href='/stylesheets/register.css' />
 
@@ -61,12 +87,12 @@
                                         <div class="modal-body">
                                             <div id="big-form" class="well auth-box">
                                                 <div class="form-group">
-                                                    <label class=" control-label" for="textinput">Name</label>
+                                                    <label class=" control-label" for="textinput">Amount</label>
                                                     <div class="">
-                                                        <input id="name" name="name" placeholder="Amount" class="form-control input-md" type="text">
+                                                        <input id="amount" name="amount" placeholder="Amount" class="form-control input-md" type="text">
                                                     </div>
                                                 </div>
-                                                <input type="submit"  id='submit_form' class='btn btn-info' value="Faire un don !" data-dismiss="modal"/>
+                                                <input type="submit"  id='submit_form' class='btn btn-info' value="Faire un don !" data-dismiss="modal" onclick="donateToOrga()"/>
                                             </div>
                                             <div class="clearfix"></div>
 
@@ -97,7 +123,7 @@
                                                     </div>
                                                 </div>
 
-                                                <input type="submit"  id='createProject' class='btn btn-info' value="Create a new project !" data-dismiss="modal"/>
+                                                <input type="submit"  id='createProject' class='btn btn-info' value="Create a new project !" data-dismiss="modal" onclick="createProject()"/>
 
                                             </div>
                                             <div class="clearfix"></div>

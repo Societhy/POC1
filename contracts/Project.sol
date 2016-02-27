@@ -45,10 +45,10 @@ contract Project {
 
 modifier onlyOwner() { if (msg.sender == owner) _ }
 
-  function Project(string _name, string _description, uint _date) {
+  function Project(string _name, string _description) {
     name = _name;
     description = _description;
-    date = _date;
+    date = now;
     owner = msg.sender;
   }
 

@@ -37,7 +37,7 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
     name = _name;
   }
 
-  function () {
+  function donate() {
     members[msg.sender].contribution += msg.value;
     newDonation(msg.sender, msg.value);
   }
@@ -57,9 +57,9 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
     return members[user].name;
   }
 
-  function createProject(string _name, string _description, uint _date) returns (address) {
-address projectAddr = new Project(_name, _description, _date);
-    projects.push(ProjectInfo(_name, _description, _date, projectAddr));
+  function createProject(string _name, string _description) returns (address addr) {
+address projectAddr = new Project(_name, _description);
+    projects.push(ProjectInfo(_name, _description, now, projectAddr));
     return projectAddr;
   }
 

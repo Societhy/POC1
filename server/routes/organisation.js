@@ -42,7 +42,7 @@ router.get('/:addr', function(req, res, next)
             next(err);
             return;
         }
-        ret.object.created.at =  ret.object.created.at.substr(0,10);
+        ret.object.created.at = ret.object.created.at.substr(0,10);
         res.render('orga_profile', ret.object );
     });
 });

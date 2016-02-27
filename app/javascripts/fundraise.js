@@ -9,27 +9,6 @@ var accounts = null;
 var account = null;
 var browserAccounts;
 
-function uploadImage() {
-    var stream = ss.createStream();
-    var input, file;
-
-    input = document.getElementById('imageinput');
-    if (!input) {
-        alert("Um, couldn't find the fileinput element.");
-    }
-    else if (!input.files) {
-        alert("This browser doesn't seem to support the `files` property of file inputs.");
-    }
-    else if (!input.files[0]) {
-        alert("Please select a file before clicking 'Load'");
-    }
-    else {
-        file = input.files[0];
-        ss(window.socket).emit('orgaimg', stream, {size: file.size, name:file.name});
-        ss.createBlobReadStream(file).pipe(stream);
-    }
-}
-
 function donate() {
     var amount;
 
