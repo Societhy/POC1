@@ -56,8 +56,7 @@
                                 {{/if}}
                                 <div hidden>
                                     {{#each orga.memberList}}
-                                        <span>{{firstname}} {{lastname}}</span>
-                                        <span><a href="/user/{{orga.addresses}}">{{orgaaddresses}}</a></span>
+                                        <span><a href="/user/{{this}}">{{this}}</a></span>
                                         <hr/>
                                     {{/each}}
                                 </div>
