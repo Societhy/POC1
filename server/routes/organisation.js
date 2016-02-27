@@ -21,6 +21,7 @@ router.get('/', function (req, res, next)
             next(err);
             return;
         }
+    console.log(ret.object);
         res.render('organisation_homepage', {Title: "Societhy", orgas:ret.object});
     });
 });

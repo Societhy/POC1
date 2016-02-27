@@ -1,6 +1,6 @@
 <div class="col-md-12">
-    <h1>{{orga.name}}</h1>
-    <h2 style="opacity:0" id="orgAddr">{{orga.address}}</h2>
+    <h1>{{name}}</h1>
+    <h2 style="opacity:0" id="orgAddr">{{address}}</h2>
     <div class="box">
         <div class="box-body">
             <div class="nav-tabs-custom">
@@ -49,15 +49,15 @@
                                 {{/if}}
                             </li>
                             <li class="list-group-item togglable">
-                                {{#if orga.memberList}}
-                                    <b>Members</b> <a class="pull-right">{{orga.memberList.length}} <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
+                                {{#if memberList}}
+                                    <b>Members</b> <a class="pull-right">{{memberList.length}} <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
                                 {{else}}
                                     <b>Members</b> <a class="pull-right">10 <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
                                 {{/if}}
                                 <div hidden>
-                                    {{#each orga.memberList}}
+                                    {{#each memberList}}
                                         <span>{{firstname}} {{lastname}}</span>
-                                        <span><a href="/user/{{orga.addresses}}">{{orgaaddresses}}</a></span>
+                                        <span><a href="/user/{{addresses}}">{{addresses}}</a></span>
                                         <hr/>
                                     {{/each}}
                                 </div>
