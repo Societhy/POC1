@@ -1,7 +1,7 @@
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
 
 var socket;
-var project;
+var fundraise;
 var contract;
 var contractInstance;
 
@@ -30,35 +30,11 @@ function uploadImage() {
     }
 }
 
-function register() {
-    var username;
+function donate() {
+    var amount;
 
-    contractInstance.register(username, {from:account}).then(function (tx) {
-        console.log("user " + username + " registered", tx);
-        socket.emit("userRegisterProj", {userAddr:account, projAddr:contractInstance.address});
-    });
-}
-
-function createProposal() {
-    var name;
-    var description;
-    var goal;
-    var timeLimit;
-    var proposalLimit;
-
-    contractInstance.createProposal(name, description, goal, timeLimit, proposal, {from:account}).then(function (tx) {
-        console.log("proposal " + name + " created, id : ", tx);
-        socket.emit("newProposal", {userAddr:account, projAddr:contractInstance.address});
-    });
-}
-
-function voteForProposal() {
-    var id;
-    var vote;
-
-    contractInstance.voteForProposal(id, vote, {from:account}).then(function (tx) {
-        console.log("voted proposal " + id, tx);
-        socket.emit("new vote", {userAddr:account, projAddr:contractInstance.address});
+    web3.eth.sendTransaction({from:account, value:web3.toWei(amount), to:contractInstance.address}).then(function(tx) {
+        console.log("donation processed");
     });
 }
 
@@ -79,7 +55,6 @@ function getLocalAccounts() {
         }
     });
 }
-
 
 function launchConnectedMode() {
     console.log("connected");
@@ -110,13 +85,13 @@ function launchRemoteMode() {
 }
 
 window.onload = function() {
-    var addr = $("#projAddr").text();
+    var addr = $("#fundraiseAddr").text();
 
     socket = io();
-    socket.emit("getProjData", null);
-    socket.on("projData", function (data) {
-        project = data;
-        contract = Pudding.whisk({abi:project.abi, binary:project.binary});
+    socket.emit("getFundraiseData", null);
+    socket.on("fundraiseData", function (data) {
+        fundraise = data;
+        contract = Pudding.whisk({abi:fundraise.abi, binary:fundraise.binary});
         console.log(addr);
         contractInstance = contract.at(addr);
         console.log(contractInstance);

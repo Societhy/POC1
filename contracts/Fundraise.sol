@@ -30,7 +30,7 @@ contract Fundraise {
     owner = msg.sender;
   }
 
-  function () {
+  function donate() {
     uint i;
     for (i = 0; i < contributors.length; ++i) {
         if (contributors[i].addr == msg.sender) {
