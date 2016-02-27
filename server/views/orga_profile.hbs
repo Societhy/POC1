@@ -13,19 +13,25 @@
                 </div>
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#Dashboard" data-toggle="tab" aria-expanded="true">Dashboard</a></li>
-                    <li class=""><a href="#activity" data-toggle="tab" aria-expanded="false">Activity</a></li>
-                    <li class=""><a href="#timeline" data-toggle="tab" aria-expanded="false">Timeline</a></li>
+                    <li class=""><a href="#Project" data-toggle="tab" aria-expanded="false">Projects</a></li>
+                    <li class=""><a href="#Activity" data-toggle="tab" aria-expanded="false">Activity</a></li>
+                    <li class=""><a href="#Timeline" data-toggle="tab" aria-expanded="false">Timeline</a></li>
                 </ul>
 
                 <div class="tab-content">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Informations générales</h3>
 
                     </div><!-- /.box-header -->
                     <!--<img src="/images/defaultOrga.jpg" class="img-circle" style="margin-top: 2%; margin-left: 44%; height: 140px" alt="User Image">-->
                     <!--<hr>-->
-                    <div class="tab-pane" id="Dashboard">
-                        <img class="profile-user-img img-responsive img-circle" alt="Organisation profile picture">
+                    <div class="tab-pane active" id="Dashboard">
+
+                        {{#if profilePic}}
+                            <img src="/images/{{profilePic}}" class="img-circle" style="margin-top: 2%; margin-left: 44%; height: 140px" alt="User Image">
+                        {{else}}
+
+                            <img class="profile-user-img img-responsive img-circle" alt="Organisation profile picture">
+                        {{/if}}
 
                         <h3 class="profile-username text-center">{{name}}</h3>
 
@@ -36,10 +42,25 @@
                                 <b>Created</b> <a class="pull-right">{{created.at}}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Balance</b> <a class="pull-right">543 ether</a>
+                                {{#if ether}}
+                                    <b>Balance</b> <a class="pull-right">{{ether}} ether</a>
+                                {{else}}
+                                    <b>Balance</b> <a class="pull-right">0 ether</a>
+                                {{/if}}
                             </li>
-                            <li class="list-group-item">
-                                <b>Members</b> <a class="pull-right">10</a>
+                            <li class="list-group-item togglable">
+                                {{#if memberList}}
+                                    <b>Members</b> <a class="pull-right">{{memberList.length}} <div class="dropdownArrow">⌄</div></a>
+                                {{else}}
+                                    <b>Members</b> <a class="pull-right">10 <div class="dropdownArrow">⌄</div></a>
+                                {{/if}}
+                                <div hidden>
+                                    {{#each memberList}}
+                                        <span>{{firstname}} {{lastname}}</span>
+                                        <span><a href="/user/{{addresses}}">{{addresses}}</a></span>
+                                        <hr/>
+                                    {{/each}}
+                                </div>
                             </li>
                         </ul>
 
@@ -146,7 +167,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="activity">
+                    <div class="tab-pane" id="Project">
+                    <h3> Project list :</h3>
+                        {{#each projects}}
+                            <span>{{name}}</span>
+                            <span><a href="/user/{{address}}">{{address}}</a></span>
+                            <hr/>
+                        {{/each}}</div>
+                    <div class="tab-pane" id="Activity">
                         <!-- Post -->
                         <div class="post">
                             <div class="user-block">
@@ -261,7 +289,7 @@
                         <!-- /.post -->
                     </div>
                     <!-- /.tab-pane -->
-                    <div class="tab-pane" id="timeline">
+                    <div class="tab-pane" id="Timeline">
                         <!-- The timeline -->
                         <ul class="timeline timeline-inverse">
                             <!-- timeline time label -->
@@ -366,4 +394,3 @@
 </div>
 <script src="/eth/orga.js"></script>
 <script src="/javascripts/orga.js"></script>
-
