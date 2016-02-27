@@ -62,7 +62,7 @@ function voteForProposal() {
 
     contractInstance.voteForProposal(id, vote, {from:account}).then(function (tx) {
         console.log("voted proposal " + id, tx);
-        socket.emit("new vote", {userAddr:account, projAddr:contractInstance.address});
+        socket.emit("newVote", {userAddr:account, projAddr:contractInstance.address});
     });
 }
 

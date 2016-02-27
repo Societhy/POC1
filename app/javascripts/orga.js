@@ -9,11 +9,10 @@ var contractInstance;
 var accounts = null;
 var account = null;
 
-function    joinExistingOrga() {
-    var orgaName = $("#name").val();
-    var userName = "simon";
-    //var userName = $("#name").val();
-    contractInstance.register(userName, {from:account}).then(function (tx) {
+function joinExistingOrga() {
+    var userName = $("#name").val();
+    console.log(userName);
+    contractInstance.register(userName, {from:account, value:web3.toWei(10)}).then(function (tx) {
         console.log("orga joined", tx);
         socket.emit("userJoinedOrga", {userAddr:account, orgaAddr:contractInstance.address});
     });
@@ -28,13 +27,12 @@ function destroyOrga() {
 }
 
 function createProject() {
-    var projName;
-    var projDescription;
-    var projDate;
+    var projName = $("#projectName").val();
+    var projDescription = $("#projectDesc").val();
 
-    contractInstance.createProject(projName, projDescription, projDate, {from:account}).then(function (tx) {
+    contractInstance.createProject(projName, projDescription, {from:account}).then(function (tx) {
         console.log("project Created", tx);
-        socket.emit("userJoinedOrga", {userAddr:account, orgAddr:contractInstance.address});
+        socket.emit("projectCreated", {projAddr:tx, orgAddr:contractInstance.address, projName:projName, creator:account});
     });
 }
 
@@ -49,9 +47,9 @@ function sendFundToProject() {
 }
 
 function donateToOrga() {
-    var amount;
+    var amount = $("#amount").val();
 
-    web3.eth.sendTransaction({from:account, value:web3.toWei(amount), to:contractInstance.address}).then(function(tx) {
+    contractInstance.donate({from:account, value:web3.toWei(amount)}).then(function(tx) {
         console.log("donation processed");
     });
 }

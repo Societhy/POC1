@@ -30,7 +30,7 @@ router.get('/:addr', function(req, res, next)
             return;
         }
         console.log(ret.object);
-        res.render('Elements/user_profile', ret.object);
+        res.render('user_profile', ret.object);
     });
 });
 module.exports = router;
