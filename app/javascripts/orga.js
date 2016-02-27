@@ -14,7 +14,7 @@ function joinExistingOrga() {
     console.log(userName);
     contractInstance.register(userName, {from:account, value:web3.toWei(10)}).then(function (tx) {
         console.log("orga joined", tx);
-        socket.emit("userJoinedOrga", {userAddr:account, orgaAddr:contractInstance.address});
+        socket.emit("userJoinedOrga", {userAddr:account, orgAddr:contractInstance.address});
     });
 }
 
