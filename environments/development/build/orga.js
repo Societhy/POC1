@@ -13,10 +13,10 @@ var contractInstance;
 var accounts = null;
 var account = null;
 
-function    joinExistingOrga() {
+function joinExistingOrga() {
     var userName = $("#name").val();
     console.log(userName);
-    contractInstance.register(userName, {from:account, value:web3.toWei(999)}).then(function (tx) {
+    contractInstance.register(userName, {from:account, value:web3.toWei(10)}).then(function (tx) {
         console.log("orga joined", tx);
         socket.emit("userJoinedOrga", {userAddr:account, orgaAddr:contractInstance.address});
     });
