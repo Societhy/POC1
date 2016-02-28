@@ -7,6 +7,8 @@ var ss = require('socket.io-stream');
 var fs = require('fs');
 var user = require('../database/user');
 var orga = require('../database/orga');
+var proj = require('../database/project');
+
 
 var contractLocation = path.join(__dirname, "../../environments/development/contracts");
 var Pudding = require("ether-pudding");
@@ -88,7 +90,16 @@ global.io.on('connection', function(socket) {
     });
 
     socket.on("newProject", function(data) {
-       console.log(data);
+        proj.addProject(data.projAddr, function(ret) {
+            if (!ret.status)
+                console.log(ret.message);
+            else
+                console.log('Project added');
+        }, {
+            'name': data.projName,
+            'description' : data.projDesc,
+            'orgaAddress' : data.orgAddr
+        });
     });
 
     //files

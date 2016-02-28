@@ -9,7 +9,7 @@ var index = require('./routes/index');
 var user = require('./routes/user');
 var organisation = require('./routes/organisation');
 var register = require('./routes/register');
-var projet = require('./routes/projet');
+var project = require('./routes/project');
 
 var api = require('./api/api.js');
 
@@ -47,7 +47,7 @@ app.use('/', index);
 app.use('/user', user);
 app.use('/organisation', organisation);
 app.use('/register', register);
-app.use('/projet', projet);
+app.use('/project', project);
 
 //api
 app.use('/api', api);

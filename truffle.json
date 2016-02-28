@@ -4,8 +4,9 @@
       "javascripts/lib/socket.io.min.js",
       "javascripts/lib/socket.io-stream.min.js",
       "javascripts/lib/web3.min.js",
-      "javascripts/lib/hooked-web3-provider.min.js"
-      ],
+      "javascripts/lib/hooked-web3-provider.min.js",
+      "javascripts/index.js"
+    ],
     "index.js": [
       "javascripts/index.js"
     ],
