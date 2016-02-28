@@ -42,17 +42,13 @@
                                 <b>Created</b> <a class="pull-right">{{created.at}}</a>
                             </li>
                             <li class="list-group-item">
-                                {{#if ether}}
-                                    <b>Balance</b> <a class="pull-right">{{ether}} ether</a>
-                                {{else}}
-                                    <b>Balance</b> <a class="pull-right">0 ether</a>
-                                {{/if}}
+                                <b>Balance</b> <a class="pull-right" id="ethBalance">??? ether</a>
                             </li>
                             <li class="list-group-item togglable">
                                 {{#if orga.memberList}}
                                     <b>Members</b> <a class="pull-right">{{orga.memberList.length}} <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
                                 {{else}}
-                                    <b>Members</b> <a class="pull-right">10 <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
+                                    <b>Members</b> <a class="pull-right">0 <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
                                 {{/if}}
                                 <div hidden>
                                     {{#each orga.memberList}}

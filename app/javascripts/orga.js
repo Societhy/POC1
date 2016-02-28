@@ -50,6 +50,7 @@ function donateToOrga() {
     var amount = $("#amount").val();
 
     contractInstance.donate({from:account, value:web3.toWei(amount)}).then(function(tx) {
+        $("#ethBalance").text(web3.fromWei(web3.eth.getBalance(contractInstance.address)) + " ether");
         console.log("donation processed");
     });
 }
@@ -110,6 +111,7 @@ window.onload = function() {
         orga = data;
         contract = Pudding.whisk({abi:orga.abi, binary:orga.binary});
         contractInstance = contract.at(addr);
+        $("#ethBalance").text(web3.fromWei(web3.eth.getBalance(addr)) + " ether");
         console.log(contractInstance);
     });
 
