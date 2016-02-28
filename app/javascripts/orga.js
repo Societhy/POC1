@@ -32,7 +32,7 @@ function createProject() {
 
     contractInstance.createProject(projName, projDescription, {from:account}).then(function (tx) {
         console.log("project Created", tx);
-        socket.emit("projectCreated", {projAddr:tx, orgAddr:contractInstance.address, projName:projName, creator:account});
+        socket.emit("newProject", {projAddr:tx, orgAddr:contractInstance.address, projName:projName, projDesc:projDescription, creator:account});
     });
 }
 

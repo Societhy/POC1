@@ -90,14 +90,14 @@ global.io.on('connection', function(socket) {
     });
 
     socket.on("newProject", function(data) {
-        proj.addProject(data.addr, function(ret) {
+        proj.addProject(data.projAddr, function(ret) {
             if (!ret.status)
                 console.log(ret.message);
             else
                 console.log('Project added');
         }, {
-            'na me': data.name,
-            'description' : data.desc
+            'name': data.projName,
+            'description' : data.ProjDesc
         });
     });
 
