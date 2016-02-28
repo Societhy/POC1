@@ -97,7 +97,8 @@ global.io.on('connection', function(socket) {
                 console.log('Project added');
         }, {
             'name': data.projName,
-            'description' : data.ProjDesc
+            'description' : data.projDesc,
+            'orgaAddress' : data.orgAddr
         });
     });
 
