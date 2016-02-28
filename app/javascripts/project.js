@@ -35,7 +35,7 @@ function register() {
 
     contractInstance.register(username, {from:account}).then(function (tx) {
         console.log("user " + username + " registered", tx);
-        socket.emit("userRegisterProj", {userAddr:account, projAddr:contractInstance.address});
+        socket.emit("userRegisterProj", {username:username, userAddr:account, projAddr:contractInstance.address});
     });
 }
 
@@ -46,9 +46,9 @@ function createProposal() {
     var timeLimit;
     var proposalLimit;
 
-    contractInstance.createProposal(name, description, goal, timeLimit, proposal, {from:account}).then(function (tx) {
+    contractInstance.createProposal(name, description, goal, timeLimit, proposalLimit, {from:account}).then(function (tx) {
         console.log("proposal " + name + " created, id : ", tx);
-        socket.emit("newProposal", {userAddr:account, projAddr:contractInstance.address});
+        socket.emit("newProposal", {id:tx, propName:name, desc:description, goal:goal, deadline:timeLimit, pdeadline:proposalLimit});
     });
 }
 
@@ -58,7 +58,7 @@ function voteForProposal() {
 
     contractInstance.voteForProposal(id, vote, {from:account}).then(function (tx) {
         console.log("voted proposal " + id, tx);
-        socket.emit("new vote", {userAddr:account, projAddr:contractInstance.address});
+        socket.emit("newVote", {id:id, vote:vote, userAddr:account, projAddr:contractInstance.address});
     });
 }
 
