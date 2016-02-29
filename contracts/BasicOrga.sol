@@ -19,7 +19,7 @@ contract BasicOrga {
     string name;
     string description;
     uint startDate;
-address addr;
+    address addr;
   }
 
   event newDonation(address addr, uint value);
@@ -30,7 +30,7 @@ address addr;
   address public owner;
   string public name;
 
-modifier onlyOwner() { if (msg.sender == owner) _ }
+  modifier onlyOwner() { if (msg.sender == owner) _ }
 
   function BasicOrga(string _name) {
     owner = msg.sender;
@@ -44,7 +44,7 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
 
   function register(string _name) {
     if (members[msg.sender].rights.vote) {
-    msg.sender.send(msg.value);
+      msg.sender.send(msg.value);
       throw;
     }
     members[msg.sender].rights.propose = true;
@@ -59,22 +59,22 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
   }
 
   function createProject(string _name, string _description) returns (address addr) {
-address projectAddr = new Project(_name, _description);
+    address projectAddr = new Project(_name, _description);
     projects.push(ProjectInfo(_name, _description, now, projectAddr));
     return projectAddr;
   }
 
-function transferFundToProject(address projectAddr, uint amount) {
-if (!members[msg.sender].rights.spend
-|| amount > this.balance)
-throw;
+  function transferFundToProject(address projectAddr, uint amount) {
+    if (!members[msg.sender].rights.spend
+        || amount > this.balance)
+          throw;
 
-for (uint i = 0; i != projects.length; ++i) {
-if (projects[i].addr == projectAddr) {
-projects[i].addr.send(msg.value);
-}
-}
-}
+    for (uint i = 0; i != projects.length; ++i) {
+        if (projects[i].addr == projectAddr) {
+          projects[i].addr.send(msg.value);
+        }
+    }
+  }
 
   function kill() onlyOwner {
     suicide(owner);

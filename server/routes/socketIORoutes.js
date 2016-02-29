@@ -114,6 +114,13 @@ global.io.on('connection', function(socket) {
         });
     });
 
+    socket.on("getProjData", function (data) {
+        socket.emit("projData", {
+            'abi': Project.abi,
+            'binary': Project.binary
+        });
+    });
+
     // FOR CEDRIC
     socket.on("userRegisterProj", function(data) {
         // add username:username, userAddr:account, projAddr:contractInstance.address to db

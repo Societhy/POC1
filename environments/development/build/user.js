@@ -120,12 +120,9 @@ window.onload = function() {
     socket.on("userNotFound", function (data) {
         $("#firstname").text("unknown");
         $("#lastname").text("unknown");
-        $("#mail").text("unknown");
     });
     socket.on("userData", function (data) {
-        console.log(data);
         $("#firstname").text(data.nickname);
-        $("#mail").text(data.mail);
         $("#addresses").text(data.addresses);
     });
 }
