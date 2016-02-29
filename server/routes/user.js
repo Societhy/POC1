@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.get('/profile/me', function(req, res, next)
+router.get('/me', function(req, res, next)
 {
     var addr = req.params.addr;
 

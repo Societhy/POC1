@@ -100,16 +100,17 @@ global.io.on('connection', function(socket) {
             'description' : data.projDesc,
             'orgaAddress' : data.orgAddr
         });
+        orga.addProjectAddress(data.orgAddr, data.projAddr, function (ret) {
+            console.log(ret);
+        })
     });
 
-    //files
-    ss(socket).on("userimg", function(stream, data) {
-        var buff;
-        stream.on('data', function(lel) {
-            buff += lel;
-        });
-        stream.on('end', function() {
-            console.log(buff);
+    socket.on("getUser", function (data) {
+        user.getUser(data.addr, function (ret) {
+            if (!ret.status)
+                socket.emit("userNotFound", null);
+            else
+                socket.emit("userData", ret.object);
         });
     });
 
@@ -127,5 +128,15 @@ global.io.on('connection', function(socket) {
         // add vote au votes pour ou contre de la proposition ayant l'ID id.
     });
 
+    //files
+    ss(socket).on("userimg", function(stream, data) {
+        var buff;
+        stream.on('data', function(lel) {
+            buff += lel;
+        });
+        stream.on('end', function() {
+            console.log(buff);
+        });
+    });
 
 });

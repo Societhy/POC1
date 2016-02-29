@@ -114,3 +114,13 @@ function uploadImage() {
         ss.createBlobReadStream(file).pipe(stream);
     }
 }
+
+window.onload = function() {
+    socket.emit("getUser", {addr:web3.eth.coinbase});
+    socket.on("userNotFound", function (data) {
+        console.log("found");
+    });
+    socket.on("userData", function (data) {
+        console.log("not found");
+    });
+}
