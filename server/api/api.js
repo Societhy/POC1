@@ -8,11 +8,43 @@ router.get('/', function(req, res, next)
     res.send('API FOR SOCIETHY. SEE DOCUMENTATION FOR FORMATTING REQUEST');
 });
 
+router.get('/user/all', function(req, res, next)
+{
+    user.getAllUsers(function(ret) {
+        if (!ret.status)
+        {
+            console.log(ret);
+            var err = new Error(ret.message);
+            err.status = 404;
+            next(err);
+            return;
+        }
+        else
+            res.send(ret.object);
+    });
+});
+
 router.get('/user/:addr', function(req, res, next)
 {
     var addr = req.params.addr;
 
     user.getUser(addr, function(ret) {
+        if (!ret.status)
+        {
+            console.log(ret);
+            var err = new Error(ret.message);
+            err.status = 404;
+            next(err);
+            return;
+        }
+        else
+            res.send(ret.object);
+    });
+});
+
+router.get('/orga/all', function(req, res, next)
+{
+    user.getAllOrgas(function(ret) {
         if (!ret.status)
         {
             console.log(ret);
