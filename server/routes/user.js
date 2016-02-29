@@ -15,6 +15,23 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/profile/me', function(req, res, next)
+{
+    var addr = req.params.addr;
+
+    user.getUser(addr, function(ret) {
+        if (!ret.status)
+        {
+            console.log(ret);
+            //var err = new Error(ret.message);
+            //err.status = 404;
+            //next(err);
+            //return;
+        }
+        //console.log(ret.object);
+        res.render('user_myprofile', ret.object);
+    });
+});
 
 router.get('/:addr', function(req, res, next)
 {
@@ -33,4 +50,6 @@ router.get('/:addr', function(req, res, next)
         res.render('user_profile', ret.object);
     });
 });
+
+
 module.exports = router;
