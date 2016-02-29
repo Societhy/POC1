@@ -30,7 +30,7 @@ function update() {
         if (err)
             console.error(err);
         else {
-            console.log(logs);
+            console.log("new block :", web3.eth.blockNumber, "balance =", web3.fromWei(web3.eth.getBalance(account)).valueOf());
             refreshBalance();
             getPeerNumber();
         }
