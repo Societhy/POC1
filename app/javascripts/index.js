@@ -1,5 +1,6 @@
 var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
 
+var socket = io();
 var accounts = null;
 var account = null;
 
@@ -13,14 +14,10 @@ function refreshBalance() {
     var ethvalue;
     var latestBlock = web3.eth.blockNumber;
 
-    var latestBlock_elem = document.getElementById("latestBlock");
-    var ethbalance_elem = document.getElementById("ethbalance");
-
     ethvalue = account ? web3.fromWei(web3.eth.getBalance(account)) : "?????";
 };
 
 function getPeerNumber() {
-    var peers_elem = document.getElementById("peerNumber");
 }
 
 function update() {
@@ -31,6 +28,7 @@ function update() {
         if (err)
             console.error(err);
         else {
+            console.log(logs);
             refreshBalance();
             getPeerNumber();
         }
@@ -86,12 +84,9 @@ function launchRemoteMode() {
     update();
 }
 
-window.onload = function() {
-    window.socket = io();
-        if (web3.isConnected()) {
-        launchConnectedMode();
-    }
-    else {
-        launchRemoteMode();
-    }
+if (web3.isConnected()) {
+    launchConnectedMode();
+}
+else {
+    launchRemoteMode();
 }

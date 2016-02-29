@@ -17,3 +17,96 @@ var n=this.implementation.getLogs(this.filterId);return n.map(function(t){return
 },R.isNaN=function(){return!this.s},R.isNegative=R.isNeg=function(){return this.s<0},R.isZero=function(){return!!this.c&&0==this.c[0]},R.lessThan=R.lt=function(t,n){return E=8,a(this,new e(t,n))<0},R.lessThanOrEqualTo=R.lte=function(t,n){return E=9,-1===(n=a(this,new e(t,n)))||0===n},R.minus=R.sub=function(t,n){var r,i,a,s,c=this,u=c.s;if(E=10,t=new e(t,n),n=t.s,!u||!n)return new e(NaN);if(u!=n)return t.s=-n,c.plus(t);var f=c.e/B,p=t.e/B,l=c.c,h=t.c;if(!f||!p){if(!l||!h)return l?(t.s=-n,t):new e(h?c:NaN);if(!l[0]||!h[0])return h[0]?(t.s=-n,t):new e(l[0]?c:3==j?-0:0)}if(f=o(f),p=o(p),l=l.slice(),u=f-p){for((s=0>u)?(u=-u,a=l):(p=f,a=h),a.reverse(),n=u;n--;a.push(0));a.reverse()}else for(i=(s=(u=l.length)<(n=h.length))?u:n,u=n=0;i>n;n++)if(l[n]!=h[n]){s=l[n]<h[n];break}if(s&&(a=l,l=h,h=a,t.s=-t.s),n=(i=h.length)-(r=l.length),n>0)for(;n--;l[r++]=0);for(n=k-1;i>u;){if(l[--i]<h[i]){for(r=i;r&&!l[--r];l[r]=n);--l[r],l[i]+=k}l[i]-=h[i]}for(;0==l[0];l.shift(),--p);return l[0]?N(t,l,p):(t.s=3==j?-1:1,t.c=[t.e=0],t)},R.modulo=R.mod=function(t,n){var r,o,i=this;return E=11,t=new e(t,n),!i.c||!t.s||t.c&&!t.c[0]?new e(NaN):!t.c||i.c&&!i.c[0]?new e(i):(9==X?(o=t.s,t.s=1,r=T(i,t,0,3),t.s=o,r.s*=o):r=T(i,t,0,X),i.minus(r.times(t)))},R.negated=R.neg=function(){var t=new e(this);return t.s=-t.s||null,t},R.plus=R.add=function(t,n){var r,i=this,a=i.s;if(E=12,t=new e(t,n),n=t.s,!a||!n)return new e(NaN);if(a!=n)return t.s=-n,i.minus(t);var s=i.e/B,c=t.e/B,u=i.c,f=t.c;if(!s||!c){if(!u||!f)return new e(a/0);if(!u[0]||!f[0])return f[0]?t:new e(u[0]?i:0*a)}if(s=o(s),c=o(c),u=u.slice(),a=s-c){for(a>0?(c=s,r=f):(a=-a,r=u),r.reverse();a--;r.push(0));r.reverse()}for(a=u.length,n=f.length,0>a-n&&(r=f,f=u,u=r,n=a),a=0;n;)a=(u[--n]=u[n]+f[n]+a)/k|0,u[n]%=k;return a&&(u.unshift(a),++c),N(t,u,c)},R.precision=R.sd=function(t){var e,n,r=this,o=r.c;if(null!=t&&t!==!!t&&1!==t&&0!==t&&(W&&D(13,"argument"+b,t),t!=!!t&&(t=null)),!o)return null;if(n=o.length-1,e=n*B+1,n=o[n]){for(;n%10==0;n/=10,e--);for(n=o[0];n>=10;n/=10,e++);}return t&&r.e+1>e&&(e=r.e+1),e},R.round=function(t,n){var r=new e(this);return(null==t||J(t,0,F,15))&&P(r,~~t+this.e+1,null!=n&&J(n,0,8,15,_)?0|n:j),r},R.shift=function(t){var n=this;return J(t,-S,S,16,"argument")?n.times("1e"+l(t)):new e(n.c&&n.c[0]&&(-S>t||t>S)?n.s*(0>t?0:1/0):n)},R.squareRoot=R.sqrt=function(){var t,n,r,a,s,c=this,u=c.c,f=c.s,p=c.e,l=H+4,h=new e("0.5");if(1!==f||!u||!u[0])return new e(!f||0>f&&(!u||u[0])?NaN:u?c:1/0);if(f=Math.sqrt(+c),0==f||f==1/0?(n=i(u),(n.length+p)%2==0&&(n+="0"),f=Math.sqrt(n),p=o((p+1)/2)-(0>p||p%2),f==1/0?n="1e"+p:(n=f.toExponential(),n=n.slice(0,n.indexOf("e")+1)+p),r=new e(n)):r=new e(f+""),r.c[0])for(p=r.e,f=p+l,3>f&&(f=0);;)if(s=r,r=h.times(s.plus(T(c,s,l,1))),i(s.c).slice(0,f)===(n=i(r.c)).slice(0,f)){if(r.e<p&&--f,n=n.slice(f-3,f+1),"9999"!=n&&(a||"4999"!=n)){(!+n||!+n.slice(1)&&"5"==n.charAt(0))&&(P(r,r.e+H+2,1),t=!r.times(r).eq(c));break}if(!a&&(P(s,s.e+H+2,0),s.times(s).eq(c))){r=s;break}l+=4,f+=4,a=1}return P(r,r.e+H+1,j,t)},R.times=R.mul=function(t,n){var r,i,a,s,c,u,f,p,l,h,d,m,y,g,v,b=this,_=b.c,w=(E=17,t=new e(t,n)).c;if(!(_&&w&&_[0]&&w[0]))return!b.s||!t.s||_&&!_[0]&&!w||w&&!w[0]&&!_?t.c=t.e=t.s=null:(t.s*=b.s,_&&w?(t.c=[0],t.e=0):t.c=t.e=null),t;for(i=o(b.e/B)+o(t.e/B),t.s*=b.s,f=_.length,h=w.length,h>f&&(y=_,_=w,w=y,a=f,f=h,h=a),a=f+h,y=[];a--;y.push(0));for(g=k,v=C,a=h;--a>=0;){for(r=0,d=w[a]%v,m=w[a]/v|0,c=f,s=a+c;s>a;)p=_[--c]%v,l=_[c]/v|0,u=m*p+l*d,p=d*p+u%v*v+y[s]+r,r=(p/g|0)+(u/v|0)+m*l,y[s--]=p%g;y[s]=r}return r?++i:y.shift(),N(t,y,i)},R.toDigits=function(t,n){var r=new e(this);return t=null!=t&&J(t,1,F,18,"precision")?0|t:null,n=null!=n&&J(n,0,8,18,_)?0|n:j,t?P(r,t,n):r},R.toExponential=function(t,e){return h(this,null!=t&&J(t,0,F,19)?~~t+1:null,e,19)},R.toFixed=function(t,e){return h(this,null!=t&&J(t,0,F,20)?~~t+this.e+1:null,e,20)},R.toFormat=function(t,e){var n=h(this,null!=t&&J(t,0,F,21)?~~t+this.e+1:null,e,21);if(this.c){var r,o=n.split("."),i=+V.groupSize,a=+V.secondaryGroupSize,s=V.groupSeparator,c=o[0],u=o[1],f=this.s<0,p=f?c.slice(1):c,l=p.length;if(a&&(r=i,i=a,a=r,l-=r),i>0&&l>0){for(r=l%i||i,c=p.substr(0,r);l>r;r+=i)c+=s+p.substr(r,i);a>0&&(c+=s+p.slice(r)),f&&(c="-"+c)}n=u?c+V.decimalSeparator+((a=+V.fractionGroupSize)?u.replace(new RegExp("\\d{"+a+"}\\B","g"),"$&"+V.fractionGroupSeparator):u):c}return n},R.toFraction=function(t){var n,r,o,a,s,c,u,f,p,l=W,h=this,d=h.c,m=new e(M),y=r=new e(M),g=u=new e(M);if(null!=t&&(W=!1,c=new e(t),W=l,(!(l=c.isInt())||c.lt(M))&&(W&&D(22,"max denominator "+(l?"out of range":"not an integer"),t),t=!l&&c.c&&P(c,c.e+1,1).gte(M)?c:null)),!d)return h.toString();for(p=i(d),a=m.e=p.length-h.e-1,m.c[0]=A[(s=a%B)<0?B+s:s],t=!t||c.cmp(m)>0?a>0?m:y:c,s=U,U=1/0,c=new e(p),u.c[0]=0;f=T(c,m,0,1),o=r.plus(f.times(g)),1!=o.cmp(t);)r=g,g=o,y=u.plus(f.times(o=y)),u=o,m=c.minus(f.times(o=m)),c=o;return o=T(t.minus(r),g,0,1),u=u.plus(o.times(y)),r=r.plus(o.times(g)),u.s=y.s=h.s,a*=2,n=T(y,g,a,j).minus(h).abs().cmp(T(u,r,a,j).minus(h).abs())<1?[y.toString(),g.toString()]:[u.toString(),r.toString()],U=s,n},R.toNumber=function(){var t=this;return+t||(t.s?0*t.s:NaN)},R.toPower=R.pow=function(t){var n,r,o=v(0>t?-t:+t),i=this;if(!J(t,-S,S,23,"exponent")&&(!isFinite(t)||o>S&&(t/=0)||parseFloat(t)!=t&&!(t=NaN)))return new e(Math.pow(+i,t));for(n=$?g($/B+2):0,r=new e(M);;){if(o%2){if(r=r.times(i),!r.c)break;n&&r.c.length>n&&(r.c.length=n)}if(o=v(o/2),!o)break;i=i.times(i),n&&i.c&&i.c.length>n&&(i.c.length=n)}return 0>t&&(r=M.div(r)),n?P(r,$,j):r},R.toPrecision=function(t,e){return h(this,null!=t&&J(t,1,F,24,"precision")?0|t:null,e,24)},R.toString=function(t){var e,r=this,o=r.s,a=r.e;return null===a?o?(e="Infinity",0>o&&(e="-"+e)):e="NaN":(e=i(r.c),e=null!=t&&J(t,2,64,25,"base")?n(p(e,a),0|t,10,o):q>=a||a>=L?f(e,a):p(e,a),0>o&&r.c[0]&&(e="-"+e)),e},R.truncated=R.trunc=function(){return P(new e(this),this.e+1,1)},R.valueOf=R.toJSON=function(){return this.toString()},null!=t&&e.config(t),e}function o(t){var e=0|t;return t>0||t===e?e:e-1}function i(t){for(var e,n,r=1,o=t.length,i=t[0]+"";o>r;){for(e=t[r++]+"",n=B-e.length;n--;e="0"+e);i+=e}for(o=i.length;48===i.charCodeAt(--o););return i.slice(0,o+1||1)}function a(t,e){var n,r,o=t.c,i=e.c,a=t.s,s=e.s,c=t.e,u=e.e;if(!a||!s)return null;if(n=o&&!o[0],r=i&&!i[0],n||r)return n?r?0:-s:a;if(a!=s)return a;if(n=0>a,r=c==u,!o||!i)return r?0:!o^n?1:-1;if(!r)return c>u^n?1:-1;for(s=(c=o.length)<(u=i.length)?c:u,a=0;s>a;a++)if(o[a]!=i[a])return o[a]>i[a]^n?1:-1;return c==u?0:c>u^n?1:-1}function s(t,e,n){return(t=l(t))>=e&&n>=t}function c(t){return"[object Array]"==Object.prototype.toString.call(t)}function u(t,e,n){for(var r,o,i=[0],a=0,s=t.length;s>a;){for(o=i.length;o--;i[o]*=e);for(i[r=0]+=x.indexOf(t.charAt(a++));r<i.length;r++)i[r]>n-1&&(null==i[r+1]&&(i[r+1]=0),i[r+1]+=i[r]/n|0,i[r]%=n)}return i.reverse()}function f(t,e){return(t.length>1?t.charAt(0)+"."+t.slice(1):t)+(0>e?"e":"e+")+e}function p(t,e){var n,r;if(0>e){for(r="0.";++e;r+="0");t=r+t}else if(n=t.length,++e>n){for(r="0",e-=n;--e;r+="0");t+=r}else n>e&&(t=t.slice(0,e)+"."+t.slice(e));return t}function l(t){return t=parseFloat(t),0>t?g(t):v(t)}var h,d,m,y=/^-?(\d+(\.\d*)?|\.\d+)(e[+-]?\d+)?$/i,g=Math.ceil,v=Math.floor,b=" not a boolean or binary digit",_="rounding mode",w="number type has more than 15 significant digits",x="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_",k=1e14,B=14,S=9007199254740991,A=[1,10,100,1e3,1e4,1e5,1e6,1e7,1e8,1e9,1e10,1e11,1e12,1e13],C=1e7,F=1e9;if(h=r(),"function"==typeof define&&define.amd)define(function(){return h});else if("undefined"!=typeof e&&e.exports){if(e.exports=h,!d)try{d=t("crypto")}catch(I){}}else n.BigNumber=h}(this)},{crypto:48}],web3:[function(t,e,n){var r=t("./lib/web3");"undefined"!=typeof window&&"undefined"==typeof window.Web3&&(window.Web3=r),e.exports=r},{"./lib/web3":22}]},{},["web3"]);
 
 "use strict";function _classCallCheck(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function _inherits(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var _createClass=function(){function t(t,e){for(var r=0;r<e.length;r++){var n=e[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,r,n){return r&&t(e.prototype,r),n&&t(e,n),e}}(),_get=function(t,e,r){for(var n=!0;n;){var o=t,a=e,i=r;s=l=c=void 0,n=!1,null===o&&(o=Function.prototype);var s=Object.getOwnPropertyDescriptor(o,a);if(void 0!==s){if("value"in s)return s.value;var c=s.get;return void 0===c?void 0:c.call(i)}var l=Object.getPrototypeOf(o);if(null===l)return void 0;t=l,e=a,r=i,n=!0}},factory=function(t){var e=function(e){function r(t){var e=t.host,n=t.transaction_signer;_classCallCheck(this,r),_get(Object.getPrototypeOf(r.prototype),"constructor",this).call(this,e),this.transaction_signer=n,this.global_nonces={}}return _inherits(r,e),_createClass(r,[{key:"send",value:function(t,e){var n=this,o=t;o instanceof Array||(o=[o]);var a=!0,i=!1,s=void 0;try{for(var c,l=o[Symbol.iterator]();!(a=(c=l.next()).done);a=!0){var u=c.value;if("eth_sendTransaction"==u.method)throw new Error("HookedWeb3Provider does not support synchronous transactions. Please provide a callback.")}}catch(f){i=!0,s=f}finally{try{!a&&l["return"]&&l["return"]()}finally{if(i)throw s}}var p=function(){return _get(Object.getPrototypeOf(r.prototype),"send",n).call(n,t,e)};return this.rewritePayloads(0,o,{},p)}},{key:"sendAsync",value:function(t,e){var n=this,o=function(){_get(Object.getPrototypeOf(r.prototype),"sendAsync",n).call(n,t,e)},a=t;t instanceof Array||(a=[t]),this.rewritePayloads(0,a,{},o)}},{key:"rewritePayloads",value:function(e,r,n,o){var a=this;if(e>=r.length)return o();var i=r[e],s=function(t){return null!=t?o(t):a.rewritePayloads(e+1,r,n,o)};if("eth_sendTransaction"!=i.method)return s();var c=i.params[0],l=c.from;this.transaction_signer.hasAddress(l,function(e,r){if(null!=e||0==r)return s(e);var u=function(e){var r=n[l];null!=r?e(null,r):a.sendAsync({jsonrpc:"2.0",method:"eth_getTransactionCount",params:[l,"pending"],id:(new Date).getTime()},function(r,n){if(null!=r)e(r);else{var o=n.result;e(null,t.prototype.toDecimal(o))}})};u(function(e,r){if(null!=e)return o(e);var u=Math.max(r,a.global_nonces[l]||0);c.nonce=t.prototype.toHex(u),n[l]=u+1,a.global_nonces[l]=u+1,a.transaction_signer.signTransaction(c,function(t,e){return null!=t?s(t):(i.method="eth_sendRawTransaction",i.params=[e],s())})})})}}]),r}(t.providers.HttpProvider);return e};"undefined"!=typeof module?module.exports=factory(require("web3")):window.HookedWeb3Provider=factory(Web3);
+
+var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8101"));
+
+var socket = io();
+var accounts = null;
+var account = null;
+
+function setStatus(message) {
+    var status = document.getElementById("status");
+    status.innerHTML = message;
+};
+
+
+function refreshBalance() {
+    var ethvalue;
+    var latestBlock = web3.eth.blockNumber;
+
+    ethvalue = account ? web3.fromWei(web3.eth.getBalance(account)) : "?????";
+};
+
+function getPeerNumber() {
+}
+
+function update() {
+    refreshBalance();
+    getPeerNumber();
+    filter = web3.eth.filter('latest');
+    filter.watch(function (err, logs) {
+        if (err)
+            console.error(err);
+        else {
+            console.log(logs);
+            refreshBalance();
+            getPeerNumber();
+        }
+    });
+}
+
+
+function getLocalAccounts() {
+    web3.eth.getAccounts(function (err, accs) {
+        if (err != null) {
+            console.error(err);
+            alert("There was an error fetching your accounts.");
+            return;
+        }
+        if (accs.length == 0) {
+            console.log("Please create an account with your eth client")
+        }
+        else {
+            accounts = accs;
+            account = web3.eth.coinbase;
+            update();
+        }
+    });
+}
+
+
+function launchConnectedMode() {
+    console.log("connected");
+    web3.eth.isSyncing(function (err, sync) {
+        if (!err) {
+            if (sync === true) {
+                console.log("start syncing");
+            }
+            else if (sync) {
+                console.log(sync.currentBlock);
+            }
+            else {
+                console.log("stop syncing");
+            }
+        }
+    });
+    getLocalAccounts();
+}
+
+function launchRemoteMode() {
+    console.log("remote");
+    var provider = new HookedWeb3Provider({
+        host:"http://localhost:8101",
+    });
+    if (localStorage.ethereumAccounts)
+        account = JSON.parse(localStorage.ethereumAccounts).selected;
+    web3.setProvider(provider);
+    update();
+}
+
+if (web3.isConnected()) {
+    launchConnectedMode();
+}
+else {
+    launchRemoteMode();
+}

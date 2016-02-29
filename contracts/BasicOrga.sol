@@ -44,6 +44,7 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
 
   function register(string _name) {
     if (members[msg.sender].rights.vote) {
+    msg.sender.send(msg.value);
       throw;
     }
     members[msg.sender].rights.propose = true;
