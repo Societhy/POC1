@@ -13,11 +13,11 @@
                 </div>
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#Dashboard" data-toggle="tab" aria-expanded="true">Dashboard</a></li>
-                    <li class=""><a href="#Project" data-toggle="tab" aria-expanded="false">Projects</a></li>
+                    <li class=""><a href="#Proposition" data-toggle="tab" aria-expanded="false">Proposition</a></li>
+                    <li class=""><a href="#FundRaising" data-toggle="tab" aria-expanded="false">Collecte de fonds</a></li>
                     <li class=""><a href="#Activity" data-toggle="tab" aria-expanded="false">Activity</a></li>
                     <li class=""><a href="#Timeline" data-toggle="tab" aria-expanded="false">Timeline</a></li>
                 </ul>
-
                 <div class="tab-content">
                     <div class="box-header with-border">
 
@@ -25,13 +25,20 @@
                     <!--<img src="/images/defaultOrga.jpg" class="img-circle" style="margin-top: 2%; margin-left: 44%; height: 140px" alt="User Image">-->
                     <!--<hr>-->
                     <div class="tab-pane active" id="Dashboard">
-
-                        {{#if profilePic}}
-                            <img src="/images/{{profilePic}}" class="img-circle" style="margin-top: 2%; margin-left: 44%; height: 140px" alt="User Image">
-                        {{else}}
-
-                            <img class="profile-user-img img-responsive img-circle" alt="Organisation profile picture">
-                        {{/if}}
+                        <div id="projectDesc">
+                            <h2 class="box-title">Project Description</h2>
+                            <div>
+                                {{#if project.description}}
+                                    <div class="text-justify">
+                                        {{project.description}}
+                                    </div>
+                                {{else}}
+                                    <div class="text-center">
+                                        There is no description available for this project.
+                                    </div>
+                                {{/if}}
+                            </div>
+                        </div>
 
                         <h3 class="profile-username text-center">{{name}}</h3>
 
@@ -43,34 +50,33 @@
                             </li>
                             <li class="list-group-item">
                                 {{#if ether}}
-                                    <b>Balance</b> <a class="pull-right">{{ether}} ether</a>
+                                    <b>Current balance</b> <a class="pull-right">{{ether}} ether</a>
                                 {{else}}
-                                    <b>Balance</b> <a class="pull-right">0 ether</a>
+                                    <b>Current balance</b> <a class="pull-right">0 ether</a>
                                 {{/if}}
                             </li>
                             <li class="list-group-item togglable">
-                                {{#if memberList}}
-                                    <b>Members</b> <a class="pull-right">{{memberList.length}} <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
+                                {{#if project.memberList}}
+                                    <b>Contributeur</b> <a class="pull-right">{{project.memberList.length}} <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
                                 {{else}}
-                                    <b>Members</b> <a class="pull-right">10 <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
+                                    <b>Contributeur</b> <a class="pull-right">0 <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
                                 {{/if}}
                                 <div hidden>
-                                    {{#each memberList}}
-                                        <span>{{firstname}} {{lastname}}</span>
-                                        <span><a href="/user/{{addresses}}">{{addresses}}</a></span>
+                                    {{#each project.memberList}}
+                                        <span><a href="/user/{{this}}">{{this}}</a></span>
                                         <hr/>
                                     {{/each}}
                                 </div>
                             </li>
                         </ul>
 
-                        <a href="#" class="follow btn btn-primary btn-block"><b>Follow</b></a>
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalMakeDonation">Faire un don</button>
-                        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModalDelete">Détruire l'organisation</button>
-                        <button type="button" class="btn btn-primary btn-lg" style="float:right;" data-toggle="modal" data-target="#myModalCreateProject">Créer un projet</button>
+                        <button type="button" class="follow btn btn-primary btn-block" data-toggle="modal" data-target="#myModalMakeDonation">Suivre le projet</button>
+                        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModalDelete">Mettre fin au projet</button>
+                        <button type="button" class="btn btn-primary btn-lg" style="float:right; margin-left: 5px;" data-toggle="modal" data-target="#myModalCreateProject">Soumettre une proposition</button>
+                        <button type="button" class="btn btn-primary btn-lg" style="float:right;" data-toggle="modal" data-target="#myModalCreateProject">Faire un don</button>
 
                         <!-- Modal -->
-                        <div id="myModalCreateOrga" class="modal fade" role="dialog">
+                        <div id="myModalCreate" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                                 <link rel='stylesheet' href='/stylesheets/register.css' />
 
@@ -90,7 +96,6 @@
                                                 <input type="submit"  id='submit_form' class='btn btn-info' value="Faire un don !" data-dismiss="modal"/>
                                             </div>
                                             <div class="clearfix"></div>
-
                                         </div>
                                     </div>
                                 </div>
