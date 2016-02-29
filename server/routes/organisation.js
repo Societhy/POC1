@@ -21,7 +21,7 @@ router.get('/', function (req, res, next)
             next(err);
             return;
         }
-    console.log(ret.object);
+        console.log(ret.object);
         res.render('organisation_homepage', {Title: "Societhy", orgas:ret.object});
     });
 });
@@ -42,7 +42,7 @@ router.get('/:addr', function(req, res, next)
                 next(err);
                 return;
             }
-            console.log(ret.object)
+            console.log(ret.object);
             ret.object.created.at =  ret.object.created.at.substr(0,10);
             res.render('orga_profile', {orga: ret.object});
     });

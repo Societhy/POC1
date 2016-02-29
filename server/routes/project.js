@@ -10,7 +10,7 @@ var path = require("path");
 
 router.get('/:id', function (req, res, next)
 {
-    project.getProject(function (ret) {
+    project.getProject(req.params.id, function (ret) {
         if (!ret.status) {
             var err = new Error(ret.message);
             err.status = 404;

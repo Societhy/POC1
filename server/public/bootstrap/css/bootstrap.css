@@ -6814,7 +6814,25 @@ button.close {
   margin: 4px;
 }
 
+
+#projectTable  td:nth-child(3),#projectTable  th:nth-child(3)
+{
+  float:right;
+  margin-right: 15px;
+}
+
 .desc
 {
-  width: 65%
 }
+
+#projectDesc
+{
+  margin: 5px;
+}
+
+#projectDesc div
+{
+  margin: 15px;
+  font-size: 17px;
+}
+

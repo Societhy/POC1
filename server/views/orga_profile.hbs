@@ -164,9 +164,8 @@
                     </div>
                     <div class="tab-pane" id="Project">
                     <h3> Project list :</h3>
-                        {{#each projects}}
-                            <span>{{name}}</span>
-                            <span><a href="/user/{{address}}">{{address}}</a></span>
+                        {{#each orga.projects}}
+                            <span><a href="/project/{{this}}">{{this}}</a></span>
                             <hr/>
                         {{/each}}</div>
                     <div class="tab-pane" id="Activity">
