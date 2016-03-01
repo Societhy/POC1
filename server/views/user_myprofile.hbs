@@ -62,12 +62,12 @@
                         </div>
                     </div>
                     <div id="settings">
-                            <button type="button" id="createNewAccount" class="btn btn-primary">Create new account</button>
-                                <input type="file" id="importAccount"  class="btn btn-primary" value="Import existing account">
-                            <button type="button" id="deleteAccount" class="btn btn-danger">
-                                <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-                                Delete your account
-                            </button>
+                        <button type="button" id="createNewAccount" class="btn btn-primary" onclick="createBrowserAccount()">Create new account</button>
+                        <input type="file" id="importAccount"  class="btn btn-primary" value="Import existing account" onclick="loadKeyFile()">
+                        <button type="button" id="deleteAccount" class="btn btn-danger" onclick>
+                            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                            Delete your accounts
+                        </button>
                     </div>
                     <!-- /.tab-pane -->
                 </div>
