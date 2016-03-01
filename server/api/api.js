@@ -45,7 +45,7 @@ router.get('/user/:addr', function(req, res, next)
 
 router.get('/orga/all', function(req, res, next)
 {
-    user.getAllOrgas(function(ret) {
+    orga.getAllOrgas(function(ret) {
         if (!ret.status)
         {
             console.log(ret);
