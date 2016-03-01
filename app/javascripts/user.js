@@ -67,10 +67,10 @@ function listAccounts() {
     browserAccount = browserAccounts.get();
     for (var elem in browserAccount) {
         if (elem !== "selected")
-            console.log(elem);
+            $("#accountList tbody").append("<tr > <td>"+elem+"</td><td>Dans le browser</td>");
     }
     for (var elem in accounts)
-        console.log(accounts[elem]);
+        $("#accountList tbody").append("<tr> <td>"+elem+"</td><td>en local</td>");
 }
 
 function clearAccounts() {

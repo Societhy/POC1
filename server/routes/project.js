@@ -40,7 +40,7 @@ router.get('/:id', function (req, res, next)
         //    });
         //}
         //else
-            res.render('project_profile', {project: ret.object});
+        res.render('project_profile', {project: ret.object});
     });
 });
 
