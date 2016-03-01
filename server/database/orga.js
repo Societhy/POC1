@@ -1,5 +1,5 @@
 var db = require('./db');
-var ORGA = "orga";
+var ORGA = "orgas";
 
 exports.addOrga = function(orgaAddress, finalCallback, orgaInfos) {
     var orga = {
