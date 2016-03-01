@@ -6855,3 +6855,8 @@ button.close {
   font-size: 17px;
 }
 
+
+div#settings input, #settings button
+{
+  margin: 5px;
+}
