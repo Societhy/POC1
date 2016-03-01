@@ -173,11 +173,15 @@ global.io.on('connection', function(socket) {
             'name': data.name,
             'description': data.description,
             'goal': data.goal,
-            'timeLimit': data.timeLimit
+            'timeLimit': data.timeLimit,
+            'projectAddr': data.projAddr
         };
         fund.addFundraise(data.fundraiseAddr, function(ret) {
             console.log(ret);
         }, fundraise);
+        proj.addFundraiseAddr(data.projAddr, data.fundraiseAddr, function (ret) {
+            console.log(ret);
+        });
     });
 
     socket.on("projectDeleted", function(data) {
