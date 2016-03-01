@@ -63,7 +63,8 @@
 
                         <button type="button" class="follow btn btn-primary btn-block" data-toggle="modal" data-target="#myModalMakeDonation">Suivre le projet</button>
                         <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModalDelete">Mettre fin au projet</button>
-                        <button type="button" class="btn btn-primary btn-lg" style="float:right; margin-left: 5px;" data-toggle="modal" data-target="#myModalCreateProject">Soumettre une proposition</button>
+                        <button type="button" class="btn btn-primary btn-lg" style="float:right; margin-left: 5px;" data-toggle="modal" data-target="#myModalCreateProposal">Soumettre une proposition</button>
+                        <button type="button" class="btn btn-primary btn-lg" style="float:right; margin-left: 5px;" data-toggle="modal" data-target="#myModalCreatefundraising">Soumettre une demande de dons</button>
                         <button type="button" class="btn btn-primary btn-lg" style="float:right;" data-toggle="modal" data-target="#myModalCreateProject">Faire un don</button>
 
                         <!-- Modal -->
@@ -79,7 +80,7 @@
                                         <div class="modal-body">
                                             <div id="big-form" class="well auth-box">
                                                 <div class="form-group">
-                                                    <label class=" control-label" for="textinput">Name</label>
+                                                    <label class=" control-label" for="textinput">Nom</label>
                                                     <div class="">
                                                         <input id="name" name="name" placeholder="Amount" class="form-control input-md" type="text">
                                                     </div>
@@ -92,33 +93,91 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="myModalCreateProject" class="modal fade" role="dialog">
+                        <div id="myModalCreateProposal" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                                 <link rel='stylesheet' href='/stylesheets/register.css' />
 
                                 <div class="container auth">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="text-center">Create a Project</h1>
+                                            <h1 class="text-center">Soumettre une proposition</h1>
                                         </div>
                                         <div class="modal-body">
                                             <div id="big-form" class="well auth-box">
                                                 <div class="form-group">
-                                                    <label class=" control-label" for="textinput">Name</label>
+                                                    <label class=" control-label" for="textinput">Nom de la proposition</label>
                                                     <div class="">
-                                                        <input id="projectName" name="name" placeholder="Name" class="form-control input-md" type="text">
+                                                        <input id="proposalName" name="name" placeholder="Nom" class="form-control input-md" type="text">
                                                     </div>
                                                     <br/>
+                                                    <label class=" control-label" for="textinput">Description</label>
                                                     <div class="">
-                                                        <input id="projectDesc" name="Desc" placeholder="Description" class="form-control input-md" type="text">
+                                                        <!--<textarea rows="4" cols="50" name="comment" form="usrform" id="projectDesc" name="Desc" placeholder="Description" class="form-control input-md"/>-->
+                                                        <input id="proposalDesc" name="Desc" placeholder="Description" class="form-control input-md" type="text">
+                                                    </div>
+                                                    <br/>
+                                                    <label class=" control-label" for="textinput">Coût</label>
+                                                    <div class="">
+                                                        <input id="proposalAmmount" name="ammount" placeholder="coût" class="form-control input-md" type="text">
+                                                    </div>
+                                                    <br/>
+                                                    <label class=" control-label" for="textinput">Date d'écheance</label>
+                                                    <div class="">
+                                                        <input id="proposalDate" name="date" placeholder="Date" class="form-control input-md" type="text">
+                                                    </div>
+                                                    <br/>
+                                                    <label class=" control-label" for="textinput">Bénéficiaire</label>
+                                                    <div class="">
+                                                        <input id="proposalTarget" name="target" placeholder="Bénéficiaire" class="form-control input-md" type="text">
                                                     </div>
                                                 </div>
 
                                                 <input type="submit"  id='createProject' class='btn btn-info' value="Create a new project !" data-dismiss="modal"/>
-
                                             </div>
                                             <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="myModalCreatefundraising" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <link rel='stylesheet' href='/stylesheets/register.css' />
 
+                                <div class="container auth">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="text-center">Soumettre une demande de dons</h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="big-form" class="well auth-box">
+                                                <div class="form-group">
+                                                    <label class=" control-label" for="textinput">Nom de la demande</label>
+                                                    <div class="">
+                                                        <input id="proposalName" name="nom" placeholder="Name" class="form-control input-md" type="text">
+                                                    </div>
+                                                    <br/>
+                                                    <label class=" control-label" for="textinput">Description</label>
+                                                    <div class="">
+                                                        <!--<textarea rows="4" cols="50" name="comment" form="usrform" id="projectDesc" name="Desc" placeholder="Description" class="form-control input-md"/>-->
+                                                        <input id="proposalDesc" name="Desc" placeholder="Description" class="form-control input-md" type="text">
+                                                    </div>
+                                                    <br/>
+                                                    <label class=" control-label" for="textinput">Objectif</label>
+                                                    <div class="">
+                                                        <input id="proposalAmmount" name="ammount" placeholder="objectif" class="form-control input-md" type="text">
+                                                    </div>
+                                                    <br/>
+                                                    <label class=" control-label" for="textinput">Date d'écheance</label>
+                                                    <div class="">
+                                                        <input id="proposalDate" name="date" placeholder="Date" class="form-control input-md" type="text">
+                                                    </div>
+                                                    <br/>
+                                                </div>
+
+                                                <input type="submit"  id='createProject' class='btn btn-info' value="Create a new project !" data-dismiss="modal"/>
+                                            </div>
+                                            <div class="clearfix"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -128,7 +187,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1>Êtes-vous sûr de vouloir supprimer l'organisation </h1></div>
+                                        <h1>Êtes-vous sûr de vouloir supprimer le projet </h1></div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" onclick="destroyOrga()">Supprimer</button>
                                         <button type="button" class="btn btn-info btn-lg" data-dismiss="modal">Annuler</button>
@@ -139,16 +198,55 @@
                     </div>
                     <div class="tab-pane" id="Proposition">
                         <h3> Proposition en cours d'évaluation :</h3>
-                        {{#each project.fundRaising}}
-                            <span><a href="/project/{{this}}">{{this}}</a></span>
-                            <hr/>
-                        {{/each}}</div>
+                        <table class="table table-hover">
+                            <tbody>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Description</th>
+                                <th>Objectif</th>
+                                <th>Bénéficiaire</th>
+                                <th>Date de fin</th>
+                            </tr>
+                            {{#each project}}
+                                <tr>
+                                    <td>{{name}}</td>
+                                    <td>{{description}}</td>
+                                    <td>{{Objectif}}</td>
+                                    <td>{{benificiaire}}</td>
+                                    <td>{{date}}</td>
+                                    <td><a href="/project/{{address}}">{{address}}</a></td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger" style="float: right;" data-toggle="modal" data-target="#myModalMakeDonation">Voter contre</button>
+                                        <button type="button" class="btn btn-primary" style="float: right; margin-right: 10px;" data-toggle="modal" data-target="#myModalMakeDonation">Voter pour</button>
+                                    </td>
+                                </tr>
+                            {{/each}}
+
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="tab-pane" id="FundRaising">
-                        <h3> Proposition en cours de financement :</h3>
-                        {{#each project.fundRaising}}
-                            <span><a href="/project/{{this}}">{{this}}</a></span>
-                            <hr/>
-                        {{/each}}
+                        <table class="table table-hover">
+                            <tbody>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Description</th>
+                                <th>Objectif</th>
+                                <th>Date de fin</th>
+                            </tr>
+                            {{#each project}}
+                                <tr>
+                                    <td>{{name}}</td>
+                                    <td>{{description}}</td>
+                                    <td>{{Objectif}}</td>
+                                    <td>{{date}}</td>
+                                    <td><button type="button" class="btn btn-info" style=" " data-toggle="modal" data-target="#myModalMakeDonation">Faire un don</button>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+
                     </div>
                     <!-- /.tab-pane -->
                 </div>
