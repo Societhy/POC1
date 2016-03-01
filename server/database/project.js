@@ -7,8 +7,8 @@ exports.addProject = function(projAddress, finalCallback, projInfos) {
         'name': projInfos && projInfos.name ? projInfos.name : "",
         'orgaAddress': projInfos && projInfos.orgaAddress ? projInfos.orgaAddress : "",
         'description': projInfos && projInfos.description ? projInfos.description : "",
+        'proposalList': projInfos && projInfos.proposalList ? projInfos.proposalList : [],
         'memberList': projInfos && projInfos.memberList ? projInfos.memberList : [],
-        'fundRaising': projInfos && projInfos.fundRaising ? projInfos.fundRaising : {},
         'review': projInfos && projInfos.review ? projInfos.review : [],
         'files': projInfos && projInfos.files ? projInfos.files : [],
     };
@@ -30,6 +30,27 @@ exports.addProject = function(projAddress, finalCallback, projInfos) {
             }
         });
     }, finalCallback);
+};
+
+exports.deleteProject = function(projAddress, finalCallback) {
+    var ret = {
+        'status': false,
+        'message': "",
+        'object': null
+    };
+    db.get().collection(PROJ).deleteOne({
+        'address': projAddress
+    }, function(err, res) {
+        if (err) {
+            ret.message = err.message;
+            finalCallback(ret);
+        } else {
+            ret.status = true;
+            ret.message = "Project deleted.";
+            ret.object = res.deletedCount;
+            finalCallback(ret);
+        }
+    });
 };
 
 exports.getProject = function(projAddress, finalCallback) {
@@ -174,7 +195,7 @@ exports.addMemberAddress = function(projAddress, userAddress, finalCallback) {
     }, finalCallback);
 };
 
-exports.changeFundRaising = function(projAddress, newFundRaising, finalCallback) {
+exports.addProposal = function(projAddr, newProposal, finalCallback) {
     var project = {
         'address': projAddress
     };
@@ -185,8 +206,8 @@ exports.changeFundRaising = function(projAddress, newFundRaising, finalCallback)
             'object': null
         };
         db.get().collection(PROJ).updateOne(proj, {
-            $set: {
-                'fundRaising': newFundRaising
+            $push: {
+                'proposalList': newProposal
             }
         }, function(err, result) {
             if (err) {
@@ -194,12 +215,77 @@ exports.changeFundRaising = function(projAddress, newFundRaising, finalCallback)
                 finalCallback(ret);
             } else {
                 ret.status = true;
-                ret.message = "FundRaising changed.";
+                ret.message = "Proposal added.";
                 ret.object = proj;
                 finalCallback(ret);
             }
         });
     }, finalCallback);
+};
+
+exports.addVoteToProposal = function(projAddr, id, vote, finalCallback) {
+    var project = {
+        'address': projAddr
+    };
+    existsProj(project, function(proj, finalCallback) {
+        var ret = {
+            'status': false,
+            'message': "",
+            'object': null
+        };
+        var voteStr = vote ? "proposalList.$.voteFor" : "proposalList.$.voteAgainst";
+
+        db.get().collection(PROJ).updateOne({
+            'address': proj.address,
+            'proposalList.id': id
+        }, {
+            $inc: {
+                voteStr: 1
+            }
+        }, function(err, result) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                ret.status = true;
+                ret.message = "Vote added.";
+                ret.object = proj;
+                finalCallback(ret);
+            }
+        });
+    });
+};
+
+exports.endProposal = function (projAddr, id, outcome, finalCallback) {
+    var project = {
+        'address': projAddr
+    };
+    existsProj(project, function(proj, finalCallback) {
+        var ret = {
+            'status': false,
+            'message': "",
+            'object': null
+        };
+
+        db.get().collection(PROJ).updateOne({
+            'address': proj.address,
+            'proposalList.id': id
+        }, {
+            $set: {
+                'proposalList.$.outcome': outcome
+            }
+        }, function(err, result) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                ret.status = true;
+                ret.message = "Proposal changed.";
+                ret.object = proj;
+                finalCallback(ret);
+            }
+        });
+    });
 };
 
 exports.addReview = function(projAddress, review, finalCallback) {

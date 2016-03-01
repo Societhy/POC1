@@ -46,18 +46,10 @@ global.io.on('connection', function(socket) {
 
     socket.on("userJoinedOrga", function(data) {
         user.addOrgaAddress(data.userAddr, data.orgAddr, function(ret) {
-            if (!ret.status) {
-                console.log(ret.message);
-            } else {
-                console.log(ret.message, ret.object);
-            }
+            console.log(ret);
         });
         orga.addMemberAddress(data.orgAddr, data.userAddr, function(ret) {
-            if (!ret.status) {
-                console.log(ret.message);
-            } else {
-                console.log(ret.message, ret.object);
-            }
+            console.log(ret);
         });
     });
 
@@ -67,7 +59,7 @@ global.io.on('connection', function(socket) {
                 console.log(ret.message);
             } else {
                 console.log(ret.message, ret.object);
-                user.deleteOrgaAddressAllUsers(data.orgAddr, function (ret) {
+                user.deleteOrgaAddressAllUsers(data.orgAddr, function(ret) {
                     console.log(ret);
                 });
             }
@@ -84,35 +76,28 @@ global.io.on('connection', function(socket) {
             }
         };
         orga.addOrga(data.orgAddr, function(ret) {
-            if (!ret.status) {
-                console.log(ret.message);
-            } else {
-                console.log(ret.message, ret.object);
-            }
+            console.log(ret);
         }, infos);
-        user.addOrgaAddress(data.userAddr, data.orgAddr, function (ret) {
+        user.addOrgaAddress(data.userAddr, data.orgAddr, function(ret) {
             console.log(ret);
         });
     });
 
     socket.on("newProject", function(data) {
         proj.addProject(data.projAddr, function(ret) {
-            if (!ret.status)
-                console.log(ret.message);
-            else
-                console.log('Project added');
+            console.log(ret);
         }, {
             'name': data.projName,
-            'description' : data.projDesc,
-            'orgaAddress' : data.orgAddr
+            'description': data.projDesc,
+            'orgaAddress': data.orgAddr
         });
-        orga.addProjectAddress(data.orgAddr, data.projAddr, function (ret) {
+        orga.addProjectAddress(data.orgAddr, data.projAddr, function(ret) {
             console.log(ret);
         });
     });
 
-    socket.on("getUser", function (data) {
-        user.getUser(data.addr, function (ret) {
+    socket.on("getUser", function(data) {
+        user.getUser(data.addr, function(ret) {
             if (!ret.status)
                 socket.emit("userNotFound", null);
             else
@@ -120,30 +105,83 @@ global.io.on('connection', function(socket) {
         });
     });
 
-    socket.on("getProjData", function (data) {
+    socket.on("getProjData", function(data) {
         socket.emit("projData", {
             'abi': Project.abi,
             'binary': Project.binary
         });
     });
 
-    socket.on("userJoinedProject", function(data) {
-        // add username:username, userAddr:account, projAddr:contractInstance.address to db
-        user.addProjectAddress(data.userAddr, data.projAddr, function (ret) {
+    socket.on("newDonationToOrga", function(data) {
+        var transaction = {
+            hash: data.userAddr.concat(data.orgAddr),
+            date: (new Date()).toJSON(),
+            from: data.userAddr,
+            to: data.orgAddr,
+            amount: data.amount
+        };
+        user.addTransaction(data.userAddr, transaction, function(ret) {
             console.log(ret);
         });
-        project.addMemberAddress(data.projAddr, data.userAddr, function (ret) {
+        orga.addTransaction(data.orgAddr, transaction, function(ret) {
+            console.log(ret);
+        });
+    });
+
+    socket.on("userJoinedProject", function(data) {
+        user.addProjectAddress(data.userAddr, data.projAddr, function(ret) {
+            console.log(ret);
+        });
+        proj.addMemberAddress(data.projAddr, data.userAddr, function(ret) {
             console.log(ret);
         });
     });
 
     socket.on("newProposal", function(data) {
-        // add id:tx, propName:name, desc:description, goal:goal, deadline:timeLimit, pdeadline:proposalLimit
+        var proposal = {
+            'id': data.id,
+            'name': data.name,
+            'description': data.description,
+            'amount': data.amount,
+            'beneficiary': data.beneficiary,
+            'timeLimit': data.timeLimit,
+            'voteAgainst': 0,
+            'voteFor': 0,
+            'outcome': false
+        };
+        proj.addProposal(data.projAddr, proposal, function (ret) {
+            console.log(ret);
+        });
     });
 
     socket.on("newVote", function(data) {
-        // add id:id, vote:vote, userAddr:account, projAddr:contractInstance.address
-        // add vote au votes pour ou contre de la proposition ayant l'ID id.
+        proj.addVoteToProposal(data.projAddr, data.id, data.vote, function (ret) {
+            console.log(ret);
+        });
+    });
+
+    socket.on("newFundraise", function(data) {
+
+    });
+
+    socket.on("projectDeleted", function(data) {
+        proj.deleteProject(data.projAddr, function(ret) {
+            console.log(ret);
+        });
+    });
+
+    socket.on("proposalEnded", function(data) {
+        proj.endProposal(data.projAddr, data.id, data.outcome, function (ret) {
+            console.log(ret);
+        });
+    });
+
+    socket.on("endFundraise", function(data) {
+
+    });
+
+    socket.on("newDonationToFundraise", function(data) {
+
     });
 
     //files
