@@ -30,6 +30,34 @@
                             <div class='info' id='addresses' style="display: inline-flex; font-size: 25px; float: right; margin-right: 40%; margin-top: 14px;">{{addresses}}</div>
                             <div></div>
                         </div>
+                        <li class="list-group-item togglable">
+                            {{#if listOrga}}
+                                <b>Organisations</b> <a class="pull-right">{{listOrga.length}} <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
+                            {{else}}
+                                <b>Organisations</b> <a class="pull-right">0 <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
+                            {{/if}}
+                            <div class="dropdown" hidden>
+                                {{#each listOrga}}
+                                    <span><a href="/user/{{this}}">{{this}}</a></span>
+                                    <hr/>
+                                {{/each}}
+                            </div>
+                        </li>
+                        <li class="list-group-item togglable">
+                            <div>
+                                {{#if listProj}}
+                                    <b>Projets</b> <a class="pull-right">{{listProj.length}} <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
+                                {{else}}
+                                    <b>Projets</b> <a class="pull-right">0 <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
+                                {{/if}}
+                            </div>
+                            <div class="dropdown" hidden>
+                                {{#each listProj}}
+                                    <span><a href="/user/{{this}}">{{this}}</a></span>
+                                    <hr/>
+                                {{/each}}
+                            </div>
+                        </li>
 
                     </div>
                     <!-- /.tab-pane -->
