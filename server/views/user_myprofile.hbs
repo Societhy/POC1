@@ -12,9 +12,9 @@
 
                     </div><!-- /.box-header -->
                     {{#if profilePic}}
-                            <img src="/images/{{profilePic}}" class="img-circle" style="margin-top: 2%; margin-left: 44%; height: 140px" alt="User Image">
+                        <img src="/images/{{profilePic}}" class="img-circle" style="margin-top: 2%; margin-left: 44%; height: 140px" alt="User Image">
                     {{else}}
-                            <img src="/images/guest.jpg" class="img-circle" style="margin-top: 2%; margin-left: 44%; height: 140px" alt="User Image">
+                        <img src="/images/guest.jpg" class="img-circle" style="margin-top: 2%; margin-left: 44%; height: 140px" alt="User Image">
                     {{/if}}
                     <hr>
                     <div class="tab-pane active" id="Profil">
@@ -32,43 +32,43 @@
                         </div>
 
                     </div>
-
-                    <div id="accountList">
-
-                        <h2 class="sub-header">Account List</h2>
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Met</th>
-                                    <th>Les Valeurs</th>
-                                    <th>Qui te</th>
-                                    <th>Chantent</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <!--FOR EACH-->
-                                <tr>
-                                    <td>12</td>
-                                    <td>1459</td>
-                                    <td>565</td>
-                                    <td>5456</td>
-                                    <td>5445</td>
-                                </tr>
-                                <!--END FOR EACH-->
-                                </tbody>
-                            </table>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="settings">
+                        <div id="accountList">
+                            <h2 class="sub-header">Account List</h2>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Met</th>
+                                        <th>Les Valeurs</th>
+                                        <th>Qui te</th>
+                                        <th>Chantent</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!--FOR EACH-->
+                                    <tr>
+                                        <td>12</td>
+                                        <td>1459</td>
+                                        <td>565</td>
+                                        <td>5456</td>
+                                        <td>5445</td>
+                                    </tr>
+                                    <!--END FOR EACH-->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div id="settings">
-                            <button type="button" id="createNewAccount" class="btn btn-primary">Create new account</button>
-                                <input type="file" id="importAccount"  class="btn btn-primary" value="Import existing account">
+                        <div id="settings">
+                            <button type="button" id="createNewAccount" class="btn btn-primary" onclick="createBrowserAccount()">Create new account</button>
+                            <input type="file" id="importAccount"  class="btn btn-primary" value="Import existing account" onclick="loadKeyFile()">
                             <button type="button" id="deleteAccount" class="btn btn-danger">
                                 <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-                                Delete your account
+                                Delete your accounts
                             </button>
-                    </div>
+                        </div>
                     <!-- /.tab-pane -->
                 </div>
                 <!-- /.tab-content -->
