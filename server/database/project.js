@@ -8,6 +8,7 @@ exports.addProject = function(projAddress, finalCallback, projInfos) {
         'orgaAddress': projInfos && projInfos.orgaAddress ? projInfos.orgaAddress : "",
         'description': projInfos && projInfos.description ? projInfos.description : "",
         'proposalList': projInfos && projInfos.proposalList ? projInfos.proposalList : [],
+        'fundraiseList': projInfos && projInfos.fundraiseList ? projInfos.fundraiseList : [],
         'memberList': projInfos && projInfos.memberList ? projInfos.memberList : [],
         'review': projInfos && projInfos.review ? projInfos.review : [],
         'files': projInfos && projInfos.files ? projInfos.files : [],
@@ -197,7 +198,7 @@ exports.addMemberAddress = function(projAddress, userAddress, finalCallback) {
 
 exports.addProposal = function(projAddr, newProposal, finalCallback) {
     var project = {
-        'address': projAddress
+        'address': projAddr
     };
     existsProj(project, function(proj, finalCallback) {
         var ret = {
@@ -233,15 +234,14 @@ exports.addVoteToProposal = function(projAddr, id, vote, finalCallback) {
             'message': "",
             'object': null
         };
-        var voteStr = vote ? "proposalList.$.voteFor" : "proposalList.$.voteAgainst";
 
+        var JSobject = {};
+        JSobject[vote ? "proposalList.$.voteFor" : "proposalList.$.voteAgainst"] = 1;
         db.get().collection(PROJ).updateOne({
             'address': proj.address,
             'proposalList.id': id
         }, {
-            $inc: {
-                voteStr: 1
-            }
+            $inc: JSobject
         }, function(err, result) {
             if (err) {
                 ret.message = err.message;
@@ -253,7 +253,7 @@ exports.addVoteToProposal = function(projAddr, id, vote, finalCallback) {
                 finalCallback(ret);
             }
         });
-    });
+    }, finalCallback);
 };
 
 exports.endProposal = function (projAddr, id, outcome, finalCallback) {
@@ -285,7 +285,35 @@ exports.endProposal = function (projAddr, id, outcome, finalCallback) {
                 finalCallback(ret);
             }
         });
-    });
+    }, finalCallback);
+};
+
+exports.addFundraiseAddr = function (projAddr, fundAddress, finalCallback) {
+    var project = {
+        'address': projAddress
+    };
+    existsProj(project, function(proj, finalCallback) {
+        var ret = {
+            'status': false,
+            'message': "",
+            'object': null
+        };
+        db.get().collection(PROJ).updateOne(proj, {
+            $push: {
+                'fundraiseList': fundAddress
+            }
+        }, function(err, result) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                ret.status = true;
+                ret.message = "Fundraise address added.";
+                ret.object = proj;
+                finalCallback(ret);
+            }
+        });
+    }, finalCallback);
 };
 
 exports.addReview = function(projAddress, review, finalCallback) {
