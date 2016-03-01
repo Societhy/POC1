@@ -136,8 +136,11 @@ window.onload = function() {
     });
     socket.on("userData", function (data) {
         $("#firstname").text(data.nickname);
-        $("#addresses").text(data.addresses);
+        $("#lastname").text(data.lastname);
+        $("#address").text(account);
+        $("#balance").text(web3.fromWei(web3.eth.getBalance(account)));
     });
     browserAccounts = new Accounts({minPassphraseLength: 6});
     listAccounts();
 }
+
