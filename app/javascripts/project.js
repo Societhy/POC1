@@ -12,18 +12,24 @@ function register() {
 }
 
 function createFundraise() {
-//todo
+    var name = $("#fundraiseName").val();
+    var description = $("#fundraiseDesc").val();
+    var goal = $("#fundraiseGoal").val();
+    var timeLimit = $("#fundraiseDate").val();
+
+    contractInstance.createFundraise(name, description, goal, timeLimit, {from:account, gas:3000000}).then(function (tx) {
+        console.log("fundraise " + name + " created");
+    });
 }
 
 function createProposal() {
-    var name;
-    var description;
-    var amount;
-    var timeLimit;
-    var beneficiary;
+    var name = $("#proposalName").val();
+    var description = $("#proposalDesc").val();;
+    var amount = $("#proposalAmount").val();
+    var timeLimit = $("#proposalDate").val();
+    var beneficiary = $("#proposalTarget").val();
 
-    //contractInstance.createProposal(name, description, goal, timeLimit, proposalLimit, {from:account}).then(function (tx) {
-    contractInstance.createProposal("test", "bonjour", 10, account, 10, {from:account, gas:200000}).then(function (tx) {
+    contractInstance.createProposal(name, description, amount, beneficiary, timeLimit, {from:account, gas:3000000}).then(function (tx) {
         console.log("proposal " + name + " created");
     });
 }
