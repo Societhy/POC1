@@ -84,6 +84,7 @@ function loadKeyFile() {
         var newArr = JSON.parse(lines);
         var newAccount = browserAccounts.set(newArr.address, newArr);
         console.log(newArr);
+        listAccounts();
     }
 }
 

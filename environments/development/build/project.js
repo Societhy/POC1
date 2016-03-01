@@ -40,10 +40,10 @@ function createProposal() {
     });
 }
 
-function voteForProposal() {
-    var id;
-    var vote;
+function voteForProposal(vote, id) {
+    //var id = $(this).attr('val');
 
+    console.log(id, vote);
     projectInstance.voteForProposal(id, vote, {from:account}).then(function (tx) {
         console.log("voted proposal " + id, tx);
     });

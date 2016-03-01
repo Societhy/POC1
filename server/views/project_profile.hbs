@@ -129,7 +129,7 @@
                                                     </div>
                                                 </div>
 
-                                                <input type="submit"  id='createProposal' class='btn btn-info' value="Create a new project !" data-dismiss="modal" onclick="createProposal()"/>
+                                                <input type="submit"  id='createProposal' class='btn btn-info' value="Proposer !" data-dismiss="modal" onclick="createProposal()"/>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
@@ -188,7 +188,7 @@
                             <tr>
                                 <th>Nom</th>
                                 <th>Description</th>
-                                <th>Objectif</th>
+                                <th>Montant</th>
                                 <th>Bénéficiaire</th>
                                 <th>Date de fin</th>
                             </tr>
@@ -201,8 +201,8 @@
                                     <td>{{timeLimit}}</td>
                                     <td></td>
                                     <td>
-                                        <button type="button" class="btn btn-danger" style="float: right;" val="{{id}}">Voter contre</button>
-                                        <button type="button" class="btn btn-primary" style="float: right;" val="{{id}}">Voter pour</button>
+                                        <button type="button" class="btn btn-danger" style="float: right;" onclick="voteForProposal(false, {{id}})">Voter contre</button>
+                                        <button type="button" class="btn btn-primary" style="float: right;" onclick="voteForProposal(true, {{id}})">Voter pour</button>
                                     </td>
                                 </tr>
                             {{/each}}
