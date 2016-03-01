@@ -16,8 +16,8 @@ contract Fundraise {
 
   Contributor[] contributors;
 
-  event newDonation(address addr, uint amount);
-  event endOfCampaign(bool success, uint amount);
+  event newDonationToFundraise(address fundraiseAddr, address userAddr, uint amount);
+  event endFundraise(address fundraiseAddr, bool outcome);
 
   function Fundraise(string _name, string _description, uint _goal, uint _timeLimit) {
     beneficiary = msg.sender;
@@ -41,7 +41,7 @@ contract Fundraise {
     if (i == contributors.length)
         contributors.push(Contributor({addr:msg.sender, contribution:msg.value}));
     alreadyRaised += msg.value;
-    newDonation(msg.sender, msg.value);
+    newDonationToFundraise(this, msg.sender, msg.value);
   }
 
   modifier deadlineReached { if (now >= deadline) _ }
@@ -49,9 +49,10 @@ contract Fundraise {
   function endCampaign() public deadlineReached returns (bool) {
         if (alreadyRaised >= goal) {
           beneficiary.send(alreadyRaised);
-          endOfCampaign(true, alreadyRaised);
+          endFundraise(this, true);
         }
         else {
+          endFundraise(this, false);
           for (uint i = 0; i < contributors.length; ++i)
             contributors[i].addr.send(contributors[i].contribution);
         }

@@ -7,8 +7,7 @@ function register() {
     var userName = $("#name").val();
 
     contractInstance.register(userName, {from:account}).then(function (tx) {
-        console.log("user " + username + " registered", tx);
-        socket.emit("userRegisterProj", {username:username, userAddr:account, projAddr:contractInstance.address});
+        console.log("user " + userName + " registered", tx);
     });
 }
 
@@ -24,7 +23,7 @@ function createProposal() {
     var beneficiary;
 
     //contractInstance.createProposal(name, description, goal, timeLimit, proposalLimit, {from:account}).then(function (tx) {
-        contractInstance.createProposal("test", "bonjour", 10, 10, 10, {from:account}).then(function (tx) {
+    contractInstance.createProposal("test", "bonjour", 10, account, 10, {from:account, gas:200000}).then(function (tx) {
         console.log("proposal " + name + " created");
     });
 }
@@ -35,7 +34,6 @@ function voteForProposal() {
 
     contractInstance.voteForProposal(id, vote, {from:account}).then(function (tx) {
         console.log("voted proposal " + id, tx);
-        socket.emit("newVote", {id:id, vote:vote, userAddr:account, projAddr:contractInstance.address});
     });
 }
 
@@ -51,5 +49,6 @@ window.onload = function() {
         contractInstance.allEvents().watch(function (err, logs) {
             console.log(logs);
             socket.emit(logs.event, logs.args);
+        });
     });
 }

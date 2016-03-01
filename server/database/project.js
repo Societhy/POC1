@@ -158,7 +158,7 @@ exports.addMemberAddress = function(projAddress, userAddress, finalCallback) {
         };
         db.get().collection(PROJ).updateOne(proj, {
             $addToSet: {
-                'memberList': userAddaress
+                'memberList': userAddress
             }
         }, function(err, result) {
             if (err) {

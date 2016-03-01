@@ -11,22 +11,24 @@ function register() {
     var userName = $("#name").val();
 
     contractInstance.register(userName, {from:account}).then(function (tx) {
-        console.log("user " + username + " registered", tx);
-        socket.emit("userRegisterProj", {username:username, userAddr:account, projAddr:contractInstance.address});
+        console.log("user " + userName + " registered", tx);
     });
+}
+
+function createFundraise() {
+//todo
 }
 
 function createProposal() {
     var name;
     var description;
-    var goal;
+    var amount;
     var timeLimit;
-    var proposalLimit;
+    var beneficiary;
 
     //contractInstance.createProposal(name, description, goal, timeLimit, proposalLimit, {from:account}).then(function (tx) {
-        contractInstance.createProposal("test", "bonjour", 10, 10, 10, {from:account}).then(function (tx) {
-        console.log("proposal " + name + " created, id : ", tx);
-        socket.emit("newProposal", {id:tx, propName:name, desc:description, goal:goal, deadline:timeLimit, pdeadline:proposalLimit});
+    contractInstance.createProposal("test", "bonjour", 10, account, 10, {from:account, gas:200000}).then(function (tx) {
+        console.log("proposal " + name + " created");
     });
 }
 
@@ -36,7 +38,6 @@ function voteForProposal() {
 
     contractInstance.voteForProposal(id, vote, {from:account}).then(function (tx) {
         console.log("voted proposal " + id, tx);
-        socket.emit("newVote", {id:id, vote:vote, userAddr:account, projAddr:contractInstance.address});
     });
 }
 
@@ -49,5 +50,9 @@ window.onload = function() {
         contract = Pudding.whisk({abi: project.abi, binary: project.binary});
         contractInstance = contract.at(addr);
         console.log(contractInstance);
+        contractInstance.allEvents().watch(function (err, logs) {
+            console.log(logs);
+            socket.emit(logs.event, logs.args);
+        });
     });
 }

@@ -132,7 +132,7 @@ global.io.on('connection', function(socket) {
         user.addProjectAddress(data.userAddr, data.projAddr, function (ret) {
             console.log(ret);
         });
-        project.addMemberAddress(data.projAddr, data.userAddr, function (ret) {
+        proj.addMemberAddress(data.projAddr, data.userAddr, function (ret) {
             console.log(ret);
         });
     });

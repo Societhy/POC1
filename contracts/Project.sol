@@ -44,10 +44,11 @@ contract Project {
   Proposal[] proposal;
   mapping (address => User) members;
 
-  event userJoinedProject(address userAddr, address projAddr, string userName);
+  event userJoinedProject(address userAddr, address projAddr);
   event newProposal(address projAddr, uint id, string name, string description, uint amount, address beneficiary, uint timeLimit);
+  event proposalEnded(uint id, bool outcome);
   event newVote(address projAddr, uint id, bool vote);
-  event newFundraise(address fundraiseAddr, string name, string description, uint goal, uint timeLimit);
+  event newFundraise(address projAddr, address fundraiseAddr, string name, string description, uint goal, uint timeLimit);
   event projectDeleted(address projAddr);
 
 modifier onlyOwner() { if (msg.sender == owner) _ }
@@ -66,7 +67,7 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
     members[msg.sender].rights.propose = true;
     members[msg.sender].rights.vote = true;
     members[msg.sender].name = _name;
-    userJoinedProject(msg.sender, this, _name);
+    userJoinedProject(msg.sender, this);
   }
 
   function createProposal(string name, string description, uint amount, address beneficiary, uint timeLimit) {
@@ -76,7 +77,7 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
 
   function createFundraise(string name, string description, uint goal, uint timeLimit) {
     Fundraise addr = new Fundraise(name, description, goal, timeLimit);
-    newFundraise(addr, name, description, goal, now + timeLimit * 1 minutes);
+    newFundraise(this, addr, name, description, goal, now + timeLimit * 1 minutes);
     activeCampaigns.push(addr);
   }
 
