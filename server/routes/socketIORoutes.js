@@ -168,6 +168,7 @@ global.io.on('connection', function(socket) {
     });
 
     socket.on("newFundraise", function(data) {
+        console.log("here");
         var fundraise = {
             'name': data.name,
             'description': data.description,
