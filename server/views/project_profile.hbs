@@ -61,10 +61,9 @@
                             </li>
                         </ul>
 
-                        <button type="button" class="follow btn btn-primary btn-block" data-toggle="modal" data-target="#myModalMakeDonation">Suivre le projet</button>
+                        <button type="button" class="follow btn btn-primary btn-block" data-toggle="modal" data-target="#myModalRegister">Suivre le projet</button>
                         <button type="button" class="btn btn-primary btn-lg" style="float:right; margin-left: 5px;" data-toggle="modal" data-target="#myModalCreateProposal">Soumettre une proposition</button>
-                        <button type="button" class="btn btn-primary btn-lg" style="float:right; margin-left: 5px;" data-toggle="modal" data-target="#myModalCreatefundraising">Soumettre une demande de dons</button>
-                        <button type="button" class="btn btn-primary btn-lg" style="float:right;" data-toggle="modal" data-target="#myModalDonation">Faire un don</button>
+                        <button type="button" class="btn btn-primary btn-lg" style="float:right; margin-left: 5px;" data-toggle="modal" data-target="#myModalCreateFundraising">Soumettre une collecte de fonds</button>
                         <!-- Modal -->
                         <div id="myModalRegister" class="modal fade" role="dialog">
                             <div class="modal-dialog">
@@ -84,31 +83,6 @@
                                                     </div>
                                                 </div>
                                                 <input type="submit"  id='submit_form' class='btn btn-info' value="Rejoindre le projet !" data-dismiss="modal" onclick="register()"/>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="myModalDonation" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <link rel='stylesheet' href='/stylesheets/register.css' />
-
-                                <div class="container auth">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="text-center">Faire une donation</h1>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div id="big-form" class="well auth-box">
-                                                <div class="form-group">
-                                                    <label class=" control-label" for="textinput">Montant de la donation</label>
-                                                    <div class="">
-                                                        <input id="goal" placeholder="eg : 10" class="form-control input-md" type="text">
-                                                    </div>
-                                                </div>
-                                                <input type="submit"  id='submit_form' class='btn btn-info' value="Faire un don !" data-dismiss="modal"/>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
@@ -141,7 +115,7 @@
                                                     <br/>
                                                     <label class=" control-label" for="textinput">Coût</label>
                                                     <div class="">
-                                                        <input id="proposalAmmount" name="ammount" placeholder="coût" class="form-control input-md" type="text">
+                                                        <input id="proposalAmount" name="amount" placeholder="coût" class="form-control input-md" type="text">
                                                     </div>
                                                     <br/>
                                                     <label class=" control-label" for="textinput">Date d'écheance</label>
@@ -155,7 +129,7 @@
                                                     </div>
                                                 </div>
 
-                                                <input type="submit"  id='createProject' class='btn btn-info' value="Create a new project !" data-dismiss="modal" onclick="createProposal()"/>
+                                                <input type="submit"  id='createProposal' class='btn btn-info' value="Create a new project !" data-dismiss="modal" onclick="createProposal()"/>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
@@ -163,42 +137,42 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="myModalCreatefundraising" class="modal fade" role="dialog">
+                        <div id="myModalCreateFundraising" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                                 <link rel='stylesheet' href='/stylesheets/register.css' />
 
                                 <div class="container auth">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="text-center">Soumettre une demande de dons</h1>
+                                            <h1 class="text-center">Soumettre une collecte de fonds</h1>
                                         </div>
                                         <div class="modal-body">
                                             <div id="big-form" class="well auth-box">
                                                 <div class="form-group">
-                                                    <label class=" control-label" for="textinput">Nom de la demande</label>
+                                                    <label class=" control-label" for="textinput">Nom de la campagne</label>
                                                     <div class="">
-                                                        <input id="proposalName" name="nom" placeholder="Name" class="form-control input-md" type="text">
+                                                        <input id="fundraiseName" name="nom" placeholder="Name" class="form-control input-md" type="text">
                                                     </div>
                                                     <br/>
                                                     <label class=" control-label" for="textinput">Description</label>
                                                     <div class="">
                                                         <!--<textarea rows="4" cols="50" name="comment" form="usrform" id="projectDesc" name="Desc" placeholder="Description" class="form-control input-md"/>-->
-                                                        <input id="proposalDesc" name="Desc" placeholder="Description" class="form-control input-md" type="text">
+                                                        <input id="fundraiseDesc" name="Desc" placeholder="Description" class="form-control input-md" type="text">
                                                     </div>
                                                     <br/>
                                                     <label class=" control-label" for="textinput">Objectif</label>
                                                     <div class="">
-                                                        <input id="proposalAmmount" name="ammount" placeholder="objectif" class="form-control input-md" type="text">
+                                                        <input id="fundraiseGoal" name="goal" placeholder="objectif" class="form-control input-md" type="text">
                                                     </div>
                                                     <br/>
                                                     <label class=" control-label" for="textinput">Date d'écheance</label>
                                                     <div class="">
-                                                        <input id="proposalDate" name="date" placeholder="Date" class="form-control input-md" type="text">
+                                                        <input id="fundraiseDate" name="date" placeholder="Date" class="form-control input-md" type="text">
                                                     </div>
                                                     <br/>
                                                 </div>
 
-                                                <input type="submit"  id='createProject' class='btn btn-info' value="Create a new project !" data-dismiss="modal" onclick="createFundraising()"/>
+                                                <input type="submit"  id='createFundraise' class='btn btn-info' value="Create a new campaign !" data-dismiss="modal" onclick="createFundraise()"/>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
