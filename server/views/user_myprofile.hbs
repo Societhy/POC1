@@ -62,20 +62,53 @@
                             </div>
                         </div>
                         <div id="settings">
+<<<<<<< HEAD
+                            <button type="button" id="createNewAccount" class="btn btn-primary" data-toggle="modal" data-target="#modalCreateAccount">Create new account</button>
+                            <input type="file" id="importAccount"  class="btn btn-primary" value="Import existing account">
+=======
                             <button type="button" id="createNewAccount" class="btn btn-primary" onclick="createBrowserAccount()">Create new account</button>
                             <input type="file" id="importAccount"  class="btn btn-primary" value="Import existing account" onclick="loadKeyFile()">
+>>>>>>> da5d3571144f8c6e4065f2e8f3b1633bacd87915
                             <button type="button" id="deleteAccount" class="btn btn-danger">
                                 <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
                                 Delete your accounts
                             </button>
                         </div>
                     <!-- /.tab-pane -->
+
+
+                    <!--MODAL-->
+                    <div id="modalCreateAccount" class="modal fade" role="dialog">
+                        <div class="container auth">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="text-center">Create new account</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="big-form" class="well auth-box">
+                                        <div class="form-group">
+                                            <label class=" control-label" for="textinput">Name</label>
+                                            <div class="">
+                                                <input id="password" name="password" placeholder="Password" class="form-control input-md" type="password">
+                                            </div>
+                                        </div>
+                                        <input type="submit"  id='submit_form' class='btn btn-info' value="Envoyer !" data-dismiss="modal" "/>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.tab-content -->
             </div>
-            <!-- /.nav-tabs-custom -->
+
         </div>
+        <!-- /.tab-content -->
     </div>
+    <!-- /.nav-tabs-custom -->
+</div>
+</div>
 
 </div>
 <script src="/eth/user.js"></script>

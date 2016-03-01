@@ -6821,10 +6821,29 @@ button.close {
   margin-right: 15px;
 }
 
-.desc
+#loading
 {
+  position: fixed;
+  bottom: 15%;
+  left: 44%;
+  z-index: 1075;
+  width: 300px;
 }
 
+@media (min-width: 768px)
+{
+  .modal-dialog
+  {
+    width: auto;
+  }
+}
+  li.dropdownEn  i
+{
+  -webkit-transform : rotate(270deg);
+  -moz-transform : rotate(270deg);
+  -ms-transform : rotate(270deg);
+  transform : rotate(270deg);
+}
 #projectDesc
 {
   margin: 5px;
