@@ -122,7 +122,7 @@ global.io.on('connection', function(socket) {
     });
 
     // FOR CEDRIC
-    socket.on("userRegisterProj", function(data) {
+    socket.on("userJoinedProject", function(data) {
         // add username:username, userAddr:account, projAddr:contractInstance.address to db
     });
 

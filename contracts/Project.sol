@@ -2,7 +2,7 @@ import "Fundraise";
 
 contract Project {
 
-  uint maxid = 0;
+  uint maxId = 0;
   address public owner;
   string public name;
   string public description;
@@ -22,26 +22,33 @@ contract Project {
   }
 
   struct FundraiseInfo {
+    address addr;
     string name;
     string description;
     uint goal;
     uint timeLimit;
-    bool isActive;
   }
 
   struct Proposal {
     uint id;
+    string name;
+    string description;
+    uint amount;
+    address beneficiary;
     uint timeLimit;
-    uint positive;
-    uint against;
-    FundraiseInfo info;
+    uint votes;
+    mapping (address => bool) voters;
   }
 
   Fundraise[] activeCampaigns;
   Proposal[] proposal;
   mapping (address => User) members;
 
-  event newUser(string name);
+  event userJoinedProject(address userAddr, address projAddr, string userName);
+  event newProposal(address projAddr, uint id, string name, string description, uint amount, address beneficiary, uint timeLimit);
+  event newVote(address projAddr, uint id, bool vote);
+  event newFundraise(address fundraiseAddr, string name, string description, uint goal, uint timeLimit);
+  event projectDeleted(address projAddr);
 
 modifier onlyOwner() { if (msg.sender == owner) _ }
 
@@ -59,38 +66,30 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
     members[msg.sender].rights.propose = true;
     members[msg.sender].rights.vote = true;
     members[msg.sender].name = _name;
-    newUser(members[msg.sender].name);
+    userJoinedProject(msg.sender, this, _name);
   }
 
-  function createProposal(string name, string description, uint goal, uint timeLimit, uint proposalLimit) returns (uint)
-  {
-    Proposal memory buff;
-    buff.id = maxid;
-    buff.timeLimit = now + proposalLimit * 1 minutes;
-    buff.positive = 0;
-    buff.against = 0;
-    buff.info.name = name;
-    buff.info.description = description;
-    buff.info.goal = goal;
-    buff.info.timeLimit = now + timeLimit * 1 minutes;
-    buff.info.isActive = false;
-    proposal.push(buff);
-    return maxid++;
+  function createProposal(string name, string description, uint amount, address beneficiary, uint timeLimit) {
+    proposal.push(Proposal(maxId, name, description, amount, beneficiary, now + timeLimit * 1 minutes, 0));
+    newProposal(this, maxId++, name, description, amount, beneficiary, timeLimit);
   }
 
-  function createFundraise(Proposal proposal) private {
-    proposal.info.isActive = true;
-    activeCampaigns.push(new Fundraise(proposal.info.name, proposal.info.description, proposal.info.goal, proposal.info.timeLimit));
+  function createFundraise(string name, string description, uint goal, uint timeLimit) {
+    Fundraise addr = new Fundraise(name, description, goal, timeLimit);
+    newFundraise(addr, name, description, goal, now + timeLimit * 1 minutes);
+    activeCampaigns.push(addr);
   }
 
   function voteForProposal(uint id, bool vote) {
     if (members[msg.sender].rights.vote == true) {
         for (uint i = 0; i < proposal.length; ++i) {
-            if (id == proposal[i].id) {
+            if (id == proposal[i].id
+                && proposal[i].voters[msg.sender] == false) {
                 if (vote)
-                    proposal[id].positive += 1;
+                    proposal[id].votes += 1;
                 else
-                    proposal[id].against += 1;
+                    proposal[id].votes -= 1;
+                newVote(this, id, vote);
                 break;
             }
         }
@@ -114,8 +113,8 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
   modifier deadlineReached(uint deadline) { if (now >= deadline) _ }
 
   function endProposal(Proposal pro) internal deadlineReached(pro.timeLimit) returns (bool) {
-    if (pro.positive > pro.against)
-        createFundraise(pro);
+    if (pro.votes > 0)
+      pro.beneficiary.send(pro.amount);
     else
         return false;
     return true;
@@ -125,11 +124,8 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
     return members[user].name;
   }
 
-  function getProposals(address fundraise) returns (bool) {
-return true;
-  }
-
   function kill() onlyOwner {
-        suicide(owner);
+    projectDeleted(this);
+    suicide(owner);
   }
 }

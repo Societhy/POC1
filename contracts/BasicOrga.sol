@@ -19,11 +19,13 @@ contract BasicOrga {
     string name;
     string description;
     uint startDate;
-    address addr;
+    Project addr;
   }
 
-  event newDonation(address addr, uint value);
-  event newUser(string name);
+  event newDonation(address userAddr, address orgAddr, uint value);
+  event userJoinedOrga(address userAddr, address orgAddr, string userName);
+  event newProject(address projAddr, address orgAddr, string projName, string projDesc);
+  event orgaDeleted(address orgAddr);
 
   mapping (address => User) members;
   ProjectInfo[] projects;
@@ -39,7 +41,7 @@ contract BasicOrga {
 
   function donate() {
     members[msg.sender].contribution += msg.value;
-    newDonation(msg.sender, msg.value);
+    newDonation(msg.sender, this, msg.value);
   }
 
   function register(string _name) {
@@ -51,17 +53,17 @@ contract BasicOrga {
     members[msg.sender].rights.vote = true;
     members[msg.sender].name = _name;
     members[msg.sender].contribution = 0;
-    newUser(members[msg.sender].name);
+    userJoinedOrga(msg.sender, this, _name);
   }
 
   function getMember(address user) returns (string) {
     return members[user].name;
   }
 
-  function createProject(string _name, string _description) returns (address addr) {
-    address projectAddr = new Project(_name, _description);
+  function createProject(string _name, string _description) {
+    Project projectAddr = new Project(_name, _description);
     projects.push(ProjectInfo(_name, _description, now, projectAddr));
-    return projectAddr;
+    newProject(projectAddr, this, _name, _description);
   }
 
   function transferFundToProject(address projectAddr, uint amount) {
@@ -76,7 +78,16 @@ contract BasicOrga {
     }
   }
 
+  function destroyProject(address addr) onlyOwner {
+    for (uint i = 0; i < projects.length; ++i) {
+      if (projects[i].addr == addr) {
+        projects[i].addr.kill();
+      }
+    }
+  }
+
   function kill() onlyOwner {
+    orgaDeleted(this);
     suicide(owner);
   }
 }

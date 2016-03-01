@@ -3,46 +3,29 @@ var project;
 var contract;
 var contractInstance;
 
-function uploadImage() {
-    var stream = ss.createStream();
-    var input, file;
-
-    input = document.getElementById('imageinput');
-    if (!input) {
-        alert("Um, couldn't find the fileinput element.");
-    }
-    else if (!input.files) {
-        alert("This browser doesn't seem to support the `files` property of file inputs.");
-    }
-    else if (!input.files[0]) {
-        alert("Please select a file before clicking 'Load'");
-    }
-    else {
-        file = input.files[0];
-        ss(window.socket).emit('orgaimg', stream, {size: file.size, name:file.name});
-        ss.createBlobReadStream(file).pipe(stream);
-    }
-}
-
 function register() {
     var userName = $("#name").val();
 
-    contractInstance.register(username, {from:account}).then(function (tx) {
+    contractInstance.register(userName, {from:account}).then(function (tx) {
         console.log("user " + username + " registered", tx);
         socket.emit("userRegisterProj", {username:username, userAddr:account, projAddr:contractInstance.address});
     });
 }
 
+function createFundraise() {
+//todo
+}
+
 function createProposal() {
     var name;
     var description;
-    var goal;
+    var amount;
     var timeLimit;
-    var proposalLimit;
+    var beneficiary;
 
-    contractInstance.createProposal(name, description, goal, timeLimit, proposalLimit, {from:account}).then(function (tx) {
-        console.log("proposal " + name + " created, id : ", tx);
-        socket.emit("newProposal", {id:tx, propName:name, desc:description, goal:goal, deadline:timeLimit, pdeadline:proposalLimit});
+    //contractInstance.createProposal(name, description, goal, timeLimit, proposalLimit, {from:account}).then(function (tx) {
+        contractInstance.createProposal("test", "bonjour", 10, 10, 10, {from:account}).then(function (tx) {
+        console.log("proposal " + name + " created");
     });
 }
 
@@ -65,5 +48,8 @@ window.onload = function() {
         contract = Pudding.whisk({abi: project.abi, binary: project.binary});
         contractInstance = contract.at(addr);
         console.log(contractInstance);
+        contractInstance.allEvents().watch(function (err, logs) {
+            console.log(logs);
+            socket.emit(logs.event, logs.args);
     });
 }

@@ -63,30 +63,28 @@
                             </li>
                         </ul>
 
-                        <button type="button" class="follow btn btn-primary btn-block" data-toggle="modal" data-target="#myModalMakeDonation">Suivre le projet</button>
-                        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModalDelete">Mettre fin au projet</button>
-                        <button type="button" class="btn btn-primary btn-lg" style="float:right; margin-left: 5px;" data-toggle="modal" data-target="#myModalCreateProject">Soumettre une proposition</button>
-                        <button type="button" class="btn btn-primary btn-lg" style="float:right;" data-toggle="modal" data-target="#myModalCreateProject">Faire un don</button>
+                        <button type="button" class="follow btn btn-primary btn-block" data-toggle="modal" data-target="#myModalRegister">Suivre le projet</button>
+                        <button type="button" class="btn btn-primary btn-lg" style="float:right; margin-left: 5px;" data-toggle="modal" data-target="#myModalCreateProposal">Soumettre une proposition</button>
 
                         <!-- Modal -->
-                        <div id="myModalCreate" class="modal fade" role="dialog">
+                        <div id="myModalRegister" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                                 <link rel='stylesheet' href='/stylesheets/register.css' />
 
                                 <div class="container auth">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="text-center">Faire un don</h1>
+                                            <h1 class="text-center">Register</h1>
                                         </div>
                                         <div class="modal-body">
                                             <div id="big-form" class="well auth-box">
                                                 <div class="form-group">
                                                     <label class=" control-label" for="textinput">Name</label>
                                                     <div class="">
-                                                        <input id="name" name="name" placeholder="Amount" class="form-control input-md" type="text">
+                                                        <input id="name" name="name" placeholder="eg : Simon" class="form-control input-md" type="text">
                                                     </div>
                                                 </div>
-                                                <input type="submit"  id='submit_form' class='btn btn-info' value="Faire un don !" data-dismiss="modal"/>
+                                                <input type="submit"  id='submit_form' class='btn btn-info' value="Rejoindre le projet !" data-dismiss="modal" onclick="register()"/>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
@@ -94,7 +92,32 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="myModalCreateProject" class="modal fade" role="dialog">
+                        <div id="myModalCreateProposal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <link rel='stylesheet' href='/stylesheets/register.css' />
+
+                                <div class="container auth">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="text-center">Register</h1>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div id="big-form" class="well auth-box">
+                                                <div class="form-group">
+                                                    <label class=" control-label" for="textinput">Name</label>
+                                                    <div class="">
+                                                        <input id="goal" placeholder="eg : 10" class="form-control input-md" type="text">
+                                                    </div>
+                                                </div>
+                                                <input type="submit"  id='submit_form' class='btn btn-info' value="Faire un don !" data-dismiss="modal" onclick="createProposal()"/>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="myModalCreateProposal" class="modal fade" role="dialog">
                             <div class="modal-dialog">
                                 <link rel='stylesheet' href='/stylesheets/register.css' />
 
@@ -122,18 +145,6 @@
                                             <div class="clearfix"></div>
 
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="myModalDelete" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1>Êtes-vous sûr de vouloir supprimer l'organisation </h1></div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal" onclick="destroyOrga()">Supprimer</button>
-                                        <button type="button" class="btn btn-info btn-lg" data-dismiss="modal">Annuler</button>
                                     </div>
                                 </div>
                             </div>
