@@ -27,7 +27,7 @@ function createProject() {
     var projName = $("#projectName").val();
     var projDescription = $("#projectDesc").val();
 
-    contractInstance.createProject(projName, projDescription, {from:account, gas:1620111}).then(function (tx) {
+    contractInstance.createProject(projName, projDescription, {from:account, gas:2620111}).then(function (tx) {
         console.log("project Created", tx);
     });
 }
