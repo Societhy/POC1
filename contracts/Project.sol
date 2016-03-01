@@ -86,6 +86,7 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
         for (uint i = 0; i < proposal.length; ++i) {
             if (id == proposal[i].id
                 && proposal[i].voters[msg.sender] == false) {
+                proposal[i].voters[msg.sender] = true;
                 if (vote)
                     proposal[id].votes += 1;
                 else
