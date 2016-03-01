@@ -31,6 +31,20 @@ exports.addFundraise = function(fundAddress, finalCallback, fundInfos) {
     }, finalCallback);
 };
 
+exports.getFundraise = function(fundAddress, finalCallback) {
+    var fundraise = {
+        'address': fundAddress
+    };
+    existsFund(fundraise, function(fund, finalCallback) {
+        var ret = {
+            'status': true,
+            'message': "Found fundraise.",
+            'object': fund
+        };
+        finalCallback(ret);
+    }, finalCallback);
+};
+
 exports.addTransaction = function(fundAddress, transaction, finalCallback) {
     var fund = {
         'address': fundAddress
