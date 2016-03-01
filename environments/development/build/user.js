@@ -118,9 +118,11 @@ function uploadImage() {
 window.onload = function() {
     socket.emit("getUser", {addr:web3.eth.coinbase});
     socket.on("userNotFound", function (data) {
-        console.log("found");
+        $("#firstname").text("unknown");
+        $("#lastname").text("unknown");
     });
     socket.on("userData", function (data) {
-        console.log("not found");
+        $("#firstname").text(data.nickname);
+        $("#addresses").text(data.addresses);
     });
 }

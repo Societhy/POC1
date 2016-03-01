@@ -1,3 +1,4 @@
+Pudding.setWeb3(web3);
 var project;
 var contract;
 var contractInstance;
@@ -24,7 +25,7 @@ function uploadImage() {
 }
 
 function register() {
-    var username;
+    var userName = $("#name").val();
 
     contractInstance.register(username, {from:account}).then(function (tx) {
         console.log("user " + username + " registered", tx);
@@ -62,7 +63,6 @@ window.onload = function() {
     socket.on("projData", function (data) {
         project = data;
         contract = Pudding.whisk({abi: project.abi, binary: project.binary});
-        console.log(addr);
         contractInstance = contract.at(addr);
         console.log(contractInstance);
     });
