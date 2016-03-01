@@ -173,7 +173,7 @@ global.io.on('connection', function(socket) {
             'name': data.name,
             'description': data.description,
             'goal': data.goal,
-            'timeLimit': data.timeLimit,
+            'timeLimit': new Date((new Date()).getTime() + data.timeLimit * 60000),
             'projectAddr': data.projAddr
         };
         fund.addFundraise(data.fundraiseAddr, function(ret) {

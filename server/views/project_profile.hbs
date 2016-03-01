@@ -219,14 +219,14 @@
                                 <th>Objectif</th>
                                 <th>Date de fin</th>
                             </tr>
-                            {{#each project}}
+                            {{#each project.fundDetail}}
                                 <tr>
                                     <td>{{name}}</td>
                                     <td>{{description}}</td>
-                                    <td>{{Objectif}}</td>
-                                    <td>{{date}}</td>
+                                    <td>{{goal}}</td>
+                                    <td>{{timeLimit}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" style="float: right;" val="{{id}}">Faire un don</button>
+                                        <button type="button" class="btn btn-primary" style="float: right;" val="{{address}}">Faire un don</button>
                                     </td>
                                 </tr>
                             {{/each}}
