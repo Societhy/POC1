@@ -74,9 +74,9 @@ router.get('/orga/:addr', function(req, res, next)
     });
 });
 
-router.get('project/:addr', function(req, res, next)
+router.get('/project/:addr', function(req, res, next)
 {
-    proj.getProject("0xaa33acc9", function(ret)
+    proj.getProject(req.params.addr, function(ret)
     {
         if (!ret.status)
         {
