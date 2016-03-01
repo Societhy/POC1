@@ -63,8 +63,9 @@
                         </div>
                         <div id="settings">
                             <button type="button" id="createNewAccount" class="btn btn-primary" data-toggle="modal" data-target="#modalCreateAccount">Create new account</button>
-                            <input type="file" id="importAccount"  class="btn btn-primary" value="Import existing account">
-                            <button type="button" id="deleteAccount" class="btn btn-danger">
+                            <input type="file" id="keyFileInput" class="btn btn-primary" value="Import existing account">
+                            <button type="button" id="importAccount" class="btn btn-primary" onclick="loadKeyFile()">Import key file</button>
+                            <button type="button" id="deleteAccount" class="btn btn-danger" onclick="clearAccounts()">
                                 <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
                                 Delete your accounts
                             </button>
