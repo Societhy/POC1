@@ -32,22 +32,43 @@
                         </div>
 
                     </div>
-                   <!-- /.tab-pane -->
-                    <div class="tab-pane" id="settings">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">My accounts</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">Create new account</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputExperience" class="col-sm-2 control-label">Import existing account</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSkills" class="col-sm-2 control-label">Delete in-browser accounts (permanent)</label>
-                            </div>
-                        </form>
+
+                    <div id="accountList">
+
+                        <h2 class="sub-header">Account List</h2>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Met</th>
+                                    <th>Les Valeurs</th>
+                                    <th>Qui te</th>
+                                    <th>Chantent</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!--FOR EACH-->
+                                <tr>
+                                    <td>12</td>
+                                    <td>1459</td>
+                                    <td>565</td>
+                                    <td>5456</td>
+                                    <td>5445</td>
+                                </tr>
+                                <!--END FOR EACH-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="settings">
+                            <button type="button" id="createNewAccount" class="btn btn-primary">Create new account</button>
+                            <button type="button" id="importAccount" class="btn btn-primary">Import existing account</button>
+                            <button type="button" id="deleteAccount" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+
+                                Delete your account
+                            </button>
                     </div>
                     <!-- /.tab-pane -->
                 </div>
