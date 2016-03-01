@@ -192,14 +192,14 @@
                                 <th>Bénéficiaire</th>
                                 <th>Date de fin</th>
                             </tr>
-                            {{#each project}}
+                            {{#each project.proposalList}}
                                 <tr>
                                     <td>{{name}}</td>
                                     <td>{{description}}</td>
-                                    <td>{{Objectif}}</td>
-                                    <td>{{benificiaire}}</td>
-                                    <td>{{date}}</td>
-                                    <td><a href="/project/{{address}}">{{address}}</a></td>
+                                    <td>{{amount}}</td>
+                                    <td><a href="/project/{{beneficiary}}">{{beneficiary}}</a></td>
+                                    <td>{{timeLimit}}</td>
+                                    <td></td>
                                     <td>
                                         <button type="button" class="btn btn-danger" style="float: right;" val="{{id}}">Voter contre</button>
                                         <button type="button" class="btn btn-primary" style="float: right;" val="{{id}}">Voter pour</button>
