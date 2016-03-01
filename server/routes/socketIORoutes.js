@@ -127,7 +127,7 @@ global.io.on('connection', function(socket) {
         });
     });
 
-    socket.on("userRegisterProj", function(data) {
+    socket.on("userJoinedProject", function(data) {
         // add username:username, userAddr:account, projAddr:contractInstance.address to db
         user.addProjectAddress(data.userAddr, data.projAddr, function (ret) {
             console.log(ret);
