@@ -11,6 +11,7 @@
       "javascripts/index.js"
     ],
     "user.js": [
+      "javascripts/lib/ethereumjs-accounts.min.js",
       "javascripts/user.js"
     ],
     "orga.js": [
