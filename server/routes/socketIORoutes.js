@@ -44,6 +44,20 @@ global.io.on('connection', function(socket) {
         });
     });
 
+    socket.on("getProjData", function (data) {
+        socket.emit("projData", {
+            'abi': Project.abi,
+            'binary': Project.binary
+        });
+    });
+
+    socket.on("getFundraiseData", function() {
+        socket.emit("fundraiseData", {
+            'abi': Fundraise.abi,
+            'binary': Fundraise.binary
+        });
+    });
+
     socket.on("userJoinedOrga", function(data) {
         user.addOrgaAddress(data.userAddr, data.orgAddr, function(ret) {
             if (!ret.status) {
@@ -120,12 +134,6 @@ global.io.on('connection', function(socket) {
         });
     });
 
-    socket.on("getProjData", function (data) {
-        socket.emit("projData", {
-            'abi': Project.abi,
-            'binary': Project.binary
-        });
-    });
 
     socket.on("userJoinedProject", function(data) {
         // add username:username, userAddr:account, projAddr:contractInstance.address to db

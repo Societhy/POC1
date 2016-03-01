@@ -25,7 +25,7 @@ contract Fundraise {
     description = _description;
     goal = _goal;
     deadline = now + _timeLimit * 1 minutes;
-    isRaising = false;
+    isRaising = true;
     alreadyRaised = 0;
     owner = msg.sender;
   }

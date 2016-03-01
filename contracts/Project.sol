@@ -77,8 +77,8 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
 
   function createFundraise(string name, string description, uint goal, uint timeLimit) {
     Fundraise addr = new Fundraise(name, description, goal, timeLimit);
-    newFundraise(this, addr, name, description, goal, now + timeLimit * 1 minutes);
     activeCampaigns.push(addr);
+    newFundraise(this, addr, name, description, goal, now + timeLimit * 1 minutes);
   }
 
   function voteForProposal(uint id, bool vote) {
@@ -97,7 +97,7 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
     }
   }
 
-  function checkProposal() {
+  function checkProposals() {
       for (uint i = 0; i < proposal.length; ++i) {
           if (endProposal(proposal[i]))
               delete proposal[i];
@@ -114,11 +114,15 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
   modifier deadlineReached(uint deadline) { if (now >= deadline) _ }
 
   function endProposal(Proposal pro) internal deadlineReached(pro.timeLimit) returns (bool) {
-    if (pro.votes > 0)
+    if (pro.votes > 0) {
       pro.beneficiary.send(pro.amount);
-    else
-        return false;
-    return true;
+      proposalEnded(pro.id, true);
+      return true;
+      }
+    else {
+      proposalEnded(pro.id, false);
+      return false;
+      }
   }
 
   function getMember(address user) returns (string) {
