@@ -20,15 +20,20 @@
                     <div class="tab-pane active" id="Profil">
                         <h3 class="box-title">Informations générales</h3>
                         <div class="box-body">
-                            <label class='labelInfo' style="display: inline-flex;margin: 15px;  margin-right: 105px;font-size: 22px; margin-left: 25%;">Nom :</label>
-                            <div class='info' id='lastname' style="display: inline-flex; font-size: 25px; float: right; margin-right: 40%; margin-top: 14px;  ">{{lastname}}</div>
-                            <div></div>
-                            <label class='labelInfo' style="display: inline-flex;margin: 15px;  margin-right: 50px;font-size: 22px; margin-left: 25%;">Prénom :</label>
-                            <div class='info' id='firstname' style="display: inline-flex; font-size: 25px;  float: right; margin-right: 40%; margin-top: 14px; ">{{firstname}}</div>
-                            <div></div>
-                            <label class='labelInfo' style="display: inline-flex; margin: 15px;  margin-right: 95px;  font-size: 22px;  margin-left: 25%;">Adresse :</label>
-                            <div class='info' id='addresses' style="display: inline-flex; font-size: 25px; float: right; margin-right: 40%; margin-top: 14px;">{{addresses}}</div>
-                            <div></div>
+                            <div>
+                                <label class='labelInfo' style="display: inline-flex; margin: 15px;  margin-right: 95px;  font-size: 22px;  margin-left: 25%;">Prenom :</label>
+                                <div class='info' id='firstname' style="display: inline-flex; font-size: 18px;"></div>
+                            </div>
+                            <div>
+                                <label class='labelInfo' style="display: inline-flex; margin: 15px;  margin-right: 95px;  font-size: 22px;  margin-left: 25%;">Nom :</label>
+                                <div class='info' id='lastname' style="display: inline-flex; font-size: 18px;"></div>
+                            </div>
+                            <div>
+                                <label class='labelInfo' style="display: inline-flex; margin: 15px;  margin-right: 95px;  font-size: 22px;  margin-left: 25%;">Adresse :</label>
+                                <div class='info' id='address' style="display: inline-flex; font-size: 18px;"></div>
+                            </div>
+                            <label class='labelInfo' style="display: inline-flex; margin: 15px;  margin-right: 95px;  font-size: 22px;  margin-left: 25%;">Balance :</label>
+                            <div class='info' id='balance' style="display: inline-flex; font-size: 25px; float: right; margin-right: 40%; margin-top: 14px;"></div>
                         </div>
                         <li class="list-group-item togglable">
                             {{#if listOrga}}
@@ -58,7 +63,6 @@
                                 {{/each}}
                             </div>
                         </li>
-
                     </div>
                     <!-- /.tab-pane -->
                     <div class="tab-pane" id="settings">
