@@ -1,30 +1,37 @@
 Pudding.setWeb3(web3);
+
+var fundraise;
+var fundraiseInstance;
 var project;
-var contract;
-var contractInstance;
+var projectInstance;
 
 function register() {
     var userName = $("#name").val();
 
-    contractInstance.register(userName, {from:account}).then(function (tx) {
-        console.log("user " + username + " registered", tx);
-        socket.emit("userRegisterProj", {username:username, userAddr:account, projAddr:contractInstance.address});
+    projectInstance.register(userName, {from:account}).then(function (tx) {
+        console.log("user " + userName + " registered", tx);
     });
 }
 
 function createFundraise() {
-//todo
+    var name = $("#fundraiseName").val();
+    var description = $("#fundraiseDesc").val();
+    var goal = $("#fundraiseGoal").val();
+    var timeLimit = $("#fundraiseDate").val();
+
+    projectInstance.createFundraise(name, description, goal, timeLimit, {from:account, gas:3000000}).then(function (tx) {
+        console.log("fundraise " + name + " created");
+    });
 }
 
 function createProposal() {
-    var name;
-    var description;
-    var amount;
-    var timeLimit;
-    var beneficiary;
+    var name = $("#proposalName").val();
+    var description = $("#proposalDesc").val();;
+    var amount = $("#proposalAmount").val();
+    var timeLimit = $("#proposalDate").val();
+    var beneficiary = $("#proposalTarget").val();
 
-    //contractInstance.createProposal(name, description, goal, timeLimit, proposalLimit, {from:account}).then(function (tx) {
-        contractInstance.createProposal("test", "bonjour", 10, 10, 10, {from:account}).then(function (tx) {
+    projectInstance.createProposal(name, description, amount, beneficiary, timeLimit, {from:account, gas:3000000}).then(function (tx) {
         console.log("proposal " + name + " created");
     });
 }
@@ -33,23 +40,46 @@ function voteForProposal() {
     var id;
     var vote;
 
-    contractInstance.voteForProposal(id, vote, {from:account}).then(function (tx) {
+    projectInstance.voteForProposal(id, vote, {from:account}).then(function (tx) {
         console.log("voted proposal " + id, tx);
-        socket.emit("newVote", {id:id, vote:vote, userAddr:account, projAddr:contractInstance.address});
+    });
+}
+
+function updateContracts() {
+    projectInstance.checkProposals({from:account}).then(function (tx) {
+        console.log("proposals checked");
+    });
+    projectInstance.checkCampaigns({from:account}).then(function (tx) {
+        console.log("fundraises checked");
+    });
+}
+
+function contributeToFundraise() {
+    var fundraiseAddr;
+    var amount;
+
+    fundraiseInstance = fundraise.at(fundraiseAddr);
+    fundraiseInstance.donate({from: account, value:web3.toWei(amount)}).then(function (tx) {
+        console.log("donation to fundraise processed");
     });
 }
 
 window.onload = function() {
-    var addr = $("#projAddr").text();
+    var projAddr = $("#projAddr").text();
 
     socket.emit("getProjData", null);
+    socket.emit("getFundraiseData", null);
+    socket.on("fundraiseData", function (data) {
+        fundraise = Pudding.whisk({abi: data.abi, binary: data.binary});
+        console.log(fundraise);
+    });
     socket.on("projData", function (data) {
-        project = data;
-        contract = Pudding.whisk({abi: project.abi, binary: project.binary});
-        contractInstance = contract.at(addr);
-        console.log(contractInstance);
-        contractInstance.allEvents().watch(function (err, logs) {
+        project = Pudding.whisk({abi: data.abi, binary: data.binary});
+        projectInstance = project.at(projAddr);
+        console.log(projectInstance);
+        projectInstance.allEvents().watch(function (err, logs) {
             console.log(logs);
             socket.emit(logs.event, logs.args);
+        });
     });
 }

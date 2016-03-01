@@ -22,8 +22,8 @@ contract BasicOrga {
     Project addr;
   }
 
-  event newDonation(address userAddr, address orgAddr, uint value);
-  event userJoinedOrga(address userAddr, address orgAddr, string userName);
+  event newDonationToOrga(address userAddr, address orgAddr, uint amount);
+  event userJoinedOrga(address userAddr, address orgAddr);
   event newProject(address projAddr, address orgAddr, string projName, string projDesc);
   event orgaDeleted(address orgAddr);
 
@@ -41,7 +41,7 @@ contract BasicOrga {
 
   function donate() {
     members[msg.sender].contribution += msg.value;
-    newDonation(msg.sender, this, msg.value);
+    newDonationToOrga(msg.sender, this, msg.value);
   }
 
   function register(string _name) {
@@ -53,7 +53,7 @@ contract BasicOrga {
     members[msg.sender].rights.vote = true;
     members[msg.sender].name = _name;
     members[msg.sender].contribution = 0;
-    userJoinedOrga(msg.sender, this, _name);
+    userJoinedOrga(msg.sender, this);
   }
 
   function getMember(address user) returns (string) {
