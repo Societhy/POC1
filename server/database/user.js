@@ -10,6 +10,7 @@ exports.addUser = function(userAddress, finalCallback, userInfos) {
         'mail': userInfos && userInfos.mail ? userInfos.mail : "",
         'profilePic': userInfos && userInfos.profilePic ? userInfos.profilePic : "",
         'listOrga': userInfos && userInfos.listOrga ? userInfos.listOrga : [],
+        'listProj': userInfos && userInfos.listProj ? userInfos.listProj : [],
         'transactionHistoric': userInfos && userInfos.transactionHistoric ? userInfos.transactionHistoric : [],
         'contacts': userInfos && userInfos.contacts ? userInfos.contacts : []
     };
@@ -68,14 +69,14 @@ exports.getUser = function(userAddress, finalCallback) {
     }, finalCallback);
 };
 
-exports.getUserByOrga = function(orgaAddress, finalCallback) {
+exports.getUserByOrga = function(orgAddress, finalCallback) {
     var ret = {
         'status': false,
         'message': "",
         'object': null
     };
     db.get().collection(USER).find({
-        'listOrga': orgaAddress
+        'listOrga': orgAddress
     }, {
         '_id': false,
     }).toArray(function(err, docs) {
@@ -305,7 +306,7 @@ exports.changeProfilePic = function(userAddress, newPicData, finalCallback) {
     }, finalCallback);
 };
 
-exports.addOrgaAddress = function(userAddress, orgaAddress, finalCallback) {
+exports.addOrgaAddress = function(userAddress, orgAddress, finalCallback) {
     var user = {
         'addresses': [userAddress]
     };
@@ -317,7 +318,7 @@ exports.addOrgaAddress = function(userAddress, orgaAddress, finalCallback) {
         };
         db.get().collection(USER).updateOne(user, {
             $addToSet: {
-                'listOrga': orgaAddress
+                'listOrga': orgAddress
             }
         }, function(err, result) {
             if (err) {
@@ -326,6 +327,58 @@ exports.addOrgaAddress = function(userAddress, orgaAddress, finalCallback) {
             } else {
                 ret.status = true;
                 ret.message = "New orga added.";
+                ret.object = user;
+                finalCallback(ret);
+            }
+        });
+    }, finalCallback);
+};
+
+exports.deleteOrgaAddressAllUsers = function(orgAddr, finalCallback) {
+    var ret = {
+        status: false,
+        message: "",
+        object: null
+    };
+
+    db.get().collection(USER).updateMany({}, {
+        $pull: {
+            'listOrga': orgAddr
+        }
+    }, function(err, result) {
+        if (err) {
+            ret.message = err.message;
+            finalCallback(ret);
+        } else {
+            ret.status = true;
+            ret.message = "Organisation deleted from all users list";
+            ret.object = result;
+            finalCallback(ret);
+        }
+    });
+};
+
+exports.addProjectAddress = function(userAddress, projAddr, finalCallback) {
+    var user = {
+        'addresses': [userAddress]
+    };
+    existsUser(user, function(user, finalCallback) {
+        var ret = {
+            'status': false,
+            'message': "",
+            'object': null
+        };
+        db.get().collection(USER).updateOne(user, {
+            $addToSet: {
+                'listProj': projAddr
+            }
+        }, function(err, result) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                ret.status = true;
+                ret.message = "New project added.";
                 ret.object = user;
                 finalCallback(ret);
             }

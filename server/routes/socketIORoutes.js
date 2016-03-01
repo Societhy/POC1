@@ -67,6 +67,9 @@ global.io.on('connection', function(socket) {
                 console.log(ret.message);
             } else {
                 console.log(ret.message, ret.object);
+                user.deleteOrgaAddressAllUsers(data.orgAddr, function (ret) {
+                    console.log(ret);
+                });
             }
         });
     });
@@ -87,6 +90,9 @@ global.io.on('connection', function(socket) {
                 console.log(ret.message, ret.object);
             }
         }, infos);
+        user.addOrgaAddress(data.userAddr, data.orgAddr, function (ret) {
+            console.log(ret);
+        });
     });
 
     socket.on("newProject", function(data) {
@@ -102,7 +108,7 @@ global.io.on('connection', function(socket) {
         });
         orga.addProjectAddress(data.orgAddr, data.projAddr, function (ret) {
             console.log(ret);
-        })
+        });
     });
 
     socket.on("getUser", function (data) {
@@ -121,9 +127,14 @@ global.io.on('connection', function(socket) {
         });
     });
 
-    // FOR CEDRIC
     socket.on("userJoinedProject", function(data) {
         // add username:username, userAddr:account, projAddr:contractInstance.address to db
+        user.addProjectAddress(data.userAddr, data.projAddr, function (ret) {
+            console.log(ret);
+        });
+        project.addMemberAddress(data.projAddr, data.userAddr, function (ret) {
+            console.log(ret);
+        });
     });
 
     socket.on("newProposal", function(data) {

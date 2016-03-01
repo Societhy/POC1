@@ -5,7 +5,7 @@
 var express = require('express');
 var router = express.Router();
 var project = require('../database/project');
-
+var handlebars = require('handlebars')
 var path = require("path");
 
 router.get('/:id', function (req, res, next)
@@ -34,5 +34,6 @@ router.get('/', function(req, res, next) {
         res.render('project_homepage', {project: ret.object});
     });
 });
+
 
 module.exports = router;
