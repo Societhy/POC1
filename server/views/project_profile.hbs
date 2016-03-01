@@ -227,8 +227,8 @@
                                     <td>{{date}}</td>
                                     <td><a href="/project/{{address}}">{{address}}</a></td>
                                     <td>
-                                        <button type="button" class="btn btn-danger" style="float: right;" data-toggle="modal" data-target="#myModalMakeDonation">Voter contre</button>
-                                        <button type="button" class="btn btn-primary" style="float: right; margin-right: 10px;" data-toggle="modal" data-target="#myModalMakeDonation">Voter pour</button>
+                                        <button type="button" class="btn btn-danger" style="float: right;" val="{{id}}">Voter contre</button>
+                                        <button type="button" class="btn btn-primary" style="float: right;" val="{{id}}">Voter pour</button>
                                     </td>
                                 </tr>
                             {{/each}}
@@ -251,7 +251,8 @@
                                     <td>{{description}}</td>
                                     <td>{{Objectif}}</td>
                                     <td>{{date}}</td>
-                                    <td><button type="button" class="btn btn-info" style=" " data-toggle="modal" data-target="#myModalMakeDonation">Faire un don</button>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" style="float: right;" val="{{id}}">Faire un don</button>
                                     </td>
                                 </tr>
                             {{/each}}
