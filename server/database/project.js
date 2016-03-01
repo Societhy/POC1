@@ -290,7 +290,7 @@ exports.endProposal = function (projAddr, id, outcome, finalCallback) {
 
 exports.addFundraiseAddr = function (projAddr, fundAddress, finalCallback) {
     var project = {
-        'address': projAddress
+        'address': projAddr
     };
     existsProj(project, function(proj, finalCallback) {
         var ret = {
