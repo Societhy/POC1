@@ -18,20 +18,31 @@ router.get('/:id', function (req, res, next)
             next(err);
             return;
         }
-        ret.object.fundraiseList.forEach(function(item) {
-            fundraise.getFundraise(ret.object.fundraiseList, function (fund) {
-                if (!fund.status) {
-                    var err = new Error(fund.message);
-                    err.status = 404;
-                    next(err);
-                    return;
-                }
-                ret.object.fundDetail = [];
-                ret.object.fundDetail.push(fund.object);
-                console.log(ret.object);
-                res.render('project_profile', {project: ret.object});
+        var i = 0;
+        console.log(43);
+        if (ret.object.fundraiseList != null)
+        {
+            console.log(42);
+            ret.object.fundraiseList.forEach(function (item) {
+                fundraise.getFundraise(item, function (fund) {
+                    if (!fund.status) {
+                        var err = new Error(fund.message);
+                        err.status = 404;
+                        next(err);
+                        return;
+
+                    }
+                    ret.object.fundDetail = [];
+                    fund.object.id = i;
+                    ret.object.fundDetail.push(fund.object);
+                    console.log(ret.object);
+                    res.render('project_profile', {project: ret.object});
+                });
+                i++;
             });
-        });
+        }
+        else
+            res.render('project_profile', {project: ret.object});
     });
 });
 

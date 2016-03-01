@@ -226,7 +226,30 @@
                                     <td>{{goal}}</td>
                                     <td>{{timeLimit}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" style="float: right;" val="{{address}}">Faire un don</button>
+                                        <button type="button" class="btn btn-primary" style="float: right;" val="{{address}}"  data-toggle="modal" data-target="#myModalDon{{id}}">Faire un don</button>
+                                        <div id="myModalDon{{id}}" class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="container auth">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="text-center">Faire un don</h1>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div id="big-form" class="well auth-box">
+                                                                <div class="form-group">
+                                                                    <label class=" control-label" for="textinput">Nom</label>
+                                                                    <div class="">
+                                                                        <input id="amount" name="amount" placeholder="Valeur du don" class="form-control input-md" type="text">
+                                                                    </div>
+                                                                </div>
+                                                                <input type="submit"  id='submit_form' class='btn btn-info' value="Rejoindre le projet !" data-dismiss="modal" onclick="sendCoin()"/>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             {{/each}}
