@@ -8,7 +8,7 @@ var fs = require('fs');
 var user = require('../database/user');
 var orga = require('../database/orga');
 var proj = require('../database/project');
-
+var fund = require('../database/fundraise');
 
 var contractLocation = path.join(__dirname, "../../environments/development/contracts");
 var Pudding = require("ether-pudding");
@@ -44,7 +44,7 @@ global.io.on('connection', function(socket) {
         });
     });
 
-    socket.on("getProjData", function (data) {
+    socket.on("getProjData", function(data) {
         socket.emit("projData", {
             'abi': Project.abi,
             'binary': Project.binary
@@ -156,19 +156,27 @@ global.io.on('connection', function(socket) {
             'voteFor': 0,
             'outcome': false
         };
-        proj.addProposal(data.projAddr, proposal, function (ret) {
+        proj.addProposal(data.projAddr, proposal, function(ret) {
             console.log(ret);
         });
     });
 
     socket.on("newVote", function(data) {
-        proj.addVoteToProposal(data.projAddr, data.id, data.vote, function (ret) {
+        proj.addVoteToProposal(data.projAddr, data.id, data.vote, function(ret) {
             console.log(ret);
         });
     });
 
     socket.on("newFundraise", function(data) {
-
+        var fundraise = {
+            'name': data.name,
+            'description': data.description,
+            'goal': data.goal,
+            'timeLimit': data.timeLimit
+        };
+        fund.addFundraise(data.fundraiseAddr, function(ret) {
+            console.log(ret);
+        }, fundraise);
     });
 
     socket.on("projectDeleted", function(data) {
@@ -178,7 +186,7 @@ global.io.on('connection', function(socket) {
     });
 
     socket.on("proposalEnded", function(data) {
-        proj.endProposal(data.projAddr, data.id, data.outcome, function (ret) {
+        proj.endProposal(data.projAddr, data.id, data.outcome, function(ret) {
             console.log(ret);
         });
     });
@@ -188,7 +196,19 @@ global.io.on('connection', function(socket) {
     });
 
     socket.on("newDonationToFundraise", function(data) {
-
+        var transaction = {
+            hash: data.userAddr.concat(data.orgAddr),
+            date: (new Date()).toJSON(),
+            from: data.userAddr,
+            to: data.fundraiseAddr,
+            amount: data.amount
+        };
+        user.addTransaction(data.userAddr, transaction, function (ret) {
+            console.log(ret);
+        });
+        fund.addTransaction(data.fundraiseAddr, transaction, function (ret) {
+            console.log(ret);
+        });
     });
 
     //files
