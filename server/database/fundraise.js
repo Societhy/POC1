@@ -59,6 +59,28 @@ exports.addTransaction = function(fundAddress, transaction, finalCallback) {
     }, finalCallback);
 };
 
+exports.endFundraise = function (fundAddress, outcome, finalCallback) {
+    var fund = {'address': fundAddress};
+    existsFund(fund, function (fund, finalCallback) {
+        var ret = {
+            'status': false,
+            'message': "",
+            'object': null
+        };
+        db.get().collection(FUND).updateOne(fund, {$set:{'outcome': outcome}}, function (err, result) {
+            if (err) {
+                ret.message = err.message;
+                finalCallback(ret);
+            } else {
+                ret.status = true;
+                ret.message = "Fundraise ended.";
+                ret.object = fund;
+                finalCallback(ret);
+            }
+        });
+    }, finalCallback);
+};
+
 function existsFund(fund, doExists, finalCallback) {
     var ret = {
         'status': false,
