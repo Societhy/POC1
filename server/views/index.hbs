@@ -59,12 +59,23 @@
 <div class="col-md-8">
     <div class="box box-default">
         <div class="box-header with-border">
-            <h3 class="box-title">Browser Usage</h3>
+            <div class="box-body table-responsive no-padding">
+                <h3 class="box-title">Liste des organisations</h3>
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Addresse</th>
+                    </tr>
+                    {{#each orgas}}
+                        <tr>
+                            <td><a href="/organisation/{{address}}"> {{name}} </a></td>
+                            <td><a href="/organisation/{{address}}">{{address}}</a></td>
+                        </tr>
+                    {{/each}}
 
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </tbody>
+                </table>
             </div>
         </div>
         <!-- /.box-header -->
