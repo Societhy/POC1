@@ -56,7 +56,7 @@
     </div>
     <!-- /.row -->
 </div>
-<div class="col-md-8">
+<div class="col-md-8" style="margin-top: 5px;">
     <div class="box box-default">
         <div class="box-header with-border">
             <div class="box-body table-responsive no-padding">
@@ -93,10 +93,10 @@
 
     </div>
 </div>
-<div class="col-md-4">
+<div style="margin-top: 5px;" class="col-md-4">
     <div class="box box-default">
         <div class="box-header with-border">
-            <h3 class="box-title">Browser Usage</h3>
+            <h3 class="box-title">Liste des utilisateurs</h3>
 
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -107,7 +107,25 @@
         <!-- /.box-header -->
         <div class="box-body">
             <div class="row">
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Email</th>
+                        <th>Addresse</th>
+                    </tr>
+                    {{#each users}}
+                        <tr>
+                            <td>{{lastname}}</td>
+                            <td>{{firstname}}</td>
+                            <td>{{mail}}</td>
+                            <td><a href="/user/{{addresses}}">{{addresses}}</a></td>
+                        </tr>
+                    {{/each}}
 
+                    </tbody>
+                </table>
 
 
                 <!-- /.col -->

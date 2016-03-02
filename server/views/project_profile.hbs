@@ -52,7 +52,7 @@
                                 {{else}}
                                     <b>Contributeur</b> <a class="pull-right">0 <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
                                 {{/if}}
-                                <div hidden>
+                                <div class="dropdown" hidden>
                                     {{#each project.memberList}}
                                         <span><a href="/user/{{this}}">{{this}}</a></span>
                                         <hr/>
@@ -212,7 +212,7 @@
                         </table>
                     </div>
                     <div class="tab-pane" id="FundRaising">
-                        <h3>{{project.fundDetail}} {{project.description}} Collecte de fonds en cours :</h3>
+                        <h3> Collecte de fond en cours :</h3>
                         <table class="table table-hover">
                             <tbody>
                             <tr>
