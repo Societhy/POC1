@@ -31,10 +31,9 @@ router.get('/:id', function (req, res, next)
                 }
                 fund.object.id = i;
                 ret.object.fundDetail.push(fund.object);
-                if (i == ret.object.fundraiseList.length)
+                if (i++ == ret.object.fundraiseList.length - 1)
                     res.render('project_profile', {project: ret.object});
             });
-            i++;
         }
     });
 });

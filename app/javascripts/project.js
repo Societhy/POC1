@@ -52,9 +52,8 @@ function updateContracts() {
     });
 }
 
-function contributeToFundraise() {
-    var fundraiseAddr;
-    var amount;
+function contributeToFundraise(fundraiseAddr) {
+    var amount = $("#amount").val();
 
     fundraiseInstance = fundraise.at(fundraiseAddr);
     fundraiseInstance.donate({from: account, value:web3.toWei(amount)}).then(function (tx) {
