@@ -52,11 +52,16 @@ function updateContracts() {
     });
 }
 
-function contributeToFundraise(fundraiseAddr) {
+function contributeToFundraise() {
     var amount = $("#amount").val();
+    var fundraiseAddr = $("#inputAddr").attr('val');
 
     fundraiseInstance = fundraise.at(fundraiseAddr);
-    fundraiseInstance.donate({from: account, value:web3.toWei(amount)}).then(function (tx) {
+    fundraiseInstance.allEvents().watch(function (err, logs) {
+        console.log(logs);
+        socket.emit(logs.event, logs.args);
+    });
+    fundraiseInstance.donate({from: account, gas:3000000, value:web3.toWei(amount)}).then(function (tx) {
         console.log("donation to fundraise processed");
     });
 }
@@ -65,7 +70,7 @@ window.onload = function() {
     var projAddr = $("#projAddr").text();
 
     socket.emit("getProjData", null);
-    socket.emit("getFundraiseData", null);
+    socket.emit("getFundraiseData", projAddr);
     socket.on("fundraiseData", function (data) {
         fundraise = Pudding.whisk({abi: data.abi, binary: data.binary});
         console.log(fundraise);
