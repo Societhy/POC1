@@ -10,7 +10,7 @@ var handlebars = require('handlebars')
 var path = require("path");
 
 router.get('/:id', function (req, res, next)
-{
+{console.log(req.params.id);
     project.getProject(req.params.id, function (ret) {
         if (!ret.status) {
             var err = new Error(ret.message);
@@ -19,22 +19,27 @@ router.get('/:id', function (req, res, next)
             return;
         }
         var i = 0;
+        var id = 0;
         ret.object.fundDetail = [];
-        for (var addr in ret.object.fundraiseList)
-        {
-            fundraise.getFundraise(ret.object.fundraiseList[addr], function (fund) {
-                if (!fund.status) {
-                    var err = new Error(fund.message);
-                    err.status = 404;
-                    next(err);
-                    return;
-                }
-                fund.object.id = i;
-                ret.object.fundDetail.push(fund.object);
-                if (i++ == ret.object.fundraiseList.length - 1)
-                    res.render('project_profile', {project: ret.object});
-            });
+        if (ret.object.fundraiseList.length > 0) {
+            for (var addr in ret.object.fundraiseList) {
+                fundraise.getFundraise(ret.object.fundraiseList[addr], function (fund) {
+                    if (!fund.status) {
+                        var err = new Error(fund.message);
+                        err.status = 404;
+                        next(err);
+                        return;
+                    }
+                    fund.object.id = id;
+                    id++;
+                    ret.object.fundDetail.push(fund.object);
+                    if (i++ == ret.object.fundraiseList.length - 1)
+                        res.render('project_profile', {project: ret.object});
+                });
+            }
         }
+        else
+            res.render('project_profile', {project: ret.object});
     });
 });
 
