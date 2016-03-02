@@ -19,6 +19,7 @@ router.get('/:id', function (req, res, next)
             return;
         }
         var i = 0;
+        ret.object.fundDetail = [];
         for (var addr in ret.object.fundraiseList)
         {
             fundraise.getFundraise(ret.object.fundraiseList[addr], function (fund) {
@@ -28,15 +29,13 @@ router.get('/:id', function (req, res, next)
                     next(err);
                     return;
                 }
-                ret.object.fundDetail = [];
                 fund.object.id = i;
                 ret.object.fundDetail.push(fund.object);
-                console.log(ret.object);
+                if (i == ret.object.fundraiseList.length)
+                    res.render('project_profile', {project: ret.object});
             });
             i++;
         }
-        console.log(ret.object);
-        res.render('project_profile', {project: ret.object});
     });
 });
 
