@@ -89,12 +89,10 @@ function loadKeyFile() {
 }
 
 function listAccounts() {
-    console.log(accounts);
     browserAccount = browserAccounts.get();
     for (var elem in browserAccount) {
         if (elem !== "selected")
             $("#accountList tbody").append("<tr > <td>"+elem+"</td><td>Dans le browser</td>");
-        console.log(elem);
     }
     for (var elem in accounts) {
         $("#accountList tbody").append("<tr> <td>" + accounts[elem] + "</td><td>en local</td>");

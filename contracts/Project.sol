@@ -115,7 +115,7 @@ modifier onlyOwner() { if (msg.sender == owner) _ }
   modifier deadlineReached(uint deadline) { if (now >= deadline) _ }
 
   function endProposal(Proposal pro) internal deadlineReached(pro.timeLimit) returns (bool) {
-    if (pro.votes > 0) {
+    if (pro.votes > 0 && this.balance > pro.amount) {
       pro.beneficiary.send(pro.amount);
       proposalEnded(pro.id, true);
       return true;

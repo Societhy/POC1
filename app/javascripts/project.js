@@ -38,7 +38,7 @@ function createProposal() {
 
 function voteForProposal(vote, id) {
 
-    projectInstance.voteForProposal(id, vote, {from:account, gas:1000000}).then(function (tx) {
+    projectInstance.voteForProposal(id, vote, {from:account}).then(function (tx) {
         console.log("voted proposal " + id, tx);
     });
 }
