@@ -22,10 +22,10 @@ router.get('/me', function(req, res, next)
     user.getUser(addr, function(ret) {
         if (!ret.status)
         {
-            var err = new Error(ret.message);
-            err.status = 404;
-            next(err);
-            return;
+            //var err = new Error(ret.message);
+            //err.status = 404;
+            //next(err);
+            //return;
         }
         res.render('user_myprofile', ret.object);
     });
