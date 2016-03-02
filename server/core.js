@@ -10,6 +10,7 @@ var user = require('./routes/user');
 var organisation = require('./routes/organisation');
 var register = require('./routes/register');
 var project = require('./routes/project');
+var fundraise = require('./routes/fundraise');
 
 var api = require('./api/api.js');
 
@@ -48,6 +49,7 @@ app.use('/user', user);
 app.use('/organisation', organisation);
 app.use('/register', register);
 app.use('/project', project);
+app.use('/fundraise', fundraise);
 
 //api
 app.use('/api', api);
