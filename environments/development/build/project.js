@@ -48,19 +48,20 @@ function voteForProposal(vote, id) {
 }
 
 function updateContracts() {
-    projectInstance.checkProposals({from:account}).then(function (tx) {
+    projectInstance.checkProposals({from:account, gas:3000000}).then(function (tx) {
         console.log("proposals checked");
     });
-    projectInstance.checkCampaigns({from:account}).then(function (tx) {
+    projectInstance.checkCampaigns({from:account, gas:3000000}).then(function (tx) {
         console.log("fundraises checked");
     });
 }
 
-function contributeToFundraise() {
-    var amount = $("#amount").val();
-    var fundraiseAddr = $("#inputAddr").attr('val');
+function contributeToFundraise(fundraiseAddr) {
+    var amount = document.getElementById(fundraiseAddr).value;
 
+    console.log(amount);
     fundraiseInstance = fundraise.at(fundraiseAddr);
+    console.log(fundraiseInstance);
     fundraiseInstance.allEvents().watch(function (err, logs) {
         console.log(logs);
         socket.emit(logs.event, logs.args);
@@ -83,6 +84,7 @@ window.onload = function() {
         project = Pudding.whisk({abi: data.abi, binary: data.binary});
         projectInstance = project.at(projAddr);
         console.log(projectInstance);
+        $("#balance").text(web3.fromWei(web3.eth.getBalance(projAddr)));
         projectInstance.allEvents().watch(function (err, logs) {
             console.log(logs);
             socket.emit(logs.event, logs.args);

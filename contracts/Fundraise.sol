@@ -47,7 +47,7 @@ contract Fundraise {
   modifier deadlineReached { if (now >= deadline) _ }
 
   function endCampaign() public deadlineReached returns (bool) {
-        if (alreadyRaised >= goal) {
+        if (this.balance >= goal) {
           beneficiary.send(alreadyRaised);
           endFundraise(this, true);
         }

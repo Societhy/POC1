@@ -43,7 +43,7 @@
                                 {{#if ether}}
                                     <b>Current balance</b> <a class="pull-right">{{project.ether}} ether</a>
                                 {{else}}
-                                    <b>Current balance</b> <a class="pull-right">0 ether</a>
+                                    <b>Current balance</b> <a class="pull-right" id="balance">0 ether</a>
                                 {{/if}}
                             </li>
                             <li class="list-group-item togglable">
@@ -227,8 +227,9 @@
                                     <td>{{description}}</td>
                                     <td>{{goal}}</td>
                                     <td>{{timeLimit}}</td>
+                                    <td>{{address}}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" style="float: right;" val="{{address}}"  data-toggle="modal" data-target="#myModalDon{{id}}">Faire un don</button>
+                                        <button type="button" class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#myModalDon{{id}}">Faire un don</button>
                                         <div id="myModalDon{{id}}" class="modal fade" role="dialog">
                                             <div class="modal-dialog">
                                                 <div class="container auth">
@@ -241,10 +242,10 @@
                                                                 <div class="form-group">
                                                                     <label class=" control-label" for="textinput">Nom</label>
                                                                     <div class="">
-                                                                        <input id="amount" name="amount" placeholder="Valeur du don" class="form-control input-md" type="text">
+                                                                        <input id='{{address}}' name="amount" placeholder="Valeur du don" class="form-control input-md" type="text">
                                                                     </div>
                                                                 </div>
-                                                                <input type="submit"  id='inputAddr' class='btn btn-info' value="Rejoindre le projet !" data-dismiss="modal" val={{address}} onclick="contributeToFundraise()"/>
+                                                                <input type="submit" class='btn btn-info' value="Rejoindre le projet !" data-dismiss="modal" onclick='contributeToFundraise("{{address}}")'/>
                                                             </div>
                                                             <div class="clearfix"></div>
                                                         </div>
