@@ -69,8 +69,9 @@ function listAccounts() {
         if (elem !== "selected")
             $("#accountList tbody").append("<tr > <td>"+elem+"</td><td>Dans le browser</td>");
     }
-    for (var elem in accounts)
-        $("#accountList tbody").append("<tr> <td>"+elem+"</td><td>en local</td>");
+    for (var elem in accounts) {
+        $("#accountList tbody").append("<tr> <td>" + accounts[elem] + "</td><td>en local</td>");
+    }
 }
 
 function clearAccounts() {
