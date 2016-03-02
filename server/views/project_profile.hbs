@@ -52,7 +52,7 @@
                                 {{else}}
                                     <b>Contributeur</b> <a class="pull-right">0 <i class="fa fa-angle-left pull-right dropdownArrow "></i></a>
                                 {{/if}}
-                                <div hidden>
+                                <div class="dropdown" hidden>
                                     {{#each project.memberList}}
                                         <span><a href="/user/{{this}}">{{this}}</a></span>
                                         <hr/>
@@ -244,7 +244,7 @@
                                                                         <input id="amount" name="amount" placeholder="Valeur du don" class="form-control input-md" type="text">
                                                                     </div>
                                                                 </div>
-                                                                <input type="submit"  id='submit_form' class='btn btn-info' value="Rejoindre le projet !" data-dismiss="modal" onclick="contributeToFundraise({{address}})"/>
+                                                                <input type="submit"  id='submit_form' class='btn btn-info' val="{{address}}" value="Envoyer le don" data-dismiss="modal" onclick="contributeToFundraise({{address}})"/>
                                                             </div>
                                                             <div class="clearfix"></div>
                                                         </div>
